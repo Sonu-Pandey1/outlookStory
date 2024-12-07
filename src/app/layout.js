@@ -1,8 +1,8 @@
 /* eslint-disable @next/next/no-sync-scripts */
 import localFont from "next/font/local";
 import "./globals.css";
-import Navbar from "../../Components/Navbar";
-import Hader from "../../Components/Hader";
+import Navbar from "../../Components/navbar/Navbar.jsx";
+import Hader from "../../Components/hader/Hader.jsx";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",

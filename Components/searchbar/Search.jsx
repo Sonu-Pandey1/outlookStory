@@ -1,7 +1,7 @@
 "use client"
 
 import  { useState } from "react";
-import "../Components/Search.scss";
+import "./Search.scss";
 
 const Input = () => {
   const [inputValue, setInputValue] = useState("");

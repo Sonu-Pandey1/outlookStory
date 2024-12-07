@@ -1,7 +1,7 @@
 
 
 import "./Navbar.scss"
-import Input from "../Components/Search";
+import Input from "../searchbar/Search.jsx";
 import { IoHomeOutline } from "react-icons/io5";
 import { MdCamera } from "react-icons/md";
 import { PiBicycleThin } from "react-icons/pi";
