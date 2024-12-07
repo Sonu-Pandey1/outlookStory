@@ -18,7 +18,7 @@ function Navbar() {
     return (
         <>
             <nav className="navbar  navbar-expand-md bg-danger-subtle sticky-top">
-                <div className="container-fluid px-4 bg-danger">
+                <div className="container-fluid px-4">
 
                     <button
                         className="navbar-toggler d-md-none"
@@ -42,38 +42,38 @@ function Navbar() {
                     <div className="collapse navbar-collapse" id="main_nav">
                         <ul className="navbar-nav">
 
-                            <Link href={"/"} className=" text-decoration-none d-flex align-items-center gap-2 pe-4">
+                            <Link href={"/"} className="link text-decoration-none d-flex align-items-center gap-2 pe-4">
                                 <IoHomeOutline />
                                 Home
                             </Link>
-                            <Link href={"/stories"} className=" text-decoration-none d-flex align-items-center gap-2 pe-4">
+                            <Link href={"/stories"} className="link text-decoration-none d-flex align-items-center gap-2 pe-4">
                             <MdCamera />
                                 Stories
                             </Link>
-                            <Link href={"/business"} className=" text-decoration-none d-flex align-items-center gap-2 pe-4">
+                            <Link href={"/business"} className="link text-decoration-none d-flex align-items-center gap-2 pe-4">
                             <MdOutlineAddBusiness />
                                 Business
                             </Link>
-                            <Link href={"/city-connect"} className=" text-decoration-none d-flex align-items-center gap-2 pe-4">
+                            <Link href={"/city-connect"} className="link text-decoration-none d-flex align-items-center gap-2 pe-4">
                             <PiBicycleThin />
                                 City Connect
                             </Link>
-                            <Link href={"/event"} className=" text-decoration-none d-flex align-items-center gap-2 pe-4">
+                            <Link href={"/events"} className="link text-decoration-none d-flex align-items-center gap-2 pe-4">
                             <MdOutlineEventAvailable />
                                 Events
                                 {/* no mgm */}
                             </Link>
-                            <Link href={"/videos"} className=" text-decoration-none d-flex align-items-center gap-2 pe-4">
+                            <Link href={"/videos"} className="link text-decoration-none d-flex align-items-center gap-2 pe-4">
                             <MdVideoLibrary />
                                 Videos
                                   {/* no mgm */}
                             </Link>
-                            <Link href={"/launch-pad"} className=" text-decoration-none d-flex align-items-center gap-2 pe-4">
+                            <Link href={"/launch-pad"} className="link text-decoration-none d-flex align-items-center gap-2 pe-4">
                             <MdRocketLaunch />
                                 Launch Pad
                                   {/* no mgm */}
                             </Link>
-                            <button className=" text-decoration-none d-flex align-items-center gap-2 pe-4">
+                            <button className="link text-decoration-none d-flex align-items-center gap-2 pe-4">
                                 {/* <SiLaunchpad /> */}
                                 <RiMenuAddLine />
                                 More
