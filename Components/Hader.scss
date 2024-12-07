@@ -1,0 +1,31 @@
+.top-Hader{
+    
+    .topHadder{
+        .haderRight{
+            .socicalIcons{
+                // background-color: aqua;
+                // padding: 3px;
+                .icon{
+                    color: red;
+                    padding: 5px;
+                    font-size: 25px;
+                }
+                .twitter{
+                    color: #0089f2 !important;
+                }
+                .facebook{
+                    color:blue;
+                }
+            }
+        }
+        .haderLeft{
+            color: #6D7073 !important;
+
+            .topNavbar{
+                .topNavLinks{
+                    color: #6D7073 !important;
+                }
+            }
+        }
+    }
+}
