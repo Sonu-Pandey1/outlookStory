@@ -1,12 +1,94 @@
-import Image from "next/image";
+import Image from 'next/image';
+import { articles } from '../../utils/DemoData';
+import './page.css';
 
-export default function Home() {
+const Home = () => {
   return (
-    <>
-      <div className="homeContainer">
-        <h1>home Page</h1>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa cum cumque veritatis voluptas quidem vitae dolor libero debitis eligendi id fugiat, maiores ab quo recusandae repellat deserunt quisquam! Labore modi mollitia maiores eum in distinctio officiis dignissimos reprehenderit quia expedita, atque obcaecati quas vel excepturi odit quae veritatis vero aperiam recusandae repellat corrupti! Illum omnis reiciendis dolore consectetur laboriosam soluta pariatur expedita repudiandae molestias harum, assumenda necessitatibus at quo consequatur cupiditate suscipit consequuntur ad animi, ullam mollitia deserunt laborum. Non illo explicabo nesciunt sint ad, necessitatibus nostrum voluptatibus nisi atque et totam, repellat praesentium rerum minus libero! Aut eius vero hic sint sapiente aperiam beatae deleniti doloremque veritatis! Vel at ducimus eligendi et id velit laudantium neque ab, possimus quia assumenda dolorem! Quaerat reprehenderit expedita amet molestias excepturi. Possimus, odio, pariatur quaerat illum omnis facilis quia quis porro non veniam expedita natus et repellendus vero rem. Explicabo suscipit temporibus corrupti nesciunt, incidunt ea repellat eum ab laudantium optio omnis eos, facere quibusdam, placeat sunt nam voluptatibus eaque velit tempora assumenda consequuntur aspernatur accusamus! Soluta, magnam omnis cumque nisi aliquid, dignissimos dolorem officiis consequuntur ullam quas qui commodi at veniam ducimus maiores ratione temporibus repellendus laboriosam asperiores accusamus? Et incidunt dolores debitis natus, molestias eligendi necessitatibus, omnis cum laborum quae nulla ipsam corrupti saepe harum, est modi temporibus! Fugiat beatae ipsum nulla libero! Atque praesentium laborum natus consequuntur, labore doloribus, porro accusamus commodi inventore debitis cum amet, provident eligendi deleniti facilis repellendus ipsum neque! Magnam culpa quaerat explicabo accusantium ex vel deserunt numquam, est optio voluptatibus facere. Rem quos expedita veritatis obcaecati doloremque sequi eaque iusto doloribus quam minima! Nobis iusto laborum optio atque culpa beatae tempore a et, voluptatum quisquam accusamus vero iure ipsa, rerum facilis suscipit! Doloribus fugit dicta omnis enim voluptate ullam esse nostrum mollitia deleniti, numquam eum blanditiis recusandae magni officia, ipsa in neque est facere magnam, obcaecati quis repellendus minus ex praesentium! Nisi eos eum autem dignissimos minus iure eveniet aliquam omnis, adipisci, obcaecati dolorum! Eveniet nostrum blanditiis esse soluta dolore perferendis maiores repudiands architecto nesciunt illum doloremque at laudantium aliquid laboriosam nisi sint mollitia itaque autem dolorem sapiente pariatur quod sunt, tenetur ipsum provident facere totam consequuntur blanditiis nobis! Exercitationem repellendus iusto molestias consectetur obcaecati doloribus est aut ipsam </p>
+    <div className="container mt-5">
+      {/* Main Row: Featured Section */}
+      <div className="row g-3 ">
+        {/* Left: Featured Article */}
+        <div className="col-md-6 ">
+          <div className="card border-0 lth shadow-sm overflow-hidden">
+            <Image
+              src={articles[0].image}
+              alt={articles[0].title}
+              className="card-img-top"
+              width={600}
+              height={450}
+              style={{ objectFit: 'cover', height: '100%' }}
+            />
+            <div className="card-img-overlay d-flex flex-column justify-content-end p-3">
+              <span className="badge bg-danger mb-2">{articles[0].category}</span>
+              <h4 className="card-title text-white fw-bold">{articles[0].title}</h4>
+            </div>
+          </div>
+        </div>
+
+        {/* Right: Smaller Articles Section */}
+        <div className="col-md-6">
+          <div className="row g-3">
+            {/* Top Row: Two Smaller Articles */}
+            {articles.slice(1, 3).map((article, index) => (
+              <div key={index} className="col-6">
+                <div className="card border-0  shadow-sm overflow-hidden">
+                  <Image
+                    src={article.image}
+                    alt={article.title}
+                    className="card-img-top"
+                    width={300}
+                    height={200}
+                    style={{ objectFit: 'cover', height: '100%' }}
+                  />
+                  <div className="card-img-overlay d-flex flex-column justify-content-end p-2">
+                    <span className={`badge bg-${getBadgeColor(article.category)} mb-1`}>
+                      {article.category}
+                    </span>
+                    <h6 className="card-title text-white">{article.title}</h6>
+                  </div>
+                </div>
+              </div>
+            ))}
+            {/* Bottom Row: Full-Width Article */}
+            <div className="col-12">
+              <div className="card border-0 bth shadow-sm overflow-hidden">
+                <Image
+                  src={articles[3].image}
+                  alt={articles[3].title}
+                  className="card-img-top"
+                  width={600}
+                  height={250}
+                  style={{ objectFit: 'cover', height: '100%' }}
+                />
+                <div className="card-img-overlay d-flex flex-column justify-content-end p-3">
+                  <span className={`badge bg-${getBadgeColor(articles[3].category)} mb-2`}>
+                    {articles[3].category}
+                  </span>
+                  <h5 className="card-title text-white">{articles[3].title}</h5>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-    </>
+    </div>
   );
-}
+};
+
+// Utility function to determine badge color
+const getBadgeColor = (category) => {
+  switch (category.toLowerCase()) {
+    case 'fashion':
+      return 'danger';
+    case 'world':
+      return 'primary';
+    case 'travel':
+      return 'warning';
+    case 'entertainment':
+      return 'info';
+    default:
+      return 'secondary';
+  }
+};
+
+export default Home;
