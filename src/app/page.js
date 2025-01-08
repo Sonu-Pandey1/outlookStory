@@ -1,94 +1,171 @@
-import Image from 'next/image';
-import { articles } from '../../utils/DemoData';
-import './page.css';
+import Image from "next/image";
+import "./page.css";
+import Hero from "../../Components/Hero/Hero";
+import Card from "../../Components/Card/Card";
+import Card2 from "../../Components/Card/Card2";
+import Link from "next/link";
+import {
+  TfiFacebook,
+  TfiInstagram,
+  TfiLinkedin,
+  TfiTwitter,
+  TfiYoutube,
+} from "react-icons/tfi";
 
 const Home = () => {
   return (
-    <div className="container mt-5">
-      {/* Main Row: Featured Section */}
-      <div className="row g-3 ">
-        {/* Left: Featured Article */}
-        <div className="col-md-6 ">
-          <div className="card border-0 lth shadow-sm overflow-hidden">
-            <Image
-              src={articles[0].image}
-              alt={articles[0].title}
-              className="card-img-top"
-              width={600}
-              height={450}
-              style={{ objectFit: 'cover', height: '100%' }}
-            />
-            <div className="card-img-overlay d-flex flex-column justify-content-end p-3">
-              <span className="badge bg-danger mb-2">{articles[0].category}</span>
-              <h4 className="card-title text-white fw-bold">{articles[0].title}</h4>
-            </div>
-          </div>
-        </div>
+    <>
+      <div className="homePage">
+        {/* Hero Section */}
+        <section className="heroSection">
+          <Hero />
+        </section>
 
-        {/* Right: Smaller Articles Section */}
-        <div className="col-md-6">
-          <div className="row g-3">
-            {/* Top Row: Two Smaller Articles */}
-            {articles.slice(1, 3).map((article, index) => (
-              <div key={index} className="col-6">
-                <div className="card border-0  shadow-sm overflow-hidden">
-                  <Image
-                    src={article.image}
-                    alt={article.title}
-                    className="card-img-top"
-                    width={300}
-                    height={200}
-                    style={{ objectFit: 'cover', height: '100%' }}
-                  />
-                  <div className="card-img-overlay d-flex flex-column justify-content-end p-2">
-                    <span className={`badge bg-${getBadgeColor(article.category)} mb-1`}>
-                      {article.category}
-                    </span>
-                    <h6 className="card-title text-white">{article.title}</h6>
+        {/* Top Stories Section */}
+        <section>
+          <div className="container">
+            <div className="row">
+              {/* Left Column */}
+              <div className="col-8">
+                <nav className="my-3">
+                  <div className="tabsContainer d-flex  justify-content-between align-items-center px-2">
+                    <button className="btn btn-outline-primary">
+                      Top Stories
+                    </button>
+                    <div className="tabslinks d-flex justify-content-between gap-3">
+                      <div>
+                        <span className="Links" href={"/"}>
+                          All
+                        </span>
+                        {/* here i need to search blogs based on tabs query in database and show the filterd items */}
+                      </div>
+                      <div>
+                        <span className="Links" href={"/"}>
+                          World
+                        </span>
+                      </div>
+                      <div>
+                        <span className="Links" href={"/"}>
+                          BUSINESS
+                        </span>
+                      </div>
+                      <div>
+                        <span className="Links" href={"/"}>
+                          ENTERTANMENT
+                        </span>
+                      </div>
+                      <div>
+                        <span className="Links" href={"/"}>
+                          FASHION
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </nav>
+
+                <div className="top-Stories">
+                  <div className="d-flex justify-content-between flex-wrap mb-4">
+                    <Card />
+                    <Card />
+                  </div>
+
+                  <div className="smallCards d-flex flex-wrap gap-3">
+                    <div className="d-flex gap-3 w-100">
+                      <Card2 />
+                      <Card2 />
+                    </div>
+                    <div className="d-flex gap-3 w-100">
+                      <Card2 />
+                      <Card2 />
+                    </div>
                   </div>
                 </div>
               </div>
-            ))}
-            {/* Bottom Row: Full-Width Article */}
-            <div className="col-12">
-              <div className="card border-0 bth shadow-sm overflow-hidden">
-                <Image
-                  src={articles[3].image}
-                  alt={articles[3].title}
-                  className="card-img-top"
-                  width={600}
-                  height={250}
-                  style={{ objectFit: 'cover', height: '100%' }}
-                />
-                <div className="card-img-overlay d-flex flex-column justify-content-end p-3">
-                  <span className={`badge bg-${getBadgeColor(articles[3].category)} mb-2`}>
-                    {articles[3].category}
-                  </span>
-                  <h5 className="card-title text-white">{articles[3].title}</h5>
+
+              {/* Right Column */}
+              <div className="col-4 my-3 px-4 rightColumn">
+                {/* Follow Us Section */}
+                <div className="followUs">
+                  <div className="mb-3">
+                    <button className="btn btn-outline-primary">
+                      Follow Us
+                    </button>
+                  </div>
+
+                  {/* Social Media Icons Section */}
+                  <div className="socialContainer p-0 bg-light rounded">
+                    <div className="row text-center g-0 border">
+                      {/* Social Icon 1 */}
+                      <Link
+                        href={"/"}
+                        className="col-4 p-3 border-end border-bottom"
+                      >
+                        <TfiYoutube className="fs-2 text-danger" />
+                        <p className="m-0 fw-bold">456</p>
+                        <p className="m-0 text-muted">Subscribers</p>
+                      </Link>
+
+                      {/* Social Icon 2 */}
+                      <Link
+                        href={"/"}
+                        className="col-4 p-3 border-end border-bottom"
+                      >
+                        <TfiFacebook className="fs-2 text-primary" />
+                        <p className="m-0 fw-bold">789</p>
+                        <p className="m-0 text-muted">Followers</p>
+                      </Link>
+
+                      {/* Social Icon 3 */}
+                      <Link href={"/"} className="col-4 p-3 border-bottom">
+                        <TfiTwitter className="fs-2 text-info" />
+                        <p className="m-0 fw-bold">320</p>
+                        <p className="m-0 text-muted">Followers</p>
+                      </Link>
+
+                      {/* Social Icon 4 */}
+                      <Link href={"/"} className="col-4 p-3 border-end">
+                        <TfiInstagram className="fs-2 text-danger" />
+                        <p className="m-0 fw-bold">540</p>
+                        <p className="m-0 text-muted">Followers</p>
+                      </Link>
+
+                      {/* Social Icon 5 */}
+                      <Link href={"/"} className="col-4 p-3 border-end">
+                        <TfiLinkedin className="fs-2 text-primary" />
+                        <p className="m-0 fw-bold">300</p>
+                        <p className="m-0 text-muted">Connections</p>
+                      </Link>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="advertisment">
+                  <div className="my-4">
+                  <Image
+                    className="card-img-top"
+                    width={750}
+                    height={450}
+                    alt="advertisment-img"
+                    src="https://jnews.io/magazine/wp-content/uploads/sites/34/2017/12/345x345.jpg"
+                    // style={{
+                    //   objectFit: "cover",
+                    //   width: "100%",
+                    //   height: "250px",
+                    // }}
+                  />
+                  </div>
+                </div>
+
+                <div className="businessSection">
+
                 </div>
               </div>
             </div>
           </div>
-        </div>
+        </section>
       </div>
-    </div>
+    </>
   );
-};
-
-// Utility function to determine badge color
-const getBadgeColor = (category) => {
-  switch (category.toLowerCase()) {
-    case 'fashion':
-      return 'danger';
-    case 'world':
-      return 'primary';
-    case 'travel':
-      return 'warning';
-    case 'entertainment':
-      return 'info';
-    default:
-      return 'secondary';
-  }
 };
 
 export default Home;
