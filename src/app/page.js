@@ -16,39 +16,7 @@ import Business from "../../Components/BusinessCat/Business";
 import { useState } from "react";
 
 const Home = () => {
-  // const aroundTheWorldData = [
-  //   {
-  //     id: 1,
-  //     category: "Entertainment",
-  //     title: "Instagram Is Testing Photo Albums, Because Nothing Is Sacred Anymore",
-  //     imgSrc: "https://jnews.io/magazine/wp-content/uploads/sites/34/2017/12/jnews-demo-1-750x536.jpg",
-  //   },
-  //   {
-  //     id: 2,
-  //     category: "World",
-  //     title: "Chinese ‘Rooftopper’ Films His Own Death During Skyscraper Stunt",
-  //     imgSrc: "https://jnews.io/magazine/wp-content/uploads/sites/34/2017/12/jnews-demo-2-750x536.jpg",
-  //   },
-  //   {
-  //     id: 3,
-  //     category: "Fashion",
-  //     title: "Nike Invented Self-Lacing Sneakers Because the Future Is Now",
-  //     imgSrc: "https://jnews.io/magazine/wp-content/uploads/sites/34/2017/12/jnews-demo-4-350x250.jpg",
-  //   },
-  //   {
-  //     id: 4,
-  //     title: "Economists See Few Monetary Policy Changes With Powell Leading Fed",
-  //     category: "Sports",
-  //     imgSrc: "https://jnews.io/magazine/wp-content/uploads/sites/34/2017/12/jnews-demo-3-750x536.jpg",
-  //   },
-  //   {
-  //     id: 5,
-  //     title: "Tech Giants Continue to Dominate the Market",
-  //     category: "Fashion",
-  //     imgSrc: "https://jnews.io/magazine/wp-content/uploads/sites/34/2017/12/jnews-demo-20-350x250.jpg",
-  //   },
-  // ];
-
+  
   const aroundTheWorldData = [
     // Data for Entertainment
     {
@@ -183,7 +151,7 @@ const Home = () => {
           <div className="container bg-light">
             <div className="row">
               {/* Left Column */}
-              <div className="col-8">
+              <div className="col-8 leftColumn ">
                 <div>
                   {/* Left top Column */}
                   <div className="topStories">
@@ -351,19 +319,20 @@ const Home = () => {
                               <h5 className="card-title text-truncate-2">
                                 {item.title}
                               </h5>
-                              <small className="text-muted">December 15, 2017</small>
+                              <small className="text-muted">
+                                December 15, 2017
+                              </small>
                             </div>
                           </div>
                         </div>
                       ))}
                     </div>
-
                   </div>
                 </div>
               </div>
 
               {/* Right Column */}
-              <div className="col-4 my-4 ps-3 pe-3 rightColumn">
+              <div className="col-4 my-4 ps-3 pe-3 rightColumn ">
                 {/* Follow Us Section */}
                 <div className="followUs">
                   <div className="mb-4">
@@ -442,6 +411,10 @@ const Home = () => {
               </div>
             </div>
           </div>
+        </section>
+
+        <section>
+          <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Doloremque nisi aut eos obcaecati adipisci rerum a ullam alias ipsum fuga neque laborum totam earum vitae, et quam animi placeat laboriosam. Voluptas dolorum odit quod, placeat ratione laboriosam? Aliquam, nostrum sed.</p>
         </section>
       </div>
     </>
