@@ -4,7 +4,7 @@ import "./Card.css";
 
 function Card() {
   return (
-    <div className="cardContainer">
+    <div className="cardContainer card1">
       <div className="card shadow-sm mb-4 border-0 rounded-4" style={{ width: "22rem", position: "relative" }}>
         {/* Image */}
         <Image
@@ -24,7 +24,7 @@ function Card() {
         {/* Card Body */}
         <div className="card-body p-0 py-2">
           {/* Title with two-line truncation */}
-          <h5 className="card-title fw-bold text-truncate-2">
+          <h5 className="card-title text-truncate-2">
             Economists See Few Monetary Policy Changes With Powell Leading Fed fwenjn jn wdwe wed wed
           </h5>
           <small className="text-muted">December 15, 2017</small>

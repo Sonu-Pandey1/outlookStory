@@ -10,10 +10,7 @@ function Card2() {
         style={{ width: "100%", height: "100px" }}
       >
         {/* Image */}
-        <div
-          className="image-container"
-          style={{ flex: "0 0 120px", height: "100%" }}
-        >
+        <div className="image-container" style={{ flex: "0 0 120px", height: "100%" }}>
           <Image
             className="card-img"
             width={150}
@@ -30,6 +27,7 @@ function Card2() {
 
         {/* Card Body */}
         <div className="card-body p-0 ps-3" style={{ flex: "1" }}>
+
           {/* Title with two-line truncation */}
           <h5 className="card-title text-truncate-2">
             Economists See Few Monetary Policy Changes With Powell Leading Fed
