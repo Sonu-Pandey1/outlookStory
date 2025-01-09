@@ -11,11 +11,12 @@ import {
   TfiTwitter,
   TfiYoutube,
 } from "react-icons/tfi";
+import Business from "../../Components/BusinessCat/Business";
 
 const Home = () => {
   return (
     <>
-      <div className="homePage">
+      <div className="homePage bg-info-subtle">
         {/* Hero Section */}
         <section className="heroSection">
           <Hero />
@@ -23,11 +24,11 @@ const Home = () => {
 
         {/* Top Stories Section */}
         <section>
-          <div className="container">
+          <div className="container bg-light">
             <div className="row">
               {/* Left Column */}
               <div className="col-8">
-                <nav className="my-3">
+                <nav className="my-4">
                   <div className="tabsContainer d-flex  justify-content-between align-items-center px-2">
                     <button className="btn btn-outline-primary">
                       Top Stories
@@ -83,10 +84,10 @@ const Home = () => {
               </div>
 
               {/* Right Column */}
-              <div className="col-4 my-3 px-4 rightColumn">
+              <div className="col-4 my-4 ps-3 pe-3 rightColumn">
                 {/* Follow Us Section */}
                 <div className="followUs">
-                  <div className="mb-3">
+                  <div className="mb-4">
                     <button className="btn btn-outline-primary">
                       Follow Us
                     </button>
@@ -157,7 +158,7 @@ const Home = () => {
                 </div>
 
                 <div className="businessSection">
-
+                <Business/>
                 </div>
               </div>
             </div>

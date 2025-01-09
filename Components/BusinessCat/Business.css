@@ -1,0 +1,15 @@
+.businessContainer .card-body{
+    bottom: 0%;
+
+
+}
+
+.cardForBusiness h5 {
+    font-size: 1rem !important;
+    text-shadow: 0px 0px 10px rgba(0, 0, 0, 0.9) !important;
+}
+
+.smallCardForBusiness h5 {
+    font-size: 1rem !important;
+    /* text-shadow: 0px 0px 10px rgba(0, 0, 0, 0.9) !important; */
+}
