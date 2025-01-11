@@ -784,7 +784,7 @@ const Home = () => {
                       width={750}
                       height={450}
                       alt="advertisment-img"
-                      src="https://jnews.io/magazine/wp-content/uploads/sites/34/2017/12/345x345.jpg"
+                      src="https://jnews.io/magazine/wp-content/uploads/sites/34/2017/12/300x250-gadget.png"
                       // style={{
                       //   objectFit: "cover",
                       //   width: "100%",
@@ -796,13 +796,74 @@ const Home = () => {
 
                 <div className="categoriesWrapper">
                   <div className="">
-                    <button className="btn btn-outline-primary">Categories</button>
+                    <button className="btn btn-outline-primary mb-4">
+                      Categories
+                    </button>
                   </div>
-                  <div className="categories">
-<h1>ram</h1>
+                  <div className="categories sahdow">
+                    <div>
+                      <ul className="p-0">
+                        <li className="d-flex justify-content-between py-2 ">
+                          <Link className="c_link" href={"/business"}>
+                            BUSINESS
+                          </Link>
+                          <p>(10)</p>
+                        </li>
+                        <li className="d-flex justify-content-between  py-2">
+                          <Link className="c_link" href={"/fashion"}>
+                            FASHION
+                          </Link>
+                          <p>(19)</p>
+                        </li>
+                        <li className="d-flex justify-content-between py-2">
+                          <Link className="c_link" href={"/food"}>
+                            FOOD
+                          </Link>
+                          <p>(20)</p>
+                        </li>
+                        <li className="d-flex justify-content-between py-2">
+                          <Link className="c_link" href={"/health"}>
+                            HEALTH
+                          </Link>
+                          <p>(03)</p>
+                        </li>
+                        <li className="d-flex justify-content-between py-2">
+                          <Link className="c_link" href={"/lifestyle"}>
+                            LIFESTYLE
+                          </Link>
+                          <p>(12)</p>
+                        </li>
+                        <li className="d-flex justify-content-between py-2">
+                          <Link className="c_link" href={"/sports"}>
+                            SPORTS
+                          </Link>
+                          <p>(15)</p>
+                        </li>
+                        <li className="d-flex justify-content-between py-2">
+                          <Link className="c_link" href={"/travel"}>
+                            TRAVEL
+                          </Link>
+                          <p>(17)</p>
+                        </li>
+                        <li className="d-flex justify-content-between py-2">
+                          <Link className="c_link" href={"/world"}>
+                            WORLD
+                          </Link>
+                          <p>(30)</p>
+                        </li>
+                        <li className="d-flex justify-content-between py-2">
+                          <Link className="c_link" href={"/entertainment"}>
+                            ENTERTAINMENT
+                          </Link>
+                          <p>(20)</p>
+                        </li>
+                      </ul>
+                    </div>
                   </div>
                 </div>
-                
+                <div className="recommendedWrapeer">
+                  
+                </div>
               </div>
             </div>
           </div>

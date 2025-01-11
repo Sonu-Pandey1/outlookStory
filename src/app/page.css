@@ -150,3 +150,23 @@
 .share .icon{
   font-size: 1rem !important;
 }
+
+.categoriesWrapper div ul li p{
+  margin: 0px;
+  opacity: 0.5;
+  font-size: 0.9rem;
+}
+.categoriesWrapper div ul li .c_link{
+  text-decoration: none;
+  font-size: 0.9rem;
+  color: black;
+  font-weight: 400;
+
+}
+.categoriesWrapper div ul li .c_link:hover{
+  color: rgba(33, 70, 233, 0.767);
+  font-weight: 600;
+}
+.categoriesWrapper div ul li {
+  border-bottom: 1px solid rgb(131, 128, 128,0.2);
+}
