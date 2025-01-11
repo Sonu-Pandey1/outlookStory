@@ -337,7 +337,7 @@ const handlePageChange = (pageNumber) => {
 
         {/* Top Section */}
         <section>
-          <div className="container bg-light">
+          <div className="container-fluid px-4 bg-light">
             <div className="row">
               {/* Left Column */}
               <div className="col-8 leftColumn ">
@@ -452,8 +452,8 @@ const handlePageChange = (pageNumber) => {
                   <div className="advertisment">
                     <Image
                       className=""
-                      width={750}
-                      height={450}
+                      width={850}
+                      height={750}
                       alt="img"
                       src="https://jnews.io/magazine/wp-content/uploads/sites/34/2017/12/728x90_health.png"
                       style={{
@@ -607,7 +607,7 @@ const handlePageChange = (pageNumber) => {
         </section>
         {/* bottom section */}
         <section>
-          <div className="container bg-light py-4">
+          <div className="container-fluid px-4 bg-light py-4">
             <div className="row">
               {/* Left Column - Latest Posts */}
               <div className="col-md-8 latestPostsContainer">

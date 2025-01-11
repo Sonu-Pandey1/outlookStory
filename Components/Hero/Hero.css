@@ -1,5 +1,7 @@
 .heroContainer {
     /* Card Image Styling */
+
+   
     .card-img-top {
         width: 100%; /* Ensure full width */
         height: 100%; /* Match parent height */
@@ -48,6 +50,11 @@
         height: 440px; /* Fixed height for hero section */
         border-radius: 8px; /* Slight rounding for a modern look */
     }
+}
+
+.heroContainer .container-fluid{
+    padding-bottom: 70PX;
+    /* background-color: red !important; */
 }
 
 /* Responsive adjustments */

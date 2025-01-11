@@ -6,7 +6,7 @@ import { articles } from "../../utils/DemoData";
 function Hero() {
   return (
     <div className="heroContainer">
-      <div className="container  bg-light">
+      <div className="container-fluid  bg-light">
         {/* Main Row: Featured Section */}
         <div className="row g-3 heroWrapper m-0 ">
           {/* Left: Featured Article */}

@@ -5,7 +5,7 @@ import "./Card.css";
 function Card() {
   return (
     <div className="cardContainer card1">
-      <div className="card shadow-sm mb-4 border-0 rounded-4" style={{ width: "22rem", position: "relative" }}>
+      <div className="card shadow-sm mb-4 border-0 rounded-4" style={{ width: "26rem", position: "relative" }}>
         {/* Image */}
         <Image
           className="card-img-top"

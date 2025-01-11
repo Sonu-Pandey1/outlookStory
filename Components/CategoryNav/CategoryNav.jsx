@@ -82,7 +82,7 @@ const CategoryNav = () => {
   )?.articles;
 
   return (
-    <div className="bg-light py-5 container">
+    <div className="bg-light pt-5 pb-3 container-fluid px-4">
         <div className="categoryNav bg-dark p-4 rounded">
       {/* Category Tabs */}
       <div className="d-flex justify-content-between align-items-center mb-4">
