@@ -2,6 +2,7 @@
 import "./globals.scss";
 import Navbar from "../../Components/navbar/Navbar.jsx";
 import Hader from "../../Components/hader/Hader.jsx";
+import Footer from "../../Components/Footer/Footer";
 
 export const metadata = {
   title: "Create Next App",
@@ -28,6 +29,7 @@ export default function RootLayout({ children }) {
         <Hader />
         <Navbar />
         {children}
+        <Footer/>
       </body>
     </html>
   );

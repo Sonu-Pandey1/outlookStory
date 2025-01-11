@@ -1,0 +1,134 @@
+.footer {
+    background-color: #1c1e21;
+    color: #adb5bd;
+    padding: 40px 0;
+  
+    .footer-logo img {
+      max-width: 150px;
+      transition: transform 0.3s ease;
+    }
+  
+    .footer-logo img:hover {
+      transform: scale(1.1);
+    }
+  
+    .footer-heading {
+      font-size: 18px;
+      font-weight: bold;
+      color: #fff;
+      margin-bottom: 20px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+  
+    .text-muted {
+      color: #adb5bd !important;
+      transition: color 0.3s ease;
+    }
+  
+    .text-muted:hover {
+      color: #ffc107 !important; /* Golden hover effect */
+    }
+  
+    .list-unstyled {
+      padding: 0;
+      list-style: none;
+  
+      li {
+        margin-bottom: 10px;
+      }
+    }
+  
+    .social-links {
+      i {
+        font-size: 24px;
+        color: #adb5bd;
+        transition: color 0.3s ease, transform 0.3s ease;
+      }
+  
+      i:hover {
+        color: #ffc107;
+        transform: scale(1.2);
+      }
+    }
+  
+    .input-group {
+        
+      .form-control {
+        border-radius: 0;
+        background-color: #343a40;
+        border: none;
+        color: #adb5bd;
+        padding: 10px 15px;
+        border: 1px solid #343a40;
+      }
+  
+      .form-control:focus {
+        background-color: #495057;
+        color: #fff;
+        border: 1px solid #ffc107;
+        box-shadow: none;
+      }
+  
+      .btn-primary {
+        background-color: #ffc107;
+        border: none;
+        color: #1c1e21;
+        font-weight: bold;
+        padding: 10px 15px;
+      }
+  
+      .btn-primary:hover {
+        background-color: #e0a800;
+        color: #fff;
+      }
+    }
+  
+    .footer-bottom {
+      border-top: 1px solid #343a40;
+      padding-top: 20px;
+  
+      p {
+        margin: 0;
+        font-size: 14px;
+      }
+    }
+  
+    @media (max-width: 768px) {
+      .footer-logo img {
+        max-width: 120px;
+      }
+  
+      .footer-heading {
+        font-size: 16px;
+      }
+  
+      .input-group {
+        flex-direction: column;
+  
+        .form-control {
+          margin-bottom: 10px;
+        }
+      }
+    }
+  
+    @media (max-width: 576px) {
+      .social-links {
+        justify-content: center;
+        gap: 10px;
+  
+        i {
+          font-size: 20px;
+        }
+      }
+    }
+  }
+
+  .spamP{
+    font-size: 0.7rem;
+  }
+
+  .input-group .form-control::placeholder {
+    color: #adb5bd;
+    opacity: 1
+  }
