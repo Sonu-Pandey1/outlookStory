@@ -1,0 +1,39 @@
+.categoryNav {
+    background-color: #f8f9fa;
+  }
+  
+  .card-title {
+    font-size: 0.9rem;
+    font-weight: 500;
+    line-height: 1.4;
+  }
+  
+  .card-img-top {
+    transition: transform 0.5s ease-in-out;
+    height: 100%;
+    width: 100%;
+  }
+  
+  .card:hover .card-img-top {
+    transform: scale(1.05);
+  }
+  
+  .badge {
+    font-size: 0.7rem;
+    font-weight: 600;
+  }
+  
+  .text-truncate-2 {
+    display: -webkit-box;
+    line-clamp: 2;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  
+  .btn {
+    border-radius: 20px;
+    text-transform: capitalize;
+  }
+  
+  
