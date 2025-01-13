@@ -17,7 +17,7 @@ function Hero({ data }) {
         <div className="row g-3 heroWrapper m-0">
           {/* Left: Featured Article */}
           <div className="col-md-6">
-            <div className="card border-0 lth shadow-sm overflow-hidden">
+            <div className="card border-0 rounded lth shadow-sm overflow-hidden">
               <Image
                 src={data[0].image}
                 alt={`Image for ${data[0].title}`}
@@ -40,7 +40,7 @@ function Hero({ data }) {
             <div className="row g-3">
               {data.slice(1, 3).map((article, index) => (
                 <div key={index} className="col-6">
-                  <div className="card border-0 shadow-sm overflow-hidden">
+                  <div className="card rounded border-0 shadow-sm overflow-hidden">
                     <Image
                       src={article.image}
                       alt={`Image for ${article.title}`}
@@ -60,7 +60,7 @@ function Hero({ data }) {
               ))}
               {/* Bottom Row: Full-Width Article */}
               <div className="col-12">
-                <div className="card border-0 bth shadow-sm overflow-hidden">
+                <div className="card rounded border-0 bth shadow-sm overflow-hidden">
                   <Image
                     src={data[3].image}
                     alt={`Image for ${data[3].title}`}
@@ -87,9 +87,9 @@ function Hero({ data }) {
 
 // Utility function to determine badge color
 const getBadgeColor = (category) => {
-  switch (category.toLowerCase()) {
+  switch (category.toLowerCase()) { // Standardizing case
     case "story":
-      return "primary";
+      return "light";
     case "videos":
       return "danger";
     case "events":
@@ -98,12 +98,11 @@ const getBadgeColor = (category) => {
       return "info";
     case "cityconnect":
       return "warning";
-    case "launchPad":
-      return "warning";
     default:
-      return "lite";
+      return "primary"; // Updated to "secondary" for better fallback
   }
 };
+
 
 // Prop validation
 Hero.propTypes = {

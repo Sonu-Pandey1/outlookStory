@@ -70,7 +70,7 @@ export default function RootLayout({ children }) {
       <body>
         <Hader />
         <Navbar />
-        <section className="heroSection">
+        <section className="heroSection pb-5">
           {/* HeroWrapper handles dynamic content in a Client Component */}
           <HeroWrapper />
         </section>
