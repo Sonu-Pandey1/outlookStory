@@ -47,19 +47,22 @@ const aroundTheWorldData = [
     id: 4,
     category: "Business",
     title: "Global Markets Hit by New Economic Challenges in 2023",
-    imgSrc: "https://jnews.io/magazine/wp-content/uploads/sites/34/2017/12/jnews-demo-1-750x536.jpg",
+    imgSrc:
+      "https://jnews.io/magazine/wp-content/uploads/sites/34/2017/12/jnews-demo-1-750x536.jpg",
   },
   {
     id: 5,
     category: "Business",
     title: "Top CEOs Announce Bold Plans for 2025",
-    imgSrc: "https://jnews.io/magazine/wp-content/uploads/sites/34/2017/12/jnews-demo-3-750x536.jpg",
+    imgSrc:
+      "https://jnews.io/magazine/wp-content/uploads/sites/34/2017/12/jnews-demo-3-750x536.jpg",
   },
   {
     id: 6,
     category: "Business",
     title: "Cryptocurrency Adoption Grows Despite Market Volatility",
-    imgSrc: "https://jnews.io/magazine/wp-content/uploads/sites/34/2017/12/jnews-demo-1-750x536.jpg",
+    imgSrc:
+      "https://jnews.io/magazine/wp-content/uploads/sites/34/2017/12/jnews-demo-1-750x536.jpg",
   },
 
   // Data for Sports
@@ -67,19 +70,22 @@ const aroundTheWorldData = [
     id: 7,
     category: "Sports",
     title: "Olympic Games to Introduce New Sports Categories",
-    imgSrc: "https://jnews.io/magazine/wp-content/uploads/sites/34/2017/12/jnews-demo-3-750x536.jpg",
+    imgSrc:
+      "https://jnews.io/magazine/wp-content/uploads/sites/34/2017/12/jnews-demo-3-750x536.jpg",
   },
   {
     id: 8,
     category: "Sports",
     title: "World Cup Final Sets New Viewership Record",
-    imgSrc: "https://jnews.io/magazine/wp-content/uploads/sites/34/2017/12/jnews-demo-1-750x536.jpg",
+    imgSrc:
+      "https://jnews.io/magazine/wp-content/uploads/sites/34/2017/12/jnews-demo-1-750x536.jpg",
   },
   {
     id: 9,
     category: "Sports",
     title: "Tennis Legends Play Charity Match for Global Peace",
-    imgSrc: "https://jnews.io/magazine/wp-content/uploads/sites/34/2017/12/jnews-demo-3-750x536.jpg",
+    imgSrc:
+      "https://jnews.io/magazine/wp-content/uploads/sites/34/2017/12/jnews-demo-3-750x536.jpg",
   },
 
   // Data for World
@@ -87,19 +93,22 @@ const aroundTheWorldData = [
     id: 10,
     category: "World",
     title: "Chinese ‘Rooftopper’ Films His Own Death During Skyscraper Stunt",
-    imgSrc: "https://jnews.io/magazine/wp-content/uploads/sites/34/2017/12/jnews-demo-1-750x536.jpg",
+    imgSrc:
+      "https://jnews.io/magazine/wp-content/uploads/sites/34/2017/12/jnews-demo-1-750x536.jpg",
   },
   {
     id: 11,
     category: "World",
     title: "New Sustainable Cities Emerging Across the Globe",
-    imgSrc: "https://jnews.io/magazine/wp-content/uploads/sites/34/2017/12/jnews-demo-3-750x536.jpg",
+    imgSrc:
+      "https://jnews.io/magazine/wp-content/uploads/sites/34/2017/12/jnews-demo-3-750x536.jpg",
   },
   {
     id: 12,
     category: "World",
     title: "Global Leaders Gather to Discuss Climate Change Solutions",
-    imgSrc: "https://jnews.io/magazine/wp-content/uploads/sites/34/2017/12/jnews-demo-1-750x536.jpg",
+    imgSrc:
+      "https://jnews.io/magazine/wp-content/uploads/sites/34/2017/12/jnews-demo-1-750x536.jpg",
   },
 ];
 
@@ -258,10 +267,10 @@ const Home = () => {
     currentPage * postsPerPage
   );
 
-// Handler for changing pages
-const handlePageChange = (pageNumber) => {
-  setCurrentPage(pageNumber);
-};
+  // Handler for changing pages
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
 
   // Function to handle the share action
   const handleShare = () => {
@@ -331,9 +340,7 @@ const handlePageChange = (pageNumber) => {
     <>
       <div className="homePage bg-info-subtle">
         {/* Hero Section */}
-        <section className="heroSection">
-          <Hero />
-        </section>
+       
 
         {/* Top Section */}
         <section>
@@ -414,7 +421,7 @@ const handlePageChange = (pageNumber) => {
 
                     {/* Card Section */}
                     <div className="row transition-container">
-                      {aroundTheWorldData.slice(0,3).map((item) => (
+                      {aroundTheWorldData.slice(0, 3).map((item) => (
                         <div key={item.id} className="col-md-4">
                           <div className="card border-0 shadow-sm">
                             <div className="position-relative">
@@ -489,7 +496,7 @@ const handlePageChange = (pageNumber) => {
 
                     {/* Card Section */}
                     <div className="row transition-container">
-                      {aroundTheWorldData.slice(0,4).map((item) => (
+                      {aroundTheWorldData.slice(0, 4).map((item) => (
                         <div key={item.id} className="col-md-6">
                           <div className="card border-0 shadow-sm">
                             <div className="position-relative">
@@ -666,7 +673,7 @@ const handlePageChange = (pageNumber) => {
               </div>
 
               {/* Right Column - Popular Posts */}
-             
+
               <div className="col-md-4 popularPostContainer">
                 <div className="popularPosts">
                   <button className="mb-4 btn btn-outline-primary">
@@ -856,29 +863,29 @@ const handlePageChange = (pageNumber) => {
                     </button>
                   </div>
                   <div className="row recommended">
-                  {aroundTheWorldData.slice(0,4).map((item) => (
-                        <div key={item.id} className="col-md-6">
-                          <div className="card border-0 shadow-sm">
-                            <div className="position-relative">
-                              <Image
-                                src={item.imgSrc}
-                                alt={item.title}
-                                width={350}
-                                height={200}
-                                className="card-img-top rounded"
-                              />
-                              <span className="position-absolute bottom-0 m-2 badge bg-warning">
-                                {item.category}
-                              </span>
-                            </div>
-                            <div className="card-body p-0 py-2 px-1">
-                              <h5 className="card-title text-truncate-2 ">
-                                {item.title}
-                              </h5>
-                            </div>
+                    {aroundTheWorldData.slice(0, 4).map((item) => (
+                      <div key={item.id} className="col-md-6">
+                        <div className="card border-0 shadow-sm">
+                          <div className="position-relative">
+                            <Image
+                              src={item.imgSrc}
+                              alt={item.title}
+                              width={350}
+                              height={200}
+                              className="card-img-top rounded"
+                            />
+                            <span className="position-absolute bottom-0 m-2 badge bg-warning">
+                              {item.category}
+                            </span>
+                          </div>
+                          <div className="card-body p-0 py-2 px-1">
+                            <h5 className="card-title text-truncate-2 ">
+                              {item.title}
+                            </h5>
                           </div>
                         </div>
-                      ))}
+                      </div>
+                    ))}
                   </div>
                 </div>
               </div>

@@ -54,7 +54,7 @@ function Navbar() {
                             <MdOutlineAddBusiness />
                                 Business
                             </Link>
-                            <Link href={"/city-connect"} className="link text-decoration-none d-flex align-items-center gap-2 pe-4">
+                            <Link href={"/cityConnect"} className="link text-decoration-none d-flex align-items-center gap-2 pe-4">
                             <PiBicycleThin />
                                 City Connect
                             </Link>
@@ -68,7 +68,7 @@ function Navbar() {
                                 Videos
                                   {/* no mgm */}
                             </Link>
-                            <Link href={"/launch-pad"} className="link text-decoration-none d-flex align-items-center gap-2 pe-4">
+                            <Link href={"/launchPad"} className="link text-decoration-none d-flex align-items-center gap-2 pe-4">
                             <MdRocketLaunch />
                                 Launch Pad
                                   {/* no mgm */}
