@@ -1,35 +1,37 @@
 .breadcrumb {
   display: flex;
-  gap: 8px; /* Adjust spacing between items */
-  font-size: 16px; /* Slightly larger font for better readability */
-  color: #6c757d; /* Neutral gray for default text */
-  align-items: center; /* Vertically align items */
+  gap: 8px; 
+  font-size: 16px; 
+  color: #6c757d; 
+  align-items: center;
+
 }
 
 .breadcrumb-item {
   display: flex;
   align-items: center;
-  font-weight: 500; /* Slightly bolder for better visibility */
+  font-weight: 500; 
+  
 }
 
 .breadcrumb-item a {
   text-decoration: none;
-  color: #007bff; /* Blue for links */
+  color: #007bff; 
   transition: color 0.3s ease;
+  
 
   &:hover {
-    color: #0056b3; /* Darker blue on hover */
+    color: #0056b3;
     text-decoration: underline;
   }
 }
 
 .breadcrumb-item.active {
-  color: #6c757d; /* Gray for the active item */
+  color: #6c757d;
 }
 
 .breadcrumb-item + .breadcrumb-item::before {
   content: ">" !important;
-  // margin: 0 5px; /* Add spacing around the separator */
-  color: #adb5bd; /* Soft gray for the separator */
-  font-weight: 600; /* Slightly bolder for the separator */
+  color: #adb5bd;
+  font-weight: 600;
 }

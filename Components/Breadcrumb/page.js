@@ -1,39 +1,3 @@
-// import Link from "next/link";
-// import "./Breadcrumb.scss";
-// export default function Breadcrumb({ category, category1, category2 }) {
-//   console.log(category);
-//   console.log(category2);
-//   return (
-//     <nav aria-label="breadcrumb">
-//       <ol className="breadcrumb">
-//         <li className="breadcrumb-item">
-//           <Link href="/">Home</Link>
-//         </li>
-//         {category && (
-//           <li className="breadcrumb-item">
-//             <Link href={`/category/${category}`}>Category</Link>
-//           </li>
-//         )}
-//         {category && (
-//           <li className="breadcrumb-item active" aria-current="page">
-//             {category}
-//           </li>
-//         )}
-
-//         {category1 && (
-//           <>
-//             <li className="breadcrumb-item active" aria-current="page">
-//               <Link href={`/category/${category1}`}>{category1}</Link>
-//             </li>
-//             <li className="breadcrumb-item active" aria-current="page">
-//               {category2}
-//             </li>
-//           </>
-//         )}
-//       </ol>
-//     </nav>
-//   );
-// }
 "use client";
 
 import React from "react";
@@ -48,11 +12,14 @@ import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import { styled } from "@mui/material/styles";
 import Chip from "@mui/material/Chip";
 import { emphasize } from "@mui/material/styles";
+import "./Breadcrumb.scss";
 
 // Styled Breadcrumb component with hover and active states
 const StyledBreadcrumb = styled(Chip)(({ theme }) => {
   const backgroundColor =
-    theme.palette.mode === "light" ? theme.palette.grey[100] : theme.palette.grey[800];
+    theme.palette.mode === "light"
+      ? theme.palette.grey[100]
+      : theme.palette.grey[800];
   return {
     backgroundColor,
     height: theme.spacing(3),
@@ -62,7 +29,7 @@ const StyledBreadcrumb = styled(Chip)(({ theme }) => {
     display: "flex",
     alignItems: "center",
     "&:hover, &:focus": {
-      backgroundColor: emphasize(backgroundColor, 0.06),
+      backgroundColor: emphasize(backgroundColor, 0.26),
     },
     "&:active": {
       boxShadow: theme.shadows[1],
@@ -77,6 +44,7 @@ const StyledBreadcrumb = styled(Chip)(({ theme }) => {
 export default function Breadcrumb({ category, category1, category2 }) {
   return (
     <Breadcrumbs
+      className=" px-3"
       aria-label="breadcrumb"
       separator={<NavigateNextIcon fontSize="small" />}
     >
@@ -102,7 +70,7 @@ export default function Breadcrumb({ category, category1, category2 }) {
       {category1 && (
         <StyledBreadcrumb
           component="a"
-          href={`/category/${category}/${category1}`}
+          href={`/category/${category1}`}
           label={category1}
           icon={<FolderIcon fontSize="small" />}
         />
@@ -115,7 +83,7 @@ export default function Breadcrumb({ category, category1, category2 }) {
             display: "flex",
             alignItems: "center",
             color: "text.primary",
-            fontWeight: "bold",
+            fontWeight: "500",
           }}
         >
           <DescriptionOutlinedIcon sx={{ mr: 0.5 }} fontSize="inherit" />
@@ -125,89 +93,3 @@ export default function Breadcrumb({ category, category1, category2 }) {
     </Breadcrumbs>
   );
 }
-
-// "use client";
-
-// import React from "react";
-// import Breadcrumbs from "@mui/material/Breadcrumbs";
-// import Typography from "@mui/material/Typography";
-// import Link from "@mui/material/Link";
-// import HomeIcon from "@mui/icons-material/Home";
-// import CategoryIcon from "@mui/icons-material/Category";
-// import FolderIcon from "@mui/icons-material/Folder";
-// import GrainIcon from "@mui/icons-material/Grain";
-// import NavigateNextIcon from "@mui/icons-material/NavigateNext";
-// import { emphasize, styled } from "@mui/material/styles";
-// import Chip from "@mui/material/Chip";
-
-// // Styled Breadcrumb component
-// const StyledBreadcrumb = styled(Chip)(({ theme }) => {
-//   const backgroundColor =
-//     theme.palette.mode === 'light'
-//       ? theme.palette.grey[100]
-//       : theme.palette.grey[800];
-//   return {
-//     backgroundColor,
-//     height: theme.spacing(3),
-//     color: theme.palette.text.primary,
-//     fontWeight: theme.typography.fontWeightRegular,
-//     "&:hover, &:focus": {
-//       backgroundColor: emphasize(backgroundColor, 0.06),
-//     },
-//     "&:active": {
-//       boxShadow: theme.shadows[1],
-//       backgroundColor: emphasize(backgroundColor, 0.12),
-//     },
-//   };
-// });
-
-// export default function Breadcrumb({ category, category1, category2 }) {
-//   return (
-//     <Breadcrumbs
-//       aria-label="breadcrumb"
-//       separator={<NavigateNextIcon fontSize="small" />} // Use NavigateNextIcon as separator
-//     >
-//       {/* Home Link */}
-//       <StyledBreadcrumb
-//         component="a"
-//         href="/"
-//         label="Home"
-//         icon={<HomeIcon fontSize="small" />}
-//       />
-
-//       {/* Category */}
-//       {category && (
-//         <StyledBreadcrumb
-//           component="a"
-//           href={`/category/${category}`}
-//           label={category}
-//           icon={<CategoryIcon fontSize="small" />}
-//         />
-//       )}
-
-//       {/* Subcategory */}
-//       {category1 && (
-//         <StyledBreadcrumb
-//           component="a"
-//           href={`/category/${category}/${category1}`}
-//           label={category1}
-//           icon={<FolderIcon fontSize="small" />}
-//         />
-//       )}
-
-//       {/* Active Category */}
-//       {category2 && (
-//         <Typography
-//           sx={{
-//             display: "flex",
-//             alignItems: "center",
-//             color: "text.primary",
-//           }}
-//         >
-//           <GrainIcon sx={{ mr: 0.5 }} fontSize="inherit" />
-//           {category2}
-//         </Typography>
-//       )}
-//     </Breadcrumbs>
-//   );
-// }
