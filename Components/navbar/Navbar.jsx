@@ -46,42 +46,40 @@ function Navbar() {
                                 <IoHomeOutline />
                                 Home
                             </Link>
-                            <Link href={"/stories"} className="link text-decoration-none d-flex align-items-center gap-2 pe-4">
+                            <Link href={"/category/stories"} className="link text-decoration-none d-flex align-items-center gap-2 pe-4">
                             <MdCamera />
                                 Stories
                             </Link>
-                            <Link href={"/business"} className="link text-decoration-none d-flex align-items-center gap-2 pe-4">
+                            <Link href={"/category/business"} className="link text-decoration-none d-flex align-items-center gap-2 pe-4">
                             <MdOutlineAddBusiness />
                                 Business
                             </Link>
-                            <Link href={"/cityConnect"} className="link text-decoration-none d-flex align-items-center gap-2 pe-4">
+                            <Link href={"/category/cityConnect"} className="link text-decoration-none d-flex align-items-center gap-2 pe-4">
                             <PiBicycleThin />
                                 City Connect
                             </Link>
-                            <Link href={"/events"} className="link text-decoration-none d-flex align-items-center gap-2 pe-4">
+                            <Link href={"/category/events"} className="link text-decoration-none d-flex align-items-center gap-2 pe-4">
                             <MdOutlineEventAvailable />
                                 Events
                                 {/* no mgm */}
                             </Link>
-                            <Link href={"/videos"} className="link text-decoration-none d-flex align-items-center gap-2 pe-4">
+                            <Link href={"/category/videos"} className="link text-decoration-none d-flex align-items-center gap-2 pe-4">
                             <MdVideoLibrary />
                                 Videos
                                   {/* no mgm */}
                             </Link>
-                            <Link href={"/launchPad"} className="link text-decoration-none d-flex align-items-center gap-2 pe-4">
+                            <Link href={"/category/launchPad"} className="link text-decoration-none d-flex align-items-center gap-2 pe-4">
                             <MdRocketLaunch />
                                 Launch Pad
                                   {/* no mgm */}
                             </Link>
-                            <button className="link text-decoration-none d-flex align-items-center gap-2 pe-4">
-                                {/* <SiLaunchpad /> */}
+                            {/* <button className="link text-decoration-none d-flex align-items-center gap-2 pe-4">
                                 <RiMenuAddLine />
                                 More
-                                {/* small dropdown */}
-                            </button>
+                            </button> */}
                            
                             
-                            <li className="nav-item dropdown has-megamenu">
+                            {/* <li className="nav-item dropdown has-megamenu">
                                 <a
                                     className="nav-link dropdown-toggle"
                                     href="https://bhutaniinfra.netlify.app/"
@@ -99,7 +97,7 @@ function Navbar() {
                                     This is the content of the megamenu. Customize with links, images, etc.
                                     This is the content of the megamenu. Customize with links, images, etc.
                                 </div>
-                            </li>
+                            </li> */}
                         </ul>
                     </div>
 
