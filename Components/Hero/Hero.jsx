@@ -11,7 +11,7 @@ function Hero({ data }) {
   // console.log(data[3].category)
 
   return (
-    <div className="heroContainer">
+    <div className="heroContainer mb-5">
       <div className="container-fluid bg-light">
         {/* Main Row: Featured Section */}
         <div className="row g-3 heroWrapper m-0">

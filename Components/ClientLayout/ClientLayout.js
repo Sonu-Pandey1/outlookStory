@@ -1,33 +1,40 @@
-// src/app/ClientLayout.js (Client component)
-
-"use client"; // This is necessary to mark this component as a client component
+"use client";
 
 import { usePathname } from "next/navigation";
 import Navbar from "../../Components/navbar/Navbar.jsx";
 import Hader from "../../Components/hader/Hader.jsx";
 import Footer from "../../Components/Footer/Footer";
-import HeroWrapper from "../../Components/Hero/HeroWrapper"; // Import HeroWrapper
+import HeroWrapper from "../../Components/Hero/HeroWrapper";
+import { useEffect } from "react";
 
 export default function ClientLayout({ children }) {
-  const pathname = usePathname(); // Get the current path
-
-  // Check if the current path is the login page
+  const pathname = usePathname();
   const isLoginPage = pathname === "/login";
+
+
+  useEffect(() => {
+    // Smoothly scroll to the top when route changes
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth', // Adds smooth scrolling
+    });
+  }, [pathname]); // Runs every time the pathname changes
+
 
   return (
     <>
-      {/* Conditionally render HeroWrapper, Navbar, Hader, and Footer based on the path */}
-      {!isLoginPage && <HeroWrapper />} {/* Show HeroWrapper only on non-login pages */}
       
+
       {!isLoginPage && (
         <>
           <Hader />
           <Navbar />
         </>
       )}
-      
+      {!isLoginPage && <HeroWrapper />}
+
       {children}
-      
+
       {!isLoginPage && <Footer />}
     </>
   );

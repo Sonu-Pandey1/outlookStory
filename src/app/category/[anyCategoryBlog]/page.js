@@ -9,14 +9,17 @@ export default function AnyCategoryPage({ params }) {
   // console.log(params.anyCategoryBlog)
   const pathname = usePathname();
   const category = pathname.split("/")[2];
-const capitalizedCategory = category.charAt(0).toUpperCase() + category.slice(1);
-
+  const capitalizedCategory =
+    category.charAt(0).toUpperCase() + category.slice(1);
 
   return (
-    <div>
+    <div className="">
+      <div>
+        {/* <HeroWrapper /> */}
+      </div>
       <Breadcrumb category={capitalizedCategory} />
       <div className="anyCategoryPage">
-        <LatestPopularPosts categoryC={capitalizedCategory}/>
+        <LatestPopularPosts categoryC={capitalizedCategory} />
       </div>
     </div>
   );

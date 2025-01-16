@@ -1,15 +1,6 @@
-
-
 /* eslint-disable @next/next/no-sync-scripts */
 
-
-
-
 import "./globals.scss";
-import Navbar from "../../Components/navbar/Navbar.jsx";
-import Hader from "../../Components/hader/Hader.jsx";
-import Footer from "../../Components/Footer/Footer";
-import HeroWrapper from "../../Components/Hero/HeroWrapper";
 import ClientLayout from "../../Components/ClientLayout/ClientLayout";
 
 export const metadata = {
@@ -34,20 +25,8 @@ export default function RootLayout({ children }) {
         ></script>
       </head>
       <body>
-        <ClientLayout>
-          {children}
-        </ClientLayout>
+        <ClientLayout>{children}</ClientLayout>
       </body>
-      {/* <body>
-        <Hader />
-        <Navbar />
-        <section className="heroSection pb-5">
-          <HeroWrapper />
-        </section>
-        {children}
-        <Footer />
-      </body> */}
     </html>
   );
 }
-
