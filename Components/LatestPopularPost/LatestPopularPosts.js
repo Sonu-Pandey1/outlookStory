@@ -550,14 +550,14 @@ export default function LatestPopularPosts({ categoryC }) {
                         <div className="card-body p-0 py-2 px-1">
                           <h5 className="card-title text-truncate-2 ">
                             {item.title}
-                          </h5>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
+                          </h5>   
+                        </div>   
+                      </div>   
+                    </div>   
+                  ))}   
+                </div>   
+              </div>   
+            </div>   
           </div>
         </div>
       </section>

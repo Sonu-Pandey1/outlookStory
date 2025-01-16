@@ -103,6 +103,13 @@ function Navbar() {
 
 
                     <div className="d-none d-md-block">
+                        <Link className="" href={"/login"}>
+                        <button className=" btn btn-outline-primary">
+                            Login/Signup
+                        </button>
+                        </Link>
+                    </div>
+                    <div className="d-none d-md-block">
                         <Input />
                     </div>
 
