@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import "./page.css";
+import "./page.scss";
 import Hero from "../../Components/Hero/Hero";
 import Card from "../../Components/Card/Card";
 import Card2 from "../../Components/Card/Card2";
@@ -505,10 +505,11 @@ const Home = () => {
               <div className="col-4 my-4 ps-3 pe-3 rightColumn ">
                 {/* Follow Us Section */}
                 <div className="followUs">
-                  <div className="mb-4">
-                    <button className="btn btn-outline-primary">
+                  <div className="mb-4 underlin d-flex justify-content-between gap-3 ">
+                    <button className="btn btn-outline-primary w-50">
                       Follow Us
                     </button>
+                    <span className="span ms-3 w-100"></span>
                   </div>
 
                   {/* Social Media Icons Section */}
