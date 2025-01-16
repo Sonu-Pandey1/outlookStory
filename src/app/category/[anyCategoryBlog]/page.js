@@ -14,9 +14,6 @@ export default function AnyCategoryPage({ params }) {
 
   return (
     <div className="">
-      <div>
-        {/* <HeroWrapper /> */}
-      </div>
       <Breadcrumb category={capitalizedCategory} />
       <div className="anyCategoryPage">
         <LatestPopularPosts categoryC={capitalizedCategory} />

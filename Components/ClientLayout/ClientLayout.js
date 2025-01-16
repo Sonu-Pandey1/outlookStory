@@ -11,20 +11,15 @@ export default function ClientLayout({ children }) {
   const pathname = usePathname();
   const isLoginPage = pathname === "/login";
 
-
   useEffect(() => {
-    // Smoothly scroll to the top when route changes
     window.scrollTo({
       top: 0,
-      behavior: 'smooth', // Adds smooth scrolling
+      behavior: "smooth",
     });
-  }, [pathname]); // Runs every time the pathname changes
-
+  }, [pathname]);
 
   return (
     <>
-      
-
       {!isLoginPage && (
         <>
           <Hader />

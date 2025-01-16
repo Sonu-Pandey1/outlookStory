@@ -27,10 +27,14 @@ function Hero({ data }) {
                 style={{ objectFit: "cover", height: "100%" }}
               />
               <div className="card-img-overlay d-flex flex-column justify-content-end p-3">
-                <span className={`badge bg-${getBadgeColor(data[0].category)} mb-2`}>
+                <span
+                  className={`badge bg-${getBadgeColor(data[0].category)} mb-2`}
+                >
                   {data[0].category}
                 </span>
-                <h4 className="card-title text-white fw-bold">{data[0].title}</h4>
+                <h4 className="card-title text-white fw-bold">
+                  {data[0].title}
+                </h4>
               </div>
             </div>
           </div>
@@ -50,7 +54,11 @@ function Hero({ data }) {
                       style={{ objectFit: "cover", height: "100%" }}
                     />
                     <div className="card-img-overlay d-flex flex-column justify-content-end p-2">
-                      <span className={`badge bg-${getBadgeColor(article.category)} mb-1`}>
+                      <span
+                        className={`badge bg-${getBadgeColor(
+                          article.category
+                        )} mb-1`}
+                      >
                         {article.category}
                       </span>
                       <h6 className="card-title text-white">{article.title}</h6>
@@ -70,7 +78,11 @@ function Hero({ data }) {
                     style={{ objectFit: "cover", height: "100%" }}
                   />
                   <div className="card-img-overlay d-flex flex-column justify-content-end p-3">
-                    <span className={`badge bg-${getBadgeColor(data[3].category)} mb-2`}>
+                    <span
+                      className={`badge bg-${getBadgeColor(
+                        data[3].category
+                      )} mb-2`}
+                    >
                       {data[3].category}
                     </span>
                     <h5 className="card-title text-white">{data[3].title}</h5>
@@ -87,7 +99,9 @@ function Hero({ data }) {
 
 // Utility function to determine badge color
 const getBadgeColor = (category) => {
-  switch (category.toLowerCase()) { // Standardizing case
+  switch (
+    category.toLowerCase() // Standardizing case
+  ) {
     case "story":
       return "light";
     case "videos":
@@ -102,7 +116,6 @@ const getBadgeColor = (category) => {
       return "primary"; // Updated to "secondary" for better fallback
   }
 };
-
 
 // Prop validation
 Hero.propTypes = {
