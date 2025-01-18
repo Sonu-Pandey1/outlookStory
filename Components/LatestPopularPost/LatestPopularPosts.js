@@ -995,8 +995,10 @@ const recommendedData = [
   },
 ];
 
-export default function LatestPopularPosts({ categoryC }) {
+export default function LatestPopularPosts({ categoryC,category }) {
   const [shareCount, setShareCount] = useState(1345);
+  // console.log(categoryC)
+  
 
   const handleShare = () => {
     if (navigator.share) {
@@ -1034,6 +1036,120 @@ export default function LatestPopularPosts({ categoryC }) {
   );
 
   return (
+    // <div className="latestPopularPosts">
+    //   <section>
+    //     <div className="container-fluid px-4 bg-light pb-4 pt-2">
+    //       <div className="row">
+    //         {/* Left Column - Latest Posts */}
+    //         <div className="col-md-8 latestPostsContainer">
+    //           <h2 className="pb-3">{categoryC}</h2>
+    //           <div className="row g-3 latestPosts">
+    //             {filteredLatestPosts.map((item) => (
+    //               <div key={item.id} className="col-md-12">
+    //                 <div className="card border-0 shadow-sm h-100 d-flex flex-row">
+    //                   <div className="position-relative">
+    //                     <div className="image-container">
+    //                       <Image
+    //                         src={item.imgSrc || '/fallback-image.jpg'}
+    //                         alt={item.title}
+    //                         width={350}
+    //                         height={200} 
+    //                         className="card-img-top rounded"
+    //                         style={{ objectFit: "cover", width: "100%", height: "100%" }}
+    //                       />
+    //                     </div>
+    //                     <span className="position-absolute top-0 m-2 text-black badge bg-info">
+    //                       {item.category}
+    //                     </span>
+    //                   </div>
+    //                   <div className="card-body p-0 ps-4">
+    //                     <h6 className="card-title text-truncate-2">{item.title}</h6>
+    //                     <span className="text-muted small text-dark ">
+    //                       BY <span className="fs-6 text-primary">john doe</span>{" "}
+    //                       <small className="text-muted ps-3">December 15, 2017</small>
+    //                     </span>
+    //                     <p className="description text-truncate-2">
+    //                       Lorem ipsum dolor sit amet consectetur adipisicing elit.
+    //                     </p>
+    //                     <button className="btn btn-sm btn-outline-success">Read More</button>
+    //                   </div>
+    //                 </div>
+    //               </div>
+    //             ))}
+    //           </div>
+    //         </div>
+
+    //         {/* Right Column - Popular Posts */}
+    //         <div className="col-md-4 popularPostContainer">
+    //           <div className="popularPosts">
+    //             <h3>Popular Posts</h3>
+    //             <div className="row g-3 popularPosts">
+    //               {filteredPopularPosts.map((item) => (
+    //                 <div key={item.id} className="col-12">
+    //                   <div className="card pp border-0 shadow-sm h-100">
+    //                     <div className="card-body p-3">
+    //                       <div className="row justify-content-between">
+    //                         <div className="col-2">
+    //                           <div className="trendNo rounded-pill">
+    //                             <div className="">0{item.id}</div>
+    //                           </div>
+    //                         </div>
+    //                         <div className="col-10">
+    //                           <h6 className="card-title text-truncate-2">{item.title}</h6>
+    //                           <div className="share d-flex justify-content-start align-items-center">
+    //                             <button
+    //                               className=" d-flex align-items-center me-3"
+    //                               onClick={handleShare}
+    //                             >
+    //                               <GrShareOption className="fs-5 me-2 icon" />
+    //                               <div className="share-count text-muted">
+    //                                 <span>{shareCount} shares</span>
+    //                               </div>
+    //                             </button>
+    //                           </div>
+    //                         </div>
+    //                       </div>
+    //                     </div>
+    //                   </div>
+    //                 </div>
+    //               ))}
+    //             </div>
+    //           </div>
+
+    //           {/* Recommended Section */}
+    //           <div className="recommendedWrapeer">
+    //             <div className="">
+    //               <h4>Recommended</h4>
+    //             </div>
+    //             <div className="row recommended">
+    //               {filteredAroundTheWorld.slice(0, 4).map((item) => (
+    //                 <div key={item.id} className="col-md-6">
+    //                   <div className="card border-0 shadow-sm">
+    //                     <div className="position-relative">
+    //                       <Image
+    //                         src={item.imgSrc || '/fallback-image.jpg'}
+    //                         alt={item.title}
+    //                         width={350}
+    //                         height={200}
+    //                         className="card-img-top rounded"
+    //                       />
+    //                       <span className="position-absolute bottom-0 m-2 badge bg-warning">
+    //                         {item.category}
+    //                       </span>
+    //                     </div>
+    //                     <div className="card-body p-0 py-2 px-1">
+    //                       <h5 className="card-title text-truncate-2">{item.title}</h5>
+    //                     </div>
+    //                   </div>
+    //                 </div>
+    //               ))}
+    //             </div>
+    //           </div>
+    //         </div>
+    //       </div>
+    //     </div>
+    //   </section>
+    // </div>
     <div className="latestPopularPosts">
       <section>
         <div className="container-fluid px-4 bg-light pb-4 pt-2">
@@ -1044,34 +1160,36 @@ export default function LatestPopularPosts({ categoryC }) {
               <div className="row g-3 latestPosts">
                 {filteredLatestPosts.map((item) => (
                   <div key={item.id} className="col-md-12">
-                    <div className="card border-0 shadow-sm h-100 d-flex flex-row">
-                      <div className="position-relative">
-                        <div className="image-container">
-                          <Image
-                            src={item.imgSrc || '/fallback-image.jpg'}
-                            alt={item.title}
-                            width={350}
-                            height={200} 
-                            className="card-img-top rounded"
-                            style={{ objectFit: "cover", width: "100%", height: "100%" }}
-                          />
+                    <Link href={`${category}/${item.id}`}> {/* Use Link for navigation */}
+                      <div className="card border-0 shadow-sm h-100 d-flex flex-row">
+                        <div className="position-relative">
+                          <div className="image-container">
+                            <Image
+                              src={item.imgSrc || '/fallback-image.jpg'}
+                              alt={item.title}
+                              width={350}
+                              height={200} 
+                              className="card-img-top rounded"
+                              style={{ objectFit: "cover", width: "100%", height: "100%" }}
+                            />
+                          </div>
+                          <span className="position-absolute top-0 m-2 text-black badge bg-info">
+                            {item.category}
+                          </span>
                         </div>
-                        <span className="position-absolute top-0 m-2 text-black badge bg-info">
-                          {item.category}
-                        </span>
+                        <div className="card-body p-0 ps-4">
+                          <h6 className="card-title text-truncate-2">{item.title}</h6>
+                          <span className="text-muted small text-dark ">
+                            BY <span className="fs-6 text-primary">john doe</span>{" "}
+                            <small className="text-muted ps-3">December 15, 2017</small>
+                          </span>
+                          <p className="description text-truncate-2">
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                          </p>
+                          <button className="btn btn-sm btn-outline-success">Read More</button>
+                        </div>
                       </div>
-                      <div className="card-body p-0 ps-4">
-                        <h6 className="card-title text-truncate-2">{item.title}</h6>
-                        <span className="text-muted small text-dark ">
-                          BY <span className="fs-6 text-primary">john doe</span>{" "}
-                          <small className="text-muted ps-3">December 15, 2017</small>
-                        </span>
-                        <p className="description text-truncate-2">
-                          Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                        </p>
-                        <button className="btn btn-sm btn-outline-success">Read More</button>
-                      </div>
-                    </div>
+                    </Link> {/* End Link */}
                   </div>
                 ))}
               </div>
@@ -1116,9 +1234,6 @@ export default function LatestPopularPosts({ categoryC }) {
 
               {/* Recommended Section */}
               <div className="recommendedWrapeer">
-                <div className="">
-                  <h4>Recommended</h4>
-                </div>
                 <div className="row recommended">
                   {filteredAroundTheWorld.slice(0, 4).map((item) => (
                     <div key={item.id} className="col-md-6">

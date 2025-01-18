@@ -44,7 +44,7 @@ export default function AnyCategoryPage() {
       
       <div className="anyCategoryPage">
         {/* Pass the category to LatestPopularPosts */}
-        <LatestPopularPosts categoryC={capitalizedCategory} />
+        <LatestPopularPosts categoryC={capitalizedCategory} category={category} />
       </div>
     </div>
   );

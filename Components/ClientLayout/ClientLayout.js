@@ -1,36 +1,35 @@
-"use client";
-
+// app/layout.js
+"use client"
 import { usePathname } from "next/navigation";
-import Navbar from "../../Components/navbar/Navbar.jsx";
-import Hader from "../../Components/hader/Hader.jsx";
-import Footer from "../../Components/Footer/Footer";
-import HeroWrapper from "../../Components/Hero/HeroWrapper";
-import { useEffect } from "react";
+import Header from "../hader/Hader.jsx"; // Assuming you have a Header component
+import Navbar from "../navbar/Navbar.jsx"; // Assuming you have a Navbar component
+import Footer from "../Footer/Footer.jsx"; // Assuming you have a Footer component
+import HeroWrapper from "../Hero/HeroWrapper"; // Assuming you have a HeroWrapper component
+import "../../src/app/globals.scss"; // Import your global styles
 
-export default function ClientLayout({ children }) {
+export default function RootLayout({ children }) {
   const pathname = usePathname();
-  const isLoginPage = pathname === "/login";
 
-  useEffect(() => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
-  }, [pathname]);
+  // Conditionally render heroWrapper based on the route
+  const isLoginPage = pathname === "/login";
+  const isCategoryRoute = pathname.split("/")[3];
+  // console.log(isCategoryRoute)
 
   return (
-    <>
-      {!isLoginPage && (
-        <>
-          <Hader />
-          <Navbar />
-        </>
-      )}
-      {!isLoginPage && <HeroWrapper />}
+    <html lang="en">
+      <body>
+        {/* Render Header and Navbar except on login page */}
+        {!isLoginPage && <Header />}
+        {!isLoginPage && <Navbar />}
 
-      {children}
+        {/* Conditionally render HeroWrapper (don't render it on the single blog page) */}
+        {!isCategoryRoute && !isLoginPage && <HeroWrapper />}
 
-      {!isLoginPage && <Footer />}
-    </>
+        <main>{children}</main>
+
+        {/* Render Footer except on login page */}
+        {!isLoginPage && <Footer />}
+      </body>
+    </html>
   );
 }
