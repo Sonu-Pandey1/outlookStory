@@ -8,3 +8,11 @@ html {
     scroll-behavior: smooth !important;
   }
   
+
+.dark{
+  background-color: black !important;
+  color: white !important;
+  font-style: italic;
+  // all good only component specific class conficlit outher wise dark mode working
+
+}

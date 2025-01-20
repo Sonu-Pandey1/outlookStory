@@ -12,7 +12,7 @@ function Hero({ data }) {
 
   return (
     <div className="heroContainer mb-5">
-      <div className="container-fluid bg-light">
+      <div className="container-fluid">
         {/* Main Row: Featured Section */}
         <div className="row g-3 heroWrapper m-0">
           {/* Left: Featured Article */}

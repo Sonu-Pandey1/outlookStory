@@ -97,12 +97,12 @@ body {
   border: 2px solid #ddd;
 }
 
-.oauth-button.google {
+.oauth-button.apple{
   background-color: #4285f4;
   color: white;
 }
 
-.oauth-button.apple {
+.oauth-button.google{
   background-color: #333;
   color: white;
 }
@@ -112,11 +112,11 @@ body {
   transform: translateY(-3px);
 }
 
-.oauth-button.google:hover {
+.oauth-button.apple:hover {
   background-color: #357ae8;
 }
 
-.oauth-button.apple:hover {
+.oauth-button.google:hover {
   background-color: #2b2b2b;
 }
 

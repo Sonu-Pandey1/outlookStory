@@ -46,7 +46,7 @@ export default function LoginPage() {
                 transition={{ duration: 0.5 }}
               >
                 <button className="oauth-button google">Sign in with Google</button>
-                <button className="oauth-button apple">Sign in with Apple</button>
+                {/* <button className="oauth-button apple">Sign in with Apple</button> */}
                 <div className="divider">OR</div>
                 <form>
                   <div className="input-group">
@@ -70,9 +70,12 @@ export default function LoginPage() {
                 transition={{ duration: 0.5 }}
               >
                 <button className="oauth-button google">Sign up with Google</button>
-                <button className="oauth-button apple">Sign up with Apple</button>
+                {/* <button className="oauth-button apple">Sign up with Apple</button> */}
                 <div className="divider">OR</div>
                 <form>
+                  <div className="input-group">
+                    <input type="text" placeholder="Username" required />
+                  </div>
                   <div className="input-group">
                     <input type="email" placeholder="Email" required />
                   </div>

@@ -1,3 +1,4 @@
+"use client"
 import "./Navbar.scss";
 import Input from "../searchbar/Search.jsx";
 import { IoHomeOutline } from "react-icons/io5";
@@ -9,12 +10,19 @@ import { MdVideoLibrary } from "react-icons/md";
 import { MdRocketLaunch } from "react-icons/md";
 // import { SiLaunchpad } from "react-icons/si";
 import { RiMenuAddLine } from "react-icons/ri";
+import { useTheme } from "next-themes";
 import Link from "next/link";
+import { FaMoon, FaSun } from "react-icons/fa6";
+import { useContext } from "react";
+import { ThemeContext } from "@/Context/themeContext";
 
 function Navbar() {
+  // const {theme,setTheme} = useTheme();
+  const {theme,toggle} = useContext(ThemeContext);
+  // console.log(theme);
   return (
     <>
-      <nav className="navbar  navbar-expand-md bg-danger-subtle sticky-top">
+      <nav className="navbar  navbar-expand-md dark sticky-top">
         <div className="container-fluid px-4">
           <button
             className="navbar-toggler d-md-none"
@@ -119,6 +127,14 @@ function Navbar() {
             <Link className=" pe-3" href={"/login"}>
               <button className=" btn btn-outline-primary">Login/Signup</button>
             </Link>
+          </div>
+          <div>
+            <button className="btn btn-outline-danger" onClick={toggle}>
+              {theme ==='light'? <FaMoon/>:<FaSun/>}
+            </button>
+            {/* <button className="btn btn-outline-danger" onClick={()=>setTheme(theme==='dark' ? 'light':'dark')}>
+              {theme ==='dark'? <FaMoon/>:<FaSun/>}
+            </button> */}
           </div>
           <div className="d-none d-md-block">
             <Input />
