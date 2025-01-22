@@ -278,9 +278,9 @@ const Home = () => {
   const [activeCategory, setActiveCategory] = useState("All");
   const [activeCategory1, setActiveCategory1] = useState("All");
   const [activeCategory2, setActiveCategory2] = useState("All");
-  console.log(activeCategory);
-  console.log(activeCategory1);
-  console.log(activeCategory2);
+  // console.log(activeCategory);
+  // console.log(activeCategory1);
+  // console.log(activeCategory2);
 
   // Filter data based on active category
   const filteredData =

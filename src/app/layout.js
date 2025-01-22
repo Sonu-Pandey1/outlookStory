@@ -1,10 +1,11 @@
 /* eslint-disable @next/next/no-sync-scripts */
 
-import "./globals.scss";
-import ClientLayout from "../../Components/ClientLayout/ClientLayout";
+import "../../styles/globals.scss";
+import ClientLayout from "./Providers/ClientLayout";
 import { ThemeProvider } from "next-themes";
-import ThemeComponent from "../../Components/ThemeComponent";
-import { ThemeContextProvider } from "@/Context/themeContext";
+import ThemeComponent from "./Providers/ThemeComponent";
+import { ThemeContextProvider } from "@/app/Context/themeContext";
+import AuthProvider from "./Providers/AuthProvider";
 
 export const metadata = {
   title: "Outlook Story", // Set your page title here
@@ -52,9 +53,11 @@ export default function RootLayout({ children }) {
       <body>
         {/* <ThemeProvider>
           <ThemeComponent> */}
-        <ThemeContextProvider>
-          <ClientLayout>{children}</ClientLayout>
-        </ThemeContextProvider>
+        <AuthProvider>
+          <ThemeContextProvider>
+            <ClientLayout>{children}</ClientLayout>
+          </ThemeContextProvider>
+        </AuthProvider>
         {/* </ThemeComponent>
         </ThemeProvider> */}
       </body>

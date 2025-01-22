@@ -1,4 +1,3 @@
-
 // "use client"
 // import { usePathname } from "next/navigation";
 // import Header from "../hader/Hader.jsx"; // Assuming you have a Header component
@@ -32,12 +31,12 @@
 //           {/* Render Header and Navbar except on login page */}
 //           {!isLoginPage && <Header />}
 //           {!isLoginPage && <Navbar />}
-  
+
 //           {/* Conditionally render HeroWrapper (don't render it on the single blog page) */}
 //           {!isCategoryRoute && !isLoginPage && <HeroWrapper />}
-  
+
 //           <main className={theme}>{children}</main>
-  
+
 //           {/* Render Footer except on login page */}
 //           {!isLoginPage && <Footer />}
 //         </body>
@@ -45,16 +44,15 @@
 //     );
 //   }
 //   }
- 
-// Components/ClientLayout/ClientLayout.js
+
 "use client";
 import { usePathname } from "next/navigation";
-import Header from "../hader/Hader.jsx"; // Assuming you have a Header component
-import Navbar from "../navbar/Navbar.jsx"; // Assuming you have a Navbar component
-import Footer from "../Footer/Footer.jsx"; // Assuming you have a Footer component
-import HeroWrapper from "../Hero/HeroWrapper"; // Assuming you have a HeroWrapper component
-import { ThemeContext } from "@/Context/themeContext.js";
-import { useContext, useEffect, useState } from "react"; 
+import Header from "../../../Components/hader/Hader.jsx";
+import Navbar from "../../../Components/navbar/Navbar.jsx";
+import Footer from "../../../Components/Footer/Footer.jsx";
+import HeroWrapper from "../../../Components/Hero/HeroWrapper.jsx";
+import { ThemeContext } from "@/app/Context/themeContext.js";
+import { useContext, useEffect, useState } from "react";
 
 export default function ClientLayout({ children }) {
   const { theme } = useContext(ThemeContext);
@@ -71,20 +69,17 @@ export default function ClientLayout({ children }) {
   if (mounted) {
     return (
       <>
-        {/* Render Header and Navbar except on login page */}
         {!isLoginPage && <Header />}
         {!isLoginPage && <Navbar />}
 
-        {/* Conditionally render HeroWrapper (don't render it on the category or login page) */}
         {!isCategoryRoute && !isLoginPage && <HeroWrapper />}
 
         <main className={theme}>{children}</main>
 
-        {/* Render Footer except on login page */}
         {!isLoginPage && <Footer />}
       </>
     );
   }
 
-  return null; // Return nothing initially until mounted
+  return null;
 }

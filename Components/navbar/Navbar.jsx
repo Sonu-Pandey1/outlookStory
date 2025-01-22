@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import "./Navbar.scss";
 import Input from "../searchbar/Search.jsx";
 import { IoHomeOutline } from "react-icons/io5";
@@ -14,12 +14,14 @@ import { useTheme } from "next-themes";
 import Link from "next/link";
 import { FaMoon, FaSun } from "react-icons/fa6";
 import { useContext } from "react";
-import { ThemeContext } from "@/Context/themeContext";
+import { ThemeContext } from "@/app/Context/themeContext";
+import { signOut, useSession } from "next-auth/react";
 
 function Navbar() {
   // const {theme,setTheme} = useTheme();
-  const {theme,toggle} = useContext(ThemeContext);
+  const { theme, toggle } = useContext(ThemeContext);
   // console.log(theme);
+  const { status } = useSession();
   return (
     <>
       <nav className="navbar  navbar-expand-md dark sticky-top">
@@ -125,12 +127,19 @@ function Navbar() {
 
           <div className="d-none d-md-block">
             <Link className=" pe-3" href={"/login"}>
-              <button className=" btn btn-outline-primary">Login/Signup</button>
+              {status === "unauthenticated" ? (
+                <button className=" btn btn-outline-primary">
+                  Login/Signup
+                </button>
+              ) : (
+                <button onClick={() => signOut()}>LogOut</button>
+              )}
             </Link>
           </div>
+
           <div>
             <button className="btn btn-outline-danger" onClick={toggle}>
-              {theme ==='light'? <FaMoon/>:<FaSun/>}
+              {theme === "light" ? <FaMoon /> : <FaSun />}
             </button>
             {/* <button className="btn btn-outline-danger" onClick={()=>setTheme(theme==='dark' ? 'light':'dark')}>
               {theme ==='dark'? <FaMoon/>:<FaSun/>}
