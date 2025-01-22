@@ -272,8 +272,27 @@ const Home = () => {
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
-
-
+  const getData = async () => {
+    const response = await fetch("/api/categories", {
+      cache: "no-store"
+    });
+    
+    if (!response.ok) {
+      throw new Error("Failed");
+    }
+  
+    return response.json();
+  };
+  
+  // You need to handle the Promise from getData() properly
+  getData()
+    .then((res) => {
+      console.log(res);  // Logs the result of the API call
+    })
+    .catch((error) => {
+      console.error(error);  // Catches and logs any error from the fetch call
+    });
+  
 
   const [activeCategory, setActiveCategory] = useState("All");
   const [activeCategory1, setActiveCategory1] = useState("All");
