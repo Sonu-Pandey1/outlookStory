@@ -2,7 +2,7 @@
 "use client";
 import ClientLayout from "../providers/ClientLayout";
 import { ThemeContextProvider } from "../context/ThemeContext.jsx"; // Correct import
-import AuthProvider from "../Providers/AuthProvider";
+import AuthProvider from "../providers/AuthProvider.jsx"; // Correct import";
 import "../styles/globals.scss";
 import { ClerkProvider } from "@clerk/nextjs";
 
