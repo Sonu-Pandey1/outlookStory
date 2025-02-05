@@ -10,7 +10,7 @@ import { MdRocketLaunch } from "react-icons/md";
 // import { FaMoon, FaSun } from "react-icons/fa6";
 import { useContext } from "react";
 import { ThemeContext } from "../../context/ThemeContext";
-// import { signOut, useSession } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import ThemeToggle from "../themeToggle/ThemeToggle";
@@ -19,7 +19,7 @@ import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
 
 function Navbar() {
   const { theme, toggle } = useContext(ThemeContext);
-  // const { status } = useSession();
+  const { status } = useSession();
 
   return (
     <nav
@@ -118,7 +118,7 @@ function Navbar() {
             <UserButton appearance={ {baseTheme: theme ==="light" ?light:dark}} />
           </SignedIn>
         {/* </div> */}
-        {/* <div className="d-none d-md-block">
+        <div className="d-none d-md-block">
           <Link className="pe-3" href={"/login"}>
             {status === "unauthenticated" ? (
               <button className="btn btn-outline-primary">Login/Signup</button>
@@ -131,7 +131,7 @@ function Navbar() {
               </button>
             )}
           </Link>
-        </div> */}
+        </div>
 
         {/* Theme toggle */}
         <ThemeToggle />

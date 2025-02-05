@@ -2,7 +2,7 @@
 "use client";
 import ClientLayout from "../providers/ClientLayout";
 import { ThemeContextProvider } from "../context/ThemeContext.jsx"; // Correct import
-// import AuthProvider from "../Providers/AuthProvider";
+import AuthProvider from "../Providers/AuthProvider";
 import "../styles/globals.scss";
 import { ClerkProvider } from "@clerk/nextjs";
 
@@ -24,13 +24,13 @@ export default function RootLayout({ children }) {
         ></script>
       </head>
       <body>
-        {/* <AuthProvider> */}
+        <AuthProvider>
         <ClerkProvider>
           <ThemeContextProvider>
             <ClientLayout>{children}</ClientLayout>
           </ThemeContextProvider>
         </ClerkProvider>
-        {/* </AuthProvider> */}
+        </AuthProvider>
       </body>
     </html>
   );
