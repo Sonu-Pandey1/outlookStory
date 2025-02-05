@@ -71,7 +71,7 @@ model Category {
   slug  String  @unique
   title String
   img   String?
-  Posts Post[]
+  posts Post[]
 }
 
 model Post {
