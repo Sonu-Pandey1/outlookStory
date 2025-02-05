@@ -1,0 +1,47 @@
+// src/app/page.jsx
+
+import Link from "next/link";
+import styles from "./homepage.module.css";
+import Featured from "@/components/featured/Featured";
+import CategoryList from "@/components/categoryList/CategoryList";
+import CardList from "@/components/cardList/CardList";
+import Menu from "@/components/Menu/Menu";
+import Hero from "@/components/featured/Featured";
+
+// Async function to fetch posts data from your API
+const getData = async () => {
+  const res = await fetch(`http://localhost:3000/api/posts`, {
+    cache: "no-store", // Make sure fresh data is always fetched
+  });
+
+  if (!res.ok) {
+    throw new Error("Failed to fetch posts");
+  }
+
+  return res.json();
+};
+
+// The Home function is now an async function that can fetch data
+export default async function Home({ searchParams }) {
+  const page = parseInt(searchParams.page) || 1;
+
+  // Fetch posts data from the API
+  const { posts, count } = await getData();
+  console.log(posts)
+
+  return (
+    <div className={styles.container}>
+      {/* Hero section */}
+      <Hero posts={posts} />
+      
+      {/* Category List */}
+      <CategoryList />
+      
+      <div className={styles.content}>
+        {/* CardList with pagination */}
+        <CardList page={page} postss={posts} count={count} />
+        <Menu />
+      </div>
+    </div>
+  );
+}

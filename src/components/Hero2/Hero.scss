@@ -1,0 +1,129 @@
+@use "../../styles/globals" as *;
+
+.heroContainer {
+  background-color: inherit;
+  height: 100%;
+
+  .container-fluid {
+    transition: background-color 0.3s ease;
+  }
+
+  .card-img-top {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .card {
+    overflow: hidden;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+
+  .card-img-overlay {
+    transition: background 0.3s ease, color 4.3s ease;
+    color: white;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+  }
+  .ll {
+    transition: background 0.3s ease;
+    background: rgba(0, 0, 0, 0.5);
+  }
+
+  .badge {
+    font-size: 0.85rem;
+    padding: 0.4em 0.7em;
+    background: rgba(255, 255, 255, 0.8);
+    color: #000;
+    border-radius: 5px;
+    width: fit-content;
+  }
+
+  .lth {
+    height: 74%;
+    overflow: hidden;
+  }
+
+  .bth {
+    height: 60%;
+    overflow: hidden;
+  }
+
+  .heroWrapper {
+    height: 440px;
+    border-radius: 8px;
+    margin-bottom: 30px;
+  }
+}
+
+.heroContainer .container-fluid {
+  padding-bottom: 70px;
+}
+
+@media (max-width: 768px) {
+  .heroContainer {
+    .card-img-overlay {
+      padding: 10px;
+      font-size: 0.9rem;
+    }
+
+    .badge {
+      font-size: 0.75rem;
+      padding: 0.3em 0.6em;
+    }
+
+    .heroWrapper {
+      height: 350px;
+    }
+
+    .col-md-6 {
+      padding: 0 10px;
+    }
+  }
+}
+
+@media (max-width: 576px) {
+  .heroContainer {
+    .card-img-overlay {
+      background: rgba(0, 0, 0, 0.6);
+    }
+
+    .heroWrapper {
+      height: 300px;
+    }
+
+    .card-img-top {
+      height: 180px;
+    }
+  }
+}
+
+@media (max-width: 400px) {
+  .heroContainer {
+    .heroWrapper {
+      height: 250px;
+    }
+
+    .card-img-top {
+      height: 150px;
+    }
+
+    .badge {
+      font-size: 0.65rem;
+    }
+  }
+}
+
+/* Dark mode styling */
+.dark {
+  background-color: $dark-bg;
+  color: $light-text;
+}
+
+.light {
+  background-color: $light-bg;
+  color: $dark-text;
+}

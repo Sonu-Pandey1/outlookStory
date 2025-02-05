@@ -1,0 +1,31 @@
+.topHeader {
+  transition: background-color 0.3s ease;
+    font-size: 0.9rem;
+  .top-header-bar {
+    transition: color 0.3s ease;
+    .header-right {
+      .social-icons {
+        .icon {
+          color: red;
+          padding: 5px;
+          font-size: 25px;
+        }
+        .twitter {
+          color: #0089f2 !important;
+        }
+        .facebook {
+          color: blue;
+        }
+      }
+    }
+    .header-left {
+      transition: color 0.3s ease;
+      color: inherit ;
+      .top-navbar {
+        .top-nav-links {
+          color: inherit ;
+        }
+      }
+    }
+  }
+}

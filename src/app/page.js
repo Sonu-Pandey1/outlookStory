@@ -1,9 +1,8 @@
 "use client";
 import Image from "next/image";
-import "./page.scss";
-import Hero from "../../Components/Hero/Hero";
-import Card from "../../Components/Card/Card";
-import Card2 from "../../Components/Card/Card2";
+import "./homePage.scss";
+import Card from "../components/Card2/Card";
+import Card2 from "../components/Card2/Card2";
 import Link from "next/link";
 import {
   TfiFacebook,
@@ -12,11 +11,12 @@ import {
   TfiTwitter,
   TfiYoutube,
 } from "react-icons/tfi";
-import { GrShareOption } from "react-icons/gr";
-import Business from "../../Components/BusinessCat/Business";
-import { useState } from "react";
-import CategoryNav from "../../Components/CategoryNav/CategoryNav";
-import LatestPopularPosts from "../../Components/LatestPopularPost/LatestPopularPosts";
+import { useContext, useEffect, useState } from "react";
+import CategoryNav from "../components/CategoryNav2/CategoryNav";
+import { useSearchParams } from "next/navigation";
+import { ThemeContext } from "@/context/ThemeContext";
+import LatestPopularPosts from "@/components/LatestPopularPost2/LatestPopularPosts";
+import Menu from "@/components/Menu/Menu";
 
 const aroundTheWorldData = [
   // Data for Entertainment
@@ -113,239 +113,61 @@ const aroundTheWorldData = [
   },
 ];
 
-const latestPoastData = [
-  // Data for Entertainment
-  {
-    id: 1,
-    category: "Entertainment",
-    title:
-      "Instagram Is Testing Photo Albums, Because Nothing Is Sacred Anymore",
-    imgSrc:
-      "https://jnews.io/magazine/wp-content/uploads/sites/34/2017/12/jnews-demo-3-750x536.jpg",
-  },
-  {
-    id: 2,
-    category: "Entertainment",
-    title: "Netflix Introduces a Cheaper Subscription Plan With Ads",
-    imgSrc:
-      "https://jnews.io/magazine/wp-content/uploads/sites/34/2017/12/jnews-demo-20-350x250.jpg",
-  },
-  {
-    id: 3,
-    category: "Entertainment",
-    title: "Marvel Studios Unveils New Superhero Movies for 2024",
-    imgSrc:
-      "https://jnews.io/magazine/wp-content/uploads/sites/34/2017/12/jnews-demo-4-350x250.jpg",
-  },
+// API fetch for all posts
+const getPostsByCategory = async () => {
+  const res = await fetch(`/api/posts`, {
+    cache: "no-store",
+  });
 
-  // Data for Business
-  {
-    id: 4,
-    category: "Business",
-    title: "Global Markets Hit by New Economic Challenges in 2023",
-    imgSrc:
-      "https://jnews.io/magazine/wp-content/uploads/sites/34/2017/12/jnews-demo-1-750x536.jpg",
-  },
-  {
-    id: 5,
-    category: "Business",
-    title: "Top CEOs Announce Bold Plans for 2025",
-    imgSrc:
-      "https://jnews.io/magazine/wp-content/uploads/sites/34/2017/12/jnews-demo-3-750x536.jpg",
-  },
-  {
-    id: 6,
-    category: "Business",
-    title: "Cryptocurrency Adoption Grows Despite Market Volatility",
-    imgSrc:
-      "https://jnews.io/magazine/wp-content/uploads/sites/34/2017/12/jnews-demo-1-750x536.jpg",
-  },
+  if (!res.ok) {
+    throw new Error("Failed to fetch posts");
+  }
 
-  // Data for Sports
-  {
-    id: 7,
-    category: "Sports",
-    title: "Olympic Games to Introduce New Sports Categories",
-    imgSrc:
-      "https://jnews.io/magazine/wp-content/uploads/sites/34/2017/12/jnews-demo-3-750x536.jpg",
-  },
-  {
-    id: 8,
-    category: "Sports",
-    title: "World Cup Final Sets New Viewership Record",
-    imgSrc:
-      "https://jnews.io/magazine/wp-content/uploads/sites/34/2017/12/jnews-demo-1-750x536.jpg",
-  },
-  {
-    id: 9,
-    category: "Sports",
-    title: "Tennis Legends Play Charity Match for Global Peace",
-    imgSrc:
-      "https://jnews.io/magazine/wp-content/uploads/sites/34/2017/12/jnews-demo-3-750x536.jpg",
-  },
-
-  // Data for World
-  {
-    id: 10,
-    category: "World",
-    title: "Chinese ‘Rooftopper’ Films His Own Death During Skyscraper Stunt",
-    imgSrc:
-      "https://jnews.io/magazine/wp-content/uploads/sites/34/2017/12/jnews-demo-1-750x536.jpg",
-  },
-  {
-    id: 11,
-    category: "World",
-    title: "New Sustainable Cities Emerging Across the Globe",
-    imgSrc:
-      "https://jnews.io/magazine/wp-content/uploads/sites/34/2017/12/jnews-demo-3-750x536.jpg",
-  },
-  {
-    id: 12,
-    category: "World",
-    title: "Global Leaders Gather to Discuss Climate Change Solutions",
-    imgSrc:
-      "https://jnews.io/magazine/wp-content/uploads/sites/34/2017/12/jnews-demo-1-750x536.jpg",
-  },
-];
-
-const popularPostData = [
-  {
-    id: 1,
-    category: "Business",
-    title:
-      "Top CEOs Announce Bold Plans for 2025 And Top CEOs Announce Bold Plans for 2022",
-    imgSrc:
-      "https://jnews.io/magazine/wp-content/uploads/sites/34/2017/12/jnews-demo-3-750x536.jpg",
-  },
-  {
-    id: 2,
-    category: "Business",
-    title: "Cryptocurrency Adoption Grows Despite Market Volatility",
-  },
-
-  // Data for Sports
-  {
-    id: 3,
-    category: "Sports",
-    title: "Olympic Games to Introduce New Sports Categories",
-  },
-  {
-    id: 4,
-    category: "Sports",
-    title: "World Cup Final Sets New Viewership Record",
-  },
-  {
-    id: 5,
-    category: "Sports",
-    title: "Tennis Legends Play Charity Match for Global Peace",
-  },
-
-  // Data for World
-  {
-    id: 6,
-    category: "World",
-    title: "Chinese ‘Rooftopper’ Films His Own Death During Skyscraper Stunt",
-  },
-  {
-    id: 7,
-    category: "World",
-    title: "New Sustainable Cities Emerging Across the Globe",
-  },
-];
+  return res.json();
+};
 
 const Home = () => {
-  // State for managing the share counter
-  const [shareCount, setShareCount] = useState(1345);
-  const [currentPage, setCurrentPage] = useState(1);
-  const postsPerPage = 10;
-
-  // Calculate total pages
-  const totalPages = Math.ceil(latestPoastData.length / postsPerPage);
-
-  // Get posts for the current page
-  const currentPosts = latestPoastData.slice(
-    (currentPage - 1) * postsPerPage,
-    currentPage * postsPerPage
-  );
-
-  // Handler for changing pages
-  const handlePageChange = (pageNumber) => {
-    setCurrentPage(pageNumber);
-  };
-  const getData = async () => {
-    const response = await fetch("/api/categories", {
-      cache: "no-store"
-    });
-    
-    if (!response.ok) {
-      throw new Error("Failed");
-    }
-  
-    return response.json();
-  };
-  
-  // You need to handle the Promise from getData() properly
-  getData()
-    .then((res) => {
-      console.log(res);  // Logs the result of the API call
-    })
-    .catch((error) => {
-      console.error(error);  // Catches and logs any error from the fetch call
-    });
-  
-
   const [activeCategory, setActiveCategory] = useState("All");
   const [activeCategory1, setActiveCategory1] = useState("All");
   const [activeCategory2, setActiveCategory2] = useState("All");
-  // console.log(activeCategory);
-  // console.log(activeCategory1);
-  // console.log(activeCategory2);
+  const [posts, setPosts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  // Filter data based on active category
-  const filteredData =
-    activeCategory === "All"
-      ? aroundTheWorldData
-      : aroundTheWorldData.filter((item) => item.category === activeCategory);
+  useEffect(() => {
+    const fetchPosts = async () => {
+      try {
+        const data = await getPostsByCategory();
+        setPosts(data.posts);
+      } catch (err) {
+        setError("Failed to load posts. Please try again later.");
+      } finally {
+        setLoading(false);
+      }
+    };
 
-  const handleCategoryChange = (category) => {
-    setActiveCategory(category);
-  };
-  // Filter data based on active category1
-  const filteredData1 =
-    activeCategory === "All"
-      ? aroundTheWorldData
-      : aroundTheWorldData.filter((item) => item.category === activeCategory);
+    fetchPosts();
+  }, []);
 
-  const handleCategoryChange1 = (category) => {
-    setActiveCategory1(category);
-  };
-  // Filter data based on active category1
-  const filteredData2 =
-    activeCategory === "All"
-      ? aroundTheWorldData
-      : aroundTheWorldData.filter((item) => item.category === activeCategory);
+  const { theme } = useContext(ThemeContext);
 
-  const handleCategoryChange2 = (category) => {
-    setActiveCategory2(category);
-  };
+  const searchParams = useSearchParams();
+  const page = searchParams.get("page");
 
   return (
     <>
-      <div className="homePage bg-info-subtle">
-        {/* Hero Section */}
-       
-
+      <div className="homePage">
         {/* Top Section */}
-        <section>
-          <div className="container-fluid px-4 bg-light">
+        <section className="ttt topSection">
+          <div className="container-fluid px-4">
             <div className="row">
               {/* Left Column */}
               <div className="col-8 leftColumn ">
                 <div>
                   {/* Left top Column */}
-                  <div className="topStories">
+                  <div className="topStories ">
                     {/* Header */}
-                    <div className="d-flex justify-content-between align-items-center my-4">
+                    <div className=" top d-flex justify-content-between align-items-center my-4">
                       <button className="btn btn-outline-primary">
                         Top Stories
                       </button>
@@ -370,8 +192,8 @@ const Home = () => {
                       </div>
                     </div>
 
-                    <div className="top-Stories">
-                      <div className="d-flex justify-content-between flex-wrap mb-4">
+                    <div className=" bottom top-Stories">
+                      <div className=" bigCards d-flex justify-content-between flex-wrap mb-4">
                         <Card />
                         <Card />
                       </div>
@@ -413,7 +235,7 @@ const Home = () => {
                     </div>
 
                     {/* Card Section */}
-                    <div className="row transition-container">
+                    <div className="row ">
                       {aroundTheWorldData.slice(0, 3).map((item) => (
                         <div key={item.id} className="col-md-4">
                           <div className="card border-0 shadow-sm">
@@ -423,13 +245,17 @@ const Home = () => {
                                 alt={item.title}
                                 width={350}
                                 height={200}
-                                className="card-img-top rounded"
+                                className="card-img-top rounded-0"
                               />
                               <span className="position-absolute bottom-0 m-3 badge bg-info">
                                 {item.category}
                               </span>
                             </div>
-                            <div className="card-body p-0 py-3 px-1">
+                            <div
+                              className={`card-body  p-0 py-3 px-1 ${
+                                theme === "dark" ? "dark" : "light"
+                              }`}
+                            >
                               <h5 className="card-title text-truncate-2">
                                 {item.title}
                               </h5>
@@ -498,19 +324,21 @@ const Home = () => {
                                 alt={item.title}
                                 width={350}
                                 height={200}
-                                className="card-img-top rounded"
+                                className="card-img-top rounded-0"
                               />
                               <span className="position-absolute bottom-0 m-3 badge bg-warning">
                                 {item.category}
                               </span>
                             </div>
-                            <div className="card-body p-0 py-3 px-1">
+                            <div
+                              className={`card-body  p-0 py-3 px-1 ${
+                                theme === "dark" ? "dark" : "light"
+                              } `}
+                            >
                               <h5 className="card-title text-truncate-2">
                                 {item.title}
                               </h5>
-                              <small className="text-muted">
-                                December 15, 2017
-                              </small>
+                              <small className="">December 15, 2017</small>
                             </div>
                           </div>
                         </div>
@@ -521,9 +349,9 @@ const Home = () => {
               </div>
 
               {/* Right Column */}
-              <div className="col-4 my-4 ps-3 pe-3 rightColumn ">
+              <div className="col-4 my-4 ps-3 pe-3 rightColumn">
                 {/* Follow Us Section */}
-                <div className="followUs">
+                <div className="followUs ">
                   <div className="mb-4 underlin d-flex justify-content-between gap-3 ">
                     <button className="btn btn-outline-primary w-50">
                       Follow Us
@@ -532,47 +360,76 @@ const Home = () => {
                   </div>
 
                   {/* Social Media Icons Section */}
-                  <div className="socialContainer p-0 bg-light rounded">
-                    <div className="row text-center g-0 border">
+                  <div className="socialContainer  p-0 rounded ">
+                    <div
+                      style={{ transition: "all 0.3s ease" }}
+                      className={`row text-center g-0 border ${
+                        theme === "dark" ? "dark" : "light"
+                      }`}
+                    >
                       {/* Social Icon 1 */}
                       <Link
                         href={"/"}
-                        className="col-4 p-3 border-end border-bottom"
+                        style={{ transition: "all 0.3s ease" }}
+                        className={`col-4 p-3 border-end border-bottom ${
+                          theme === "dark" ? "text-light" : "text-dark"
+                        }`}
                       >
                         <TfiYoutube className="fs-2 text-danger" />
                         <p className="m-0 fw-bold">456</p>
-                        <p className="m-0 text-muted">Subscribers</p>
+                        <p className={`m-0 `}>Subscribers</p>
                       </Link>
 
                       {/* Social Icon 2 */}
                       <Link
                         href={"/"}
-                        className="col-4 p-3 border-end border-bottom"
+                        style={{ transition: "all 0.3s ease" }}
+                        className={`col-4 p-3 border-end border-bottom ${
+                          theme === "dark" ? "text-light" : "text-dark"
+                        }`}
                       >
                         <TfiFacebook className="fs-2 text-primary" />
                         <p className="m-0 fw-bold">789</p>
-                        <p className="m-0 text-muted">Followers</p>
+                        <p className={`m-0 `}>Followers</p>
                       </Link>
 
                       {/* Social Icon 3 */}
-                      <Link href={"/"} className="col-4 p-3 border-bottom">
+                      <Link
+                        href={"/"}
+                        style={{ transition: "all 0.3s ease" }}
+                        className={`col-4 p-3 border-bottom ${
+                          theme === "dark" ? "text-light" : "text-dark"
+                        }`}
+                      >
                         <TfiTwitter className="fs-2 text-info" />
                         <p className="m-0 fw-bold">320</p>
-                        <p className="m-0 text-muted">Followers</p>
+                        <p className={`m-0 `}>Followers</p>
                       </Link>
 
                       {/* Social Icon 4 */}
-                      <Link href={"/"} className="col-4 p-3 border-end">
+                      <Link
+                        href={"/"}
+                        style={{ transition: "all 0.3s ease" }}
+                        className={`col-4 p-3 border-end ${
+                          theme === "dark" ? "text-light" : "text-dark"
+                        }`}
+                      >
                         <TfiInstagram className="fs-2 text-danger" />
                         <p className="m-0 fw-bold">540</p>
-                        <p className="m-0 text-muted">Followers</p>
+                        <p className={`m-0 `}>Followers</p>
                       </Link>
 
                       {/* Social Icon 5 */}
-                      <Link href={"/"} className="col-4 p-3 border-end">
+                      <Link
+                        href={"/"}
+                        style={{ transition: "all 0.3s ease" }}
+                        className={`col-4 p-3 border-end ${
+                          theme === "dark" ? "text-light" : "text-dark"
+                        } `}
+                      >
                         <TfiLinkedin className="fs-2 text-primary" />
                         <p className="m-0 fw-bold">300</p>
-                        <p className="m-0 text-muted">Connections</p>
+                        <p className={`m-0 `}>Connections</p>
                       </Link>
                     </div>
                   </div>
@@ -580,34 +437,36 @@ const Home = () => {
 
                 <div className="advertisment">
                   <div className="my-4">
-                    <Image
-                      className="card-img-top"
-                      width={750}
-                      height={450}
-                      alt="advertisment-img"
-                      src="https://jnews.io/magazine/wp-content/uploads/sites/34/2017/12/345x345.jpg"
-                      // style={{
-                      //   objectFit: "cover",
-                      //   width: "100%",
-                      //   height: "250px",
-                      // }}
-                    />
+                    <div className="imgContainer position-relative">
+                      <Image
+                        className="card-img-top"
+                        width={750}
+                        height={450}
+                        alt="advertisment-img"
+                        src="https://jnews.io/magazine/wp-content/uploads/sites/34/2017/12/345x345.jpg"
+                      />
+                      <div
+                        className={`${theme === "dark" ? "overlay" : ""}`}
+                      ></div>
+                    </div>
                   </div>
                 </div>
 
                 <div className="businessSection">
-                  <Business />
+                  <Menu upperMenu={true} />
                 </div>
               </div>
             </div>
           </div>
         </section>
         {/* middle section */}
-        <section>
+        <section className="middleSection">
           <CategoryNav />
         </section>
         {/* bottom section */}
-        <LatestPopularPosts/>
+        <div className="bottomSection">
+          <LatestPopularPosts posts={posts} />
+        </div>
       </div>
     </>
   );

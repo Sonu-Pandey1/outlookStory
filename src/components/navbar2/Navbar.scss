@@ -1,0 +1,75 @@
+@use "../../styles/globals" as *;
+
+.navbar {
+  transition: background-color 0.3s ease;
+  .cursor-pointer {
+    cursor: pointer;
+  }
+
+  .navbar-nav {
+    .link {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: inherit;
+      text-decoration: none;
+      padding: 10px;
+      position: relative;
+      transition: color 0.3s ease;
+
+      &::before {
+        position: absolute;
+        content: "";
+        background-color: $primary-color;
+        height: 2px;
+        width: 0;
+        bottom: -2px;
+        left: 50%;
+        transform: translateX(-50%);
+        transition: width 0.3s ease;
+      }
+
+      &:hover {
+        color: $primary-color;
+        &::before {
+          width: 100%;
+        }
+      }
+    }
+  }
+
+  .navbar-toggler {
+    background-color: transparent;
+    border: none;
+  }
+
+  .navbar-collapse {
+    transition: all 0.3s ease;
+  }
+
+  /* Mobile and tablet specific styles */
+  .navbar-toggler-icon {
+    background-color: $primary-color;
+  }
+
+  .offcanvas {
+    background-color: $light-bg;
+  }
+
+  .offcanvas-body {
+    padding: 15px;
+  }
+
+  /* Media Queries */
+  @media (max-width: 768px) {
+    .navbar-nav {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .navbar-collapse.show {
+      display: block !important;
+    }
+  }
+}
