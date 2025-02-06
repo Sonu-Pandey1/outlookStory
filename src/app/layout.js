@@ -1,4 +1,3 @@
-
 "use client";
 import ClientLayout from "../providers/ClientLayout";
 import { ThemeContextProvider } from "../context/ThemeContext.jsx"; // Correct import
@@ -25,11 +24,11 @@ export default function RootLayout({ children }) {
       </head>
       <body>
         <AuthProvider>
-        <ClerkProvider>
-          <ThemeContextProvider>
-            <ClientLayout>{children}</ClientLayout>
-          </ThemeContextProvider>
-        </ClerkProvider>
+          <ClerkProvider>
+            <ThemeContextProvider>
+              <ClientLayout>{children}</ClientLayout>
+            </ThemeContextProvider>
+          </ClerkProvider>
         </AuthProvider>
       </body>
     </html>
