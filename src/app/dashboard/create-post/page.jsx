@@ -1,5 +1,6 @@
+"use client";
+
 import { useUser } from "@clerk/nextjs";
-import React from "react";
 
 export default function CreatePostPage() {
   const { isSignedIn, user, isLoaded } = useUser();
@@ -9,9 +10,10 @@ export default function CreatePostPage() {
   }
 
   if (isSignedIn && user.publicMetadata.isAdmin) {
-    return <div>you are a admin</div>;
-  }
-  else{
-    <h1>you are a writer</h1>
+    return <div>You are an admin</div>;
+  } else {
+    return (<div className="create-post-page bg-danger mt- pt-5">
+      <h1>You are not authroised to view this page </h1>
+    </div>)
   }
 }
