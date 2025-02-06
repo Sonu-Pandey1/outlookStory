@@ -1,20 +1,21 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 
 let initialized = false;
 
 export const connect = async () => {
-  mongoose.set('strictQuery', true);
+  mongoose.set("strictQuery", true);
   if (initialized) {
-    console.log('Already connected to MongoDB');
+    console.log("Already connected to MongoDB");
     return;
   }
   try {
     await mongoose.connect(process.env.MONGODB_URI, {
-      dbName: 'Outlook-Story',
+      dbName: "Outlook-Story",
     });
-    console.log('Connected to MongoDB');
+
+    console.log("Connected to MongoDB");
     initialized = true;
   } catch (error) {
-    console.log('Error connecting to MongoDB:', error);
+    console.error("Error connecting to MongoDB:", error);
   }
 };
