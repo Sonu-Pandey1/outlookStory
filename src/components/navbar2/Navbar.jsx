@@ -115,7 +115,7 @@ function Navbar() {
             </Link>
           </SignedOut>
           <SignedIn>
-            <UserButton appearance={ {baseTheme: theme ==="light" ?light:dark}} />
+            <UserButton appearance={ {baseTheme: theme ==="light" ?light:dark}} userProfileUrl="/dashboard?tab=profile" />
           </SignedIn>
         {/* </div> */}
         <div className="d-none d-md-block">
