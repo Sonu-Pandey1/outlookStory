@@ -523,7 +523,6 @@
 //   return new Response("✅ Webhook received", { status: 200 });
 // }
 
-
 import { Webhook } from "svix";
 import { headers } from "next/headers";
 import { clerkClient } from "@clerk/clerk-sdk-node"; // Clerk SDK to manage user data in Clerk
@@ -589,7 +588,6 @@ export async function POST(req) {
   // ✅ Handle user.created & user.updated events
   if (eventType === "user.created" || eventType === "user.updated") {
     const { first_name, last_name, image_url, email_addresses, username } = evt?.data;
-    
 
     try {
       // Step 1: Synchronize with Prisma Database
@@ -605,7 +603,7 @@ export async function POST(req) {
           name: `${first_name} ${last_name}`,  // Store full name
           email: email_addresses[0]?.email_address,  // Store email if present
           image: image_url || "",  // Store image if present
-          role: user.role || "user", 
+          role: "user",
           createdAt: new Date(),  // Timestamp for creation
           updatedAt: new Date(),  // Timestamp for the update
         },
