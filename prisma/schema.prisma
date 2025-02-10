@@ -21,6 +21,7 @@ datasource db {
 //   // role String 
 // }
 
+
 model User {
   userId    String    @id @map("_id") // Clerk's userId
   name      String?

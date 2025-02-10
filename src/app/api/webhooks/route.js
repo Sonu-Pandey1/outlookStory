@@ -479,6 +479,7 @@ export async function POST(req) {
           name: `${first_name} ${last_name}`,  // Store full name
           email: email_addresses[0]?.email_address,  // Store email if present
           image: image_url || "",  // Store image if present
+          role: role || "user",
           createdAt: new Date(),  // Timestamp for creation
           updatedAt: new Date(),  // Timestamp for the update
         },
