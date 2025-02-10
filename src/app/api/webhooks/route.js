@@ -399,10 +399,135 @@
 // }
 
 
+// import { Webhook } from "svix";
+// import { headers } from "next/headers";
+// import { clerkClient } from "@clerk/clerk-sdk-node";  // Clerk SDK to manage user data in Clerk
+// import prisma from "@/utils/connect";  // Prisma Client to interact with your database
+
+// export async function POST(req) {
+//   const SIGNING_SECRET = process.env.SIGNING_SECRET;
+
+//   if (!SIGNING_SECRET) {
+//     console.error("❌ SIGNING_SECRET is missing. Check your .env file.");
+//     throw new Error(
+//       "Error: Please add SIGNING_SECRET from Clerk Dashboard to .env or .env.local"
+//     );
+//   }
+
+//   // ✅ Create Svix instance with the secret
+//   const wh = new Webhook(SIGNING_SECRET);
+
+//   // ✅ Get headers from request
+//   const headerPayload = await headers();
+//   const svix_id = headerPayload.get("svix-id");
+//   const svix_timestamp = headerPayload.get("svix-timestamp");
+//   const svix_signature = headerPayload.get("svix-signature");
+
+//   // ✅ Check if headers exist
+//   if (!svix_id || !svix_timestamp || !svix_signature) {
+//     console.error("❌ Missing Svix headers.");
+//     return new Response("Error: Missing Svix headers", { status: 400 });
+//   }
+
+//   // ✅ Get request body (payload)
+//   const payload = await req.json();
+//   const body = JSON.stringify(payload);
+
+//   let evt;
+
+//   // ✅ Verify payload with Svix secret
+//   try {
+//     evt = wh.verify(body, {
+//       "svix-id": svix_id,
+//       "svix-timestamp": svix_timestamp,
+//       "svix-signature": svix_signature,
+//     });
+//     console.log("Webhook payload verified:", evt);
+//   } catch (err) {
+//     console.error("❌ Error: Could not verify webhook:", err);
+//     return new Response("Error: Verification error", { status: 400 });
+//   }
+
+//   // ✅ Extract event data
+//   const { id } = evt?.data;
+//   const eventType = evt?.type;
+
+//   console.log(`📩 Received webhook with ID ${id} and event type: ${eventType}`);
+//   console.log("Webhook payload:", body);
+
+//   // ✅ Ensure Clerk Client is Available
+//   if (!clerkClient || !clerkClient.users) {
+//     console.error("❌ Clerk client is undefined. Check your Clerk setup.");
+//     return new Response("Error: Clerk client not available", { status: 500 });
+//   }
+
+//   // ✅ Handle user.created & user.updated events
+//   if (eventType === "user.created" || eventType === "user.updated") {
+//     const { first_name, last_name, image_url, email_addresses, username } = evt?.data;
+
+//     try {
+//       // Step 1: Synchronize with Prisma Database
+//       const user = await prisma.user.upsert({
+//         where: { userId: id },  // Ensure this is using Clerk's userId
+//         update: {
+//           name: `${first_name} ${last_name}`, // Combine first and last names
+//           email: email_addresses[0]?.email_address,  // Handle email if present
+//           image: image_url || "",  // Default empty image if not provided
+//         },
+//         create: {
+//           userId: id,  // Clerk's unique userId
+//           name: `${first_name} ${last_name}`,  // Store full name
+//           email: email_addresses[0]?.email_address,  // Store email if present
+//           image: image_url || "",  // Store image if present
+//           role: "user",
+//           createdAt: new Date(),  // Timestamp for creation
+//           updatedAt: new Date(),  // Timestamp for the update
+//         },
+//       });
+
+//       console.log(`User ${id} created or updated in the Prisma database`);
+
+//       // Step 2: Synchronize with Clerk (update metadata)
+//       if (user) {
+//         await clerkClient.users.updateUser(id, {
+//           publicMetadata: {
+//             userMongoId: user.userId,  // Sync the MongoDB ID with Clerk
+//             role: user.role || "user",  // Default to "user" if no role
+//           },
+//         });
+//         console.log(`✅ Clerk metadata updated for user ${id}`);
+//       }
+//     } catch (error) {
+//       console.error("❌ Error creating or updating user:", error);
+//       return new Response("Error occurred during user creation or update", { status: 400 });
+//     }
+//   }
+
+//   // ✅ Handle user.deleted event
+//   if (eventType === "user.deleted") {
+//     try {
+//       // Step 1: Delete user from Prisma database
+//       await prisma.user.delete({ where: { userId: id } });
+//       console.log(`✅ User ${id} deleted from the database`);
+
+//       // Step 2: Delete user from Clerk
+//       await clerkClient.users.deleteUser(id);
+//       console.log(`✅ User ${id} deleted from Clerk`);
+
+//     } catch (error) {
+//       console.error("❌ Error deleting user:", error);
+//       return new Response("Error occurred during user deletion", { status: 400 });
+//     }
+//   }
+
+//   return new Response("✅ Webhook received", { status: 200 });
+// }
+
+
 import { Webhook } from "svix";
 import { headers } from "next/headers";
-import { clerkClient } from "@clerk/clerk-sdk-node";  // Clerk SDK to manage user data in Clerk
-import prisma from "@/utils/connect";  // Prisma Client to interact with your database
+import { clerkClient } from "@clerk/clerk-sdk-node"; // Clerk SDK to manage user data in Clerk
+import prisma from "@/utils/connect"; // Prisma Client to interact with your database
 
 export async function POST(req) {
   const SIGNING_SECRET = process.env.SIGNING_SECRET;
@@ -464,11 +589,12 @@ export async function POST(req) {
   // ✅ Handle user.created & user.updated events
   if (eventType === "user.created" || eventType === "user.updated") {
     const { first_name, last_name, image_url, email_addresses, username } = evt?.data;
+    
 
     try {
       // Step 1: Synchronize with Prisma Database
       const user = await prisma.user.upsert({
-        where: { userId: id },  // Ensure this is using Clerk's userId
+        where: { userId: id }, // Ensure this is using Clerk's userId
         update: {
           name: `${first_name} ${last_name}`, // Combine first and last names
           email: email_addresses[0]?.email_address,  // Handle email if present
@@ -479,7 +605,7 @@ export async function POST(req) {
           name: `${first_name} ${last_name}`,  // Store full name
           email: email_addresses[0]?.email_address,  // Store email if present
           image: image_url || "",  // Store image if present
-          role: "user",
+          role: user.role || "user", 
           createdAt: new Date(),  // Timestamp for creation
           updatedAt: new Date(),  // Timestamp for the update
         },
