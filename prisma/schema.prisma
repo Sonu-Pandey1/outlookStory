@@ -1,5 +1,3 @@
-
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -9,57 +7,58 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Account {
-  id                String  @id @default(cuid()) @map("_id")
-  userId            String  @map("user_id")
-  type              String
-  provider          String
-  providerAccountId String
-  refresh_token     String?
-  access_token      String?
-  expires_at        Int?
-  token_type        String?
-  scope             String?
-  id_token          String?
-  session_state     String?
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-  // @@map("accounts")
-
-  @@unique([provider, providerAccountId])
-}
-
-model Session {
-  id           String   @id @default(cuid()) @map("_id")
-  sessionToken String   @unique
-  userId       String
-  expires      DateTime
-  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  // @@map("sessions")
-}
+// model User {
+//   userId    String    @id @map("_id") // Clerk's userId
+//   name      String?
+//   email     String?   @unique // Optionally store email, but Clerk handles it
+//   image     String?
+//   createdAt DateTime?  //@default(now()) // You can store additional info like this
+//   updatedAt DateTime? @updatedAt
+//   posts     Post[] // Relation to posts
+//   comments  Comment[] // Relation to comments
+//   //  likes         Like[]    // Relation to likes
+//   // savedPosts    SavedPosts[] // Relation to saved posts
+//   // role String 
+// }
 
 model User {
-  id            String    @id @default(cuid()) @map("_id")
-  name          String?
-  email         String    @unique
-  emailVerified DateTime?
-  image         String?
-  accounts      Account[]
-  sessions      Session[]
-  Post          Post[]
-  Comment       Comment[]
-
-  // @@map("users")
+  userId    String    @id @map("_id") // Clerk's userId
+  name      String?
+  email     String?   @unique // Optionally store email, but Clerk handles it
+  image     String?
+  createdAt DateTime? //@default(now()) // You can store additional info like this
+  updatedAt DateTime? @updatedAt
+  posts     Post[] // Relation to posts
+  comments  Comment[] // Relation to comments
+  role      String? // Add a role field if you want to store a role for the user
 }
 
-model VerificationToken {
-  identifier String   @id @map("_id")
-  token      String   @unique
-  expires    DateTime
-  // @@map("verification_tokens")
 
-  @@unique([identifier, token])
+model Post {
+  id        String    @id @default(cuid()) @map("_id")
+  createdAt DateTime  @default(now())
+  slug      String    @unique
+  title     String
+  desc      String
+  img       String?
+  views     Int       @default(0)
+  catSlug   String
+  cat       Category  @relation(fields: [catSlug], references: [slug])
+  userId    String // Clerk's userId used for posts
+  user      User      @relation(fields: [userId], references: [userId]) // Adjusted to Clerk's userId
+  comments  Comment[]
+  //   likes     Like[]    // Relation to likes
+  // saved     SavedPosts[] // Relation to saved posts
+}
+
+model Comment {
+  id        String   @id @default(cuid()) @map("_id")
+  createdAt DateTime @default(now())
+  desc      String
+  userId    String // Relating comment to Clerk's userId
+  user      User     @relation(fields: [userId], references: [userId]) // Adjusted relation to Clerk's userId
+  postSlug  String
+  post      Post     @relation(fields: [postSlug], references: [slug])
 }
 
 model Category {
@@ -70,30 +69,139 @@ model Category {
   posts Post[]
 }
 
-model Post {
-  id         String    @id @default(cuid()) @map("_id")
-  createdAt  DateTime  @default(now())
-  slug       String    @unique
-  title      String
-  desc       String
-  img        String?
-  views      Int       @default(0)
-  catSlug    String
-  cat        Category  @relation(fields: [catSlug], references: [slug])
-  userEmail  String
-  user       User      @relation(fields: [userEmail], references: [email])
-  comments   Comment[]
-  // editorsPic Boolean?   @default(false)
-  // isFetured  Boolean?   @default(false)
-  // popular    Boolean?   @default(false)
-}
+// model Like {
+//   id        String   @id @default(cuid()) @map("_id")
+//   createdAt DateTime @default(now())
+//   userId    String   // User's ID (Clerk's userId)
+//   postId    String   // Post's ID
+//   user      User     @relation(fields: [userId], references: [userId]) // Relation to User
+//   post      Post     @relation(fields: [postId], references: [id])    // Relation to Post
 
-model Comment {
-  id        String   @id @default(cuid()) @map("_id")
-  createdAt DateTime @default(now())
-  desc      String
-  userEmail String
-  user      User     @relation(fields: [userEmail], references: [email])
-  postSlug  String
-  post      Post     @relation(fields: [postSlug], references: [slug])
-}
+//   @@unique([userId, postId]) // A user can only like a post once
+// }
+
+// model SavedPosts {
+//   id        String   @id @default(cuid()) @map("_id")
+//   createdAt DateTime @default(now())
+//   userId    String   // User's ID (Clerk's userId)
+//   postId    String   // Post's ID
+//   user      User     @relation(fields: [userId], references: [userId]) // Relation to User
+//   post      Post     @relation(fields: [postId], references: [id])    // Relation to Post
+
+//   @@unique([userId, postId]) // A user can only save a post once
+// }
+
+// generator client {
+//   provider = "prisma-client-js"
+// }
+
+// datasource db {
+//   provider = "mongodb"
+//   url      = env("DATABASE_URL")
+// }
+
+// model Account {
+//   id                String  @id @default(cuid()) @map("_id")
+//   userId            String  @map("user_id")
+//   type              String
+//   provider          String
+//   providerAccountId String
+//   refresh_token     String?
+//   access_token      String?
+//   expires_at        Int?
+//   token_type        String?
+//   scope             String?
+//   id_token          String?
+//   session_state     String?
+
+//   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+//   @@unique([provider, providerAccountId])
+// }
+
+// model Session {
+//   id           String   @id @default(cuid()) @map("_id")
+//   sessionToken String   @unique
+//   userId       String
+//   expires      DateTime
+//   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+// }
+
+// model User {
+//   id            String    @id @default(cuid()) @map("_id")
+//   name          String?
+//   email         String    @unique
+//   emailVerified DateTime?
+//   image         String?
+//   createdAt     DateTime  @default(now())
+//   updatedAt     DateTime  @updatedAt
+//   accounts      Account[]
+//   sessions      Session[]
+//   posts         Post[]
+//   comments      Comment[]
+//   likes         Like[]
+//   savedPosts    SavedPost[]
+// }
+
+// model VerificationToken {
+//   id         String   @id @default(cuid()) @map("_id")
+//   identifier String
+//   token      String   @unique
+//   expires    DateTime
+
+//   @@unique([identifier, token])
+// }
+
+// model Category {
+//   id    String  @id @default(cuid()) @map("_id")
+//   slug  String  @unique
+//   title String
+//   img   String?
+//   posts Post[]
+// }
+
+// model Post {
+//   id        String    @id @default(cuid()) @map("_id")
+//   createdAt DateTime  @default(now())
+//   slug      String    @unique
+//   title     String
+//   desc      String
+//   img       String?
+//   views     Int       @default(0)
+//   catSlug   String
+//   cat       Category  @relation(fields: [catSlug], references: [slug])
+//   userId    String
+//   user      User      @relation(fields: [userId], references: [id])
+//   comments  Comment[]
+//   likes     Like[]
+//   savedPosts SavedPost[]
+// }
+
+// model Like {
+//   id        String   @id @default(cuid()) @map("_id")
+//   createdAt DateTime @default(now())
+//   userId    String
+//   postId    String
+
+//   user User @relation(fields: [userId], references: [id])
+//   post Post @relation(fields: [postId], references: [id])
+// }
+
+// model SavedPost {
+//   id        String   @id @default(cuid()) @map("_id")
+//   createdAt DateTime @default(now())
+//   userId    String
+//   postId    String
+
+//   user User @relation(fields: [userId], references: [id])
+//   post Post @relation(fields: [postId], references: [id])
+// }
+
+// model Comment {
+//   id        String   @id @default(cuid()) @map("_id")
+//   createdAt DateTime @default(now())
+//   desc      String
+//   userId    String
+//   user      User     @relation(fields: [userId], references: [id])
+//   postSlug  String
+//   post      Post     @relation(fields: [postSlug], references: [slug])
+// }

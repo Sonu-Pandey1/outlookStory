@@ -14,8 +14,8 @@ function Header() {
 
    // Set logo image based on theme
    const logoSrc = theme === "dark" 
-   ? "https://outlookstory.com/wp-content/uploads/2025/01/logo_OS.png" 
-   : "https://outlookstory.com/wp-content/uploads/2025/01/logo_OS.png";
+   ? "https://jnews.io/magazine/wp-content/uploads/sites/34/2017/12/logo_magz.png" 
+   : "https://jnews.io/magazine/wp-content/uploads/sites/34/2017/12/logo_magz.png";
 
  // Set advertisement image based on theme
  const adLogoSrc = theme === "dark" 

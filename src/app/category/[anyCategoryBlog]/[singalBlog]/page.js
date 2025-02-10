@@ -58,6 +58,21 @@ const SinglePage = () => {
     return <div>Post not found.</div>;
   }
 
+  // const jsonLd = {
+  //   "@context": "https://schema.org",
+  //   "@type": "NewsArticle",
+  //   "headline": blog.title,
+  //   "description": blog.description,
+  //   "image": imageList,
+  //   "datePublished": new Date(blog.publishedAt).toISOString(),
+  //   "dateModified": new Date(blog.updatedAt || blog.publishedAt).toISOString(),
+  //   "author": [{
+  //       "@type": "Person",
+  //       "name": blog?.author ? [blog.author] : siteMetadata.author,
+  //       "url": siteMetadata.twitter,
+  //     }]
+  // }
+
   return (
     <>
       <div className="singlePage">
