@@ -1,7 +1,6 @@
 "use client";
 import ClientLayout from "../providers/ClientLayout";
-import { ThemeContextProvider } from "../context/ThemeContext.jsx"; // Correct import
-// import AuthProvider from "../providers/AuthProvider.jsx"; // Correct import";
+import { ThemeContextProvider } from "../context/ThemeContext.jsx";
 import "../styles/globals.scss";
 import { ClerkProvider } from "@clerk/nextjs";
 
@@ -40,7 +39,7 @@ import { ClerkProvider } from "@clerk/nextjs";
 //   },
 // };
 
-// also add meta data to singl blog page so that 
+// also add meta data to singl blog page so that
 // also add on each singl page like about contact etc
 
 export default function RootLayout({ children }) {
@@ -61,13 +60,11 @@ export default function RootLayout({ children }) {
         ></script>
       </head>
       <body>
-        {/* <AuthProvider> */}
-          <ClerkProvider>
-            <ThemeContextProvider>
-              <ClientLayout>{children}</ClientLayout>
-            </ThemeContextProvider>
-          </ClerkProvider>
-        {/* </AuthProvider> */}
+        <ClerkProvider>
+          <ThemeContextProvider>
+            <ClientLayout>{children}</ClientLayout>
+          </ThemeContextProvider>
+        </ClerkProvider>
       </body>
     </html>
   );

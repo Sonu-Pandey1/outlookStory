@@ -12,8 +12,10 @@ export default function CreatePostPage() {
   if (isSignedIn && user.publicMetadata.isAdmin) {
     return <div>You are an admin</div>;
   } else {
-    return (<div className="create-post-page bg-danger mt- pt-5">
-      <h1>You are not authroised to view this page </h1>
-    </div>)
+    return (
+      <div className="create-post-page bg-danger mt- pt-5">
+        <h1>You are not authroised to view this page </h1>
+      </div>
+    );
   }
 }

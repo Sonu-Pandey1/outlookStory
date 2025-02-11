@@ -1,4 +1,3 @@
-
 // import { Webhook } from "svix";
 
 // import { headers } from "next/headers";
@@ -7,7 +6,7 @@
 
 // export async function POST(req) {
 //   const SIGNING_SECRET = process.env.SIGNING_SECRET;
-  
+
 //   if (!SIGNING_SECRET) {
 //     console.error("❌ SIGNING_SECRET is missing. Check your .env file.");
 //     throw new Error(
@@ -55,8 +54,6 @@
 //   console.log(`📩 Received webhook with ID ${id} and event type: ${eventType}`);
 //   console.log("Webhook payload:", body);
 
- 
-
 //   // ✅ Handle user.created & user.updated events
 //   if (eventType === "user.created") {
 //     try {
@@ -65,7 +62,7 @@
 //           id: evt.data.id,
 //           username: JSON.parse(body).data.username,
 //           email: JSON.parse(body).data.email_addresses[0].email_address,
-//           img: JSON.parse(body).image_url || "" 
+//           img: JSON.parse(body).image_url || ""
 //         },
 //       });
 //       return new Response("User created", { status: 200 });
@@ -92,7 +89,6 @@
 
 //   return new Response("✅ Webhook received", { status: 200 });
 // }
-
 
 // import { Webhook } from "svix";
 // import { headers } from "next/headers";
@@ -277,7 +273,6 @@
 //   return new Response('Webhook received', { status: 200 })
 // }
 
-
 // import { Webhook } from "svix";
 // import { headers } from "next/headers";
 // import { clerkClient } from "@clerk/clerk-sdk-node";  // Clerk SDK to manage user data in Clerk
@@ -397,7 +392,6 @@
 
 //   return new Response("✅ Webhook received", { status: 200 });
 // }
-
 
 // import { Webhook } from "svix";
 // import { headers } from "next/headers";
@@ -587,7 +581,8 @@ export async function POST(req) {
 
   // ✅ Handle user.created & user.updated events
   if (eventType === "user.created" || eventType === "user.updated") {
-    const { first_name, last_name, image_url, email_addresses, username } = evt?.data;
+    const { first_name, last_name, image_url, email_addresses, username } =
+      evt?.data;
 
     try {
       // Step 1: Synchronize with Prisma Database
@@ -595,17 +590,17 @@ export async function POST(req) {
         where: { userId: id }, // Ensure this is using Clerk's userId
         update: {
           name: `${first_name} ${last_name}`, // Combine first and last names
-          email: email_addresses[0]?.email_address,  // Handle email if present
-          image: image_url || "",  // Default empty image if not provided
+          email: email_addresses[0]?.email_address, // Handle email if present
+          image: image_url || "", // Default empty image if not provided
         },
         create: {
-          userId: id,  // Clerk's unique userId
-          name: `${first_name} ${last_name}`,  // Store full name
-          email: email_addresses[0]?.email_address,  // Store email if present
-          image: image_url || "",  // Store image if present
+          userId: id, // Clerk's unique userId
+          name: `${first_name} ${last_name}`, // Store full name
+          email: email_addresses[0]?.email_address, // Store email if present
+          image: image_url || "", // Store image if present
           role: "user",
-          createdAt: new Date(),  // Timestamp for creation
-          updatedAt: new Date(),  // Timestamp for the update
+          createdAt: new Date(), // Timestamp for creation
+          updatedAt: new Date(), // Timestamp for the update
         },
       });
 
@@ -615,15 +610,17 @@ export async function POST(req) {
       if (user) {
         await clerkClient.users.updateUser(id, {
           publicMetadata: {
-            userMongoId: user.userId,  // Sync the MongoDB ID with Clerk
-            role: user.role || "user",  // Default to "user" if no role
+            userMongoId: user.userId, // Sync the MongoDB ID with Clerk
+            role: user.role || "user", // Default to "user" if no role
           },
         });
         console.log(`✅ Clerk metadata updated for user ${id}`);
       }
     } catch (error) {
       console.error("❌ Error creating or updating user:", error);
-      return new Response("Error occurred during user creation or update", { status: 400 });
+      return new Response("Error occurred during user creation or update", {
+        status: 400,
+      });
     }
   }
 
@@ -637,10 +634,11 @@ export async function POST(req) {
       // Step 2: Delete user from Clerk
       await clerkClient.users.deleteUser(id);
       console.log(`✅ User ${id} deleted from Clerk`);
-
     } catch (error) {
       console.error("❌ Error deleting user:", error);
-      return new Response("Error occurred during user deletion", { status: 400 });
+      return new Response("Error occurred during user deletion", {
+        status: 400,
+      });
     }
   }
 

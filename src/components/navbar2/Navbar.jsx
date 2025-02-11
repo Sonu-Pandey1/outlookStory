@@ -7,19 +7,16 @@ import { MdOutlineAddBusiness } from "react-icons/md";
 import { MdOutlineEventAvailable } from "react-icons/md";
 import { MdVideoLibrary } from "react-icons/md";
 import { MdRocketLaunch } from "react-icons/md";
-// import { FaMoon, FaSun } from "react-icons/fa6";
 import { useContext } from "react";
 import { ThemeContext } from "../../context/ThemeContext";
-// import { signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import ThemeToggle from "../themeToggle/ThemeToggle";
-import { dark ,light } from "@clerk/themes"
+import { dark, light } from "@clerk/themes";
 import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
 
 function Navbar() {
   const { theme, toggle } = useContext(ThemeContext);
-  // const { status } = useSession();
 
   return (
     <nav
@@ -42,7 +39,7 @@ function Navbar() {
         {/* Brand logo */}
         <Link href={"/"} className="cursor-pointer">
           <Image
-            src="https://jnews.io/magazine/wp-content/uploads/sites/34/2017/12/logo_magz.png"  //https://outlookstory.com/wp-content/uploads/2025/01/logo_OS.png
+            src="https://jnews.io/magazine/wp-content/uploads/sites/34/2017/12/logo_magz.png" //https://outlookstory.com/wp-content/uploads/2025/01/logo_OS.png
             alt="Logo"
             className="d-md-none"
             width={150}
@@ -107,31 +104,18 @@ function Navbar() {
         </div>
 
         {/* Authentication buttons */}
-        {/* <div> */}
-          <SignedOut>
-            {/* <SignInButton /> */}
-            <Link href={"/sign-in"}>  
-              <button className="btn btn-outline-primary">Login/Signup</button> 
-            </Link>
-          </SignedOut>
-          <SignedIn>
-            <UserButton appearance={ {baseTheme: theme ==="light" ?light:dark}} userProfileUrl="/dashboard?tab=profile" />
-          </SignedIn>
-        {/* </div> */}
-        {/* <div className="d-none d-md-block">
-          <Link className="pe-3" href={"/login"}>
-            {status === "unauthenticated" ? (
-              <button className="btn btn-outline-primary">Login/Signup</button>
-            ) : (
-              <button
-                className="btn btn-outline-danger"
-                onClick={() => signOut()}
-              >
-                LogOut
-              </button>
-            )}
+        <SignedOut>
+          {/* <SignInButton /> */}
+          <Link href={"/sign-in"}>
+            <button className="btn btn-outline-primary">Login/Signup</button>
           </Link>
-        </div> */}
+        </SignedOut>
+        <SignedIn>
+          <UserButton
+            appearance={{ baseTheme: theme === "light" ? light : dark }}
+            userProfileUrl="/dashboard?tab=profile"
+          />
+        </SignedIn>
 
         {/* Theme toggle */}
         <ThemeToggle />

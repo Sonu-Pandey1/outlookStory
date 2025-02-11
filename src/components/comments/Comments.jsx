@@ -220,7 +220,6 @@ import Link from "next/link";
 import styles from "./comments.scss";
 import Image from "next/image";
 import useSWR from "swr";
-import { useSession } from "next-auth/react";
 import { useState } from "react";
 import { FaRegComment } from "react-icons/fa6";
 
@@ -236,7 +235,8 @@ const fetcher = async (url) => {
 };
 
 const Comments = ({ postSlug }) => {
-  const { status } = useSession();
+  // const { status } = useSession();
+  
   const { data, mutate, error, isLoading } = useSWR(
     `http://localhost:3000/api/comments?postSlug=${postSlug}`,
     fetcher
@@ -269,7 +269,7 @@ const Comments = ({ postSlug }) => {
       setLoadingComment(false);
     }
   };
-
+  let status = true
   return (
     <div className="commentsContainer">
       <div className="container">

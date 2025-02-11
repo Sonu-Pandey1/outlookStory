@@ -1,26 +1,26 @@
-'use client';
+"use client";
 
-import { useState, useEffect } from 'react';
-import { useUser } from '@clerk/nextjs';
-import Link from 'next/link';
-import { HiOutlineExclamationCircle } from 'react-icons/hi';
-import { Button, Modal, Table } from 'react-bootstrap';  // Import Bootstrap components
+import { useState, useEffect } from "react";
+import { useUser } from "@clerk/nextjs";
+import Link from "next/link";
+import { HiOutlineExclamationCircle } from "react-icons/hi";
+import { Button, Modal, Table } from "react-bootstrap";
 
 export default function DashPosts() {
   const { user } = useUser();
-  console.log('user', user);
+  console.log("user", user);
 
   const [userPosts, setUserPosts] = useState([]);
   const [showModal, setShowModal] = useState(false);
-  const [postIdToDelete, setPostIdToDelete] = useState('');
+  const [postIdToDelete, setPostIdToDelete] = useState("");
 
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const res = await fetch('/api/post/get', {
-          method: 'POST',
+        const res = await fetch("/api/post/get", {
+          method: "POST",
           headers: {
-            'Content-Type': 'application/json',
+            "Content-Type": "application/json",
           },
           body: JSON.stringify({
             userId: user?.publicMetadata?.userMongoId,
@@ -44,10 +44,10 @@ export default function DashPosts() {
   const handleDeletePost = async () => {
     setShowModal(false);
     try {
-      const res = await fetch('/api/post/delete', {
-        method: 'DELETE',
+      const res = await fetch("/api/post/delete", {
+        method: "DELETE",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
           postId: postIdToDelete,
@@ -56,9 +56,11 @@ export default function DashPosts() {
       });
       const data = await res.json();
       if (res.ok) {
-        const newPosts = userPosts.filter((post) => post._id !== postIdToDelete);
+        const newPosts = userPosts.filter(
+          (post) => post._id !== postIdToDelete
+        );
         setUserPosts(newPosts);
-        setPostIdToDelete(''); // Reset postIdToDelete after deletion
+        setPostIdToDelete(""); // Reset postIdToDelete after deletion
       } else {
         console.log(data.message);
       }
@@ -103,10 +105,7 @@ export default function DashPosts() {
                   </Link>
                 </td>
                 <td>
-                  <Link
-                    className="text-dark"
-                    href={`/post/${post.slug}`}
-                  >
+                  <Link className="text-dark" href={`/post/${post.slug}`}>
                     {post.title}
                   </Link>
                 </td>

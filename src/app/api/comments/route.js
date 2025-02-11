@@ -1,4 +1,4 @@
-import { getAuthSession } from "@/utils/auth";
+
 import prisma from "@/utils/connect";
 import { NextResponse } from "next/server";
 
@@ -30,11 +30,11 @@ export const GET = async (req) => {
 export const POST = async (req) => {
   const session = await getAuthSession();
 
-  if (!session) {
-    return new NextResponse(
-      JSON.stringify({ message: "Not Authenticated!" }, { status: 401 })
-    );
-  }
+  // if (!session) {
+  //   return new NextResponse(
+  //     JSON.stringify({ message: "Not Authenticated!" }, { status: 401 })
+  //   );
+  // }
 
   try {
     const body = await req.json();

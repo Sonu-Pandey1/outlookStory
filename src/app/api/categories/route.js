@@ -1,19 +1,3 @@
-// import prisma from "@/utils/connect";
-// import { NextResponse } from "next/server";
-
-// export const GET = async () => {
-//   try {
-//     const categories = await prisma.category.findMany();
-
-//     return new NextResponse(JSON.stringify(categories, { status: 200 }));
-//   } catch (err) {
-//     console.log(err);
-//     return new NextResponse(
-//       JSON.stringify({ message: "Something went wrong!" }, { status: 500 })
-//     );
-//   }
-// };
-
 import prisma from "@/utils/connect";
 import { NextResponse } from "next/server";
 
@@ -23,6 +7,9 @@ export const GET = async () => {
     return NextResponse.json(categories, { status: 200 });
   } catch (err) {
     console.error("Error fetching categories:", err);
-    return NextResponse.json({ message: "Something went wrong!" }, { status: 500 });
+    return NextResponse.json(
+      { message: "Something went wrong!" },
+      { status: 500 }
+    );
   }
 };

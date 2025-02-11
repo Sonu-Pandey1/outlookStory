@@ -11,7 +11,6 @@ export default function LatestPopularPosts({ categoryC, category, posts }) {
   const { theme } = useContext(ThemeContext);
   const router = useRouter();
   console.log(posts);
-  // console.log(posts[5])
 
   // Check if posts is an array and is not empty
   if (!Array.isArray(posts) || posts.length === 0) {

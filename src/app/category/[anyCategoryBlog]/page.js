@@ -1,5 +1,7 @@
 // // "use client";
 
+
+
 // // import React from "react";
 // // import Breadcrumb from "../../../../Components/Breadcrumb/page";
 // // import { usePathname } from "next/navigation";
@@ -119,7 +121,6 @@ import React, { useState, useEffect } from "react";
 import Breadcrumb from "../../../components/Breadcrumb2/Breadcrumb";
 import { usePathname } from "next/navigation";
 import LatestPopularPosts from "@/components/LatestPopularPost2/LatestPopularPosts";
-// import LatestPopularPosts from "../../../components/LatestPopularPost2/LatestPopularPosts";
 
 // API fetch for posts based on category
 const getPostsByCategory = async (category) => {
@@ -184,3 +185,4 @@ export default function AnyCategoryPage() {
     </div>
   );
 }
+

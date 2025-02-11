@@ -4,31 +4,20 @@ import React, { useContext, useEffect, useState } from "react";
 import "./LoginPage.scss";
 import AnimationWrapper from "../../providers/AnimationWrapper";
 import { AnimatePresence, motion } from "framer-motion";
-import { useSession } from "next-auth/react";
-import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { ThemeContext } from "@/context/ThemeContext";
 
 export default function LoginPage() {
   const [activeTab, setActiveTab] = useState("login");
   const { theme } = useContext(ThemeContext);
-  const { data: session, status } = useSession();
-  // // console.log(session, status); 
-  const router = useRouter();
-
-  useEffect(() => {
-    if (status === "authenticated") {
-      router.push("/");
-    }
-  }, [status, router]); 
 
   const handleTabChange = (tab) => {
     setActiveTab(tab);
   };
 
-  if (status === "loading") {
-    return <div className="d-flex justify-content-center align-content-center align-self-center">Loading...</div>;
-  }
+  // if (status === "loading") {
+  //   return <div className="d-flex justify-content-center align-content-center align-self-center">Loading...</div>;
+  // }
 
   return (
     <>
@@ -121,13 +110,3 @@ export default function LoginPage() {
     </>
   );
 }
-
-// import React from 'react'
-
-// export default function page() {
-//   return (
-//     <div>
-      
-//     </div>
-//   )
-// }

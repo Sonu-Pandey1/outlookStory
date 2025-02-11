@@ -2,6 +2,7 @@
   "name": "outlookstory",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -37,7 +38,8 @@
     "react-quill-new": "^3.3.3",
     "sass": "^1.83.4",
     "svix": "^1.45.1",
-    "swr": "^2.3.0"
+    "swr": "^2.3.0",
+    "ts-node": "^10.9.2"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.20",
@@ -46,5 +48,8 @@
     "postcss": "^8.4.49",
     "prisma": "^6.2.1",
     "tailwindcss": "^3.4.17"
+  },
+  "prisma": {
+    "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seed.js"
   }
 }
