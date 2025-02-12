@@ -1,8 +1,8 @@
-"use client";
 import ClientLayout from "../providers/ClientLayout";
 import { ThemeContextProvider } from "../context/ThemeContext.jsx";
 import "../styles/globals.scss";
 import { ClerkProvider } from "@clerk/nextjs";
+import QueryProvider from "@/providers/QueryProvider";
 
 // export const metadata = {
 //   metadataBase: new URL(siteMetadata.siteUrl),
@@ -61,9 +61,11 @@ export default function RootLayout({ children }) {
       </head>
       <body>
         <ClerkProvider>
-          <ThemeContextProvider>
-            <ClientLayout>{children}</ClientLayout>
-          </ThemeContextProvider>
+          <QueryProvider>
+            <ThemeContextProvider>
+              <ClientLayout>{children}</ClientLayout>
+            </ThemeContextProvider>
+          </QueryProvider>
         </ClerkProvider>
       </body>
     </html>

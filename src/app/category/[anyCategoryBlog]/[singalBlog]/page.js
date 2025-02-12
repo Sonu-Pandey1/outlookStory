@@ -9,6 +9,7 @@ import Menu from "@/components/Menu/Menu";
 import Link from "next/link";
 import { Facebook, Instagram, LinkedIn, Twitter } from "@mui/icons-material";
 import { FaComment, FaEye, FaRegComment } from "react-icons/fa6";
+import PostNotFound from "@/components/PostNotFound/PostNotFound";
 
 // Fetch data based on the slug
 const getData = async (slug) => {
@@ -53,9 +54,8 @@ const SinglePage = () => {
   if (loading) {
     return <div>Loading...</div>;
   }
-
   if (!data) {
-    return <div>Post not found.</div>;
+    return <PostNotFound />;
   }
 
   // const jsonLd = {

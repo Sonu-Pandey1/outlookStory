@@ -1,28 +1,17 @@
 import Link from "next/link";
+import "./not-found.scss";
 
 export default function NotFound() {
   return (
-    <main className="my-32 w-full dark:bg-dark flex justify-center font-mr">
-      <div className="relative flex flex-col items-center justify-center">
-        <h1
-          className={`inline-block text-dark dark:text-light
-      text-6xl font-bold w-full capitalize xl:text-8xl text-center`}
-        >
-          404
-        </h1>
-        <h2
-          className={`inline-block text-dark dark:text-light
-      text-5xl font-bold w-full capitalize xl:text-6xl text-center mt-4 tracking-wide leading-snug`}
-        >
-          Page Not Found!!!!
-        </h2>
-        <Link
-          href="/"
-          className="self-center mt-8 inline-block rounded-lg border-2 border-solid bg-dark px-4 py-2
-        font-semibold text-light hover:border-dark hover:bg-light hover:text-dark 
-        dark:bg-light dark:text-dark hover:dark:bg-dark hover:dark:text-light hover:dark:border-light
-        "
-        >
+    <main className="not-found">
+      <div className="not-found-container">
+        <h1 className="not-found-title text-black">404</h1>
+        <h2 className="not-found-subtitle text-black">Oops! Page Not Found</h2>
+        <p className="not-found-description text-black">
+          The page you`re looking for doesn`t exist or has been moved. Let`s get
+          you back to the homepage.
+        </p>
+        <Link href="/" className="not-found-link btn btn-primary">
           Go To Home
         </Link>
       </div>

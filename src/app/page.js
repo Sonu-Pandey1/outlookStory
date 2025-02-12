@@ -17,6 +17,8 @@ import { useSearchParams } from "next/navigation";
 import { ThemeContext } from "@/context/ThemeContext";
 import LatestPopularPosts from "@/components/LatestPopularPost2/LatestPopularPosts";
 import Menu from "@/components/Menu/Menu";
+import InfiniteFeed from "@/components/infinitePosts";
+// import InfiniteFeed from "@/components/infinitePosts";
 
 const aroundTheWorldData = [
   // Data for Entertainment
@@ -465,7 +467,9 @@ const Home = () => {
         </section>
         {/* bottom section */}
         <div className="bottomSection">
-          <LatestPopularPosts posts={posts} />
+          {/* <LatestPopularPosts posts={posts} /> */}
+          <LatestPopularPosts category={null} /> {/* Or pass a category if needed */}
+         
         </div>
       </div>
     </>
