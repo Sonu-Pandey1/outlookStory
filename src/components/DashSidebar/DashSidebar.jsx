@@ -8,9 +8,9 @@ import {
   HiOutlineUserGroup,
   HiChartPie,
 } from "react-icons/hi";
-import { SignOutButton } from "@clerk/nextjs"; // Assuming you're using Clerk for authentication
-import { useUser } from "@clerk/nextjs"; // Same as above for Clerk user management
-import Link from "next/link"; // Correct Link import for Next.js
+import { SignOutButton } from "@clerk/nextjs";
+import { useUser } from "@clerk/nextjs";
+import Link from "next/link";
 
 const DashSidebar = () => {
   const [tab, setTab] = useState("");
@@ -29,8 +29,8 @@ const DashSidebar = () => {
 
   return (
     <div
-      className="d-flex flex-column bg-light border-end"
-      style={{ width: "250px", minHeight: "100vh" }}
+      className="d-flex flex-column bg-dark border-end minH"
+      style={{ width: "100% " }}
     >
       <div className="p-3">
         {/* Sidebar Items */}

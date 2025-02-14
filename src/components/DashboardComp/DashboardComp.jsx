@@ -1,5 +1,8 @@
+'use client';
+
 import React from "react";
 
 export default function DashboardComp() {
-  return <div>DashboardComp</div>;
+  return <div className="bg-info col">DashboardComp</div>;
 }
+   

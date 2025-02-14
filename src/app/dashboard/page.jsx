@@ -7,6 +7,9 @@ import { useSearchParams } from "next/navigation";
 import DashPosts from "../../components/DashPosts/DashPosts";
 import DashUsers from "../../components/DashUsers/DashUsers";
 import DashboardComp from "../../components/DashboardComp/DashboardComp";
+import "./Dashboard.scss";
+import DashComments from "@/components/DashComments/DashComments";
+
 export default function Dashboard() {
   const searchParams = useSearchParams();
   const [tab, setTab] = useState("");
@@ -18,20 +21,26 @@ export default function Dashboard() {
     }
   }, [searchParams]);
   return (
-    <div className="d-flex flex-column flex-md-row min-vh-100">
-      <div className="col-md-3 bg-danger">
-        {/* Sidebar */}
+    <div className="d-flex flex-column flex-md-row dashboardContainer minH">
+      {/* for diifrent sidebar and main dashborad use flex and flex row siderbar col-2 an remaing other dashboard componwnr are ... */}
+      <div className="col-md-2 sidebarContainer">
         <DashSidebar />
       </div>
 
       {/* profile... */}
-      {tab === "profile" && <DashProfile />}
+      {tab === "dash" && <DashboardComp />}
 
       {tab === "posts" && <DashPosts />}
 
+      {/* {tab === "allPosts" && <DashPosts />} */}
+
+      {tab === "comments" && <DashComments />}
+
+      {tab === "profile" && <DashProfile />}
+
       {tab === "users" && <DashUsers />}
 
-      {tab === "dash" && <DashboardComp />}
+    
     </div>
   );
 }
