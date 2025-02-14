@@ -1,14 +1,13 @@
-import { useState, useEffect } from 'react';
-import { useInfiniteQuery } from '@tanstack/react-query';
-import InfiniteScroll from 'react-infinite-scroll-component';
-import LatestPopularPosts from './LatestPopularPost2/LatestPopularPosts';
-// import LatestPopularPosts from './LatestPopularPosts'; // Import your component for displaying posts
+import { useState, useEffect } from "react";
+import { useInfiniteQuery } from "@tanstack/react-query";
+import InfiniteScroll from "react-infinite-scroll-component";
+import LatestPopularPosts from "./LatestPopularPost2/LatestPopularPosts";
 
 // Fetch posts based on category and pagination
 const fetchPosts = async ({ pageParam = 1, cat }) => {
-  const url = cat 
-    ? `/api/posts?page=${pageParam}&cat=${cat}` 
-    : `/api/posts?page=${pageParam}`; // If no category, fetch all posts
+  const url = cat
+    ? `/api/posts?page=${pageParam}&cat=${cat}`
+    : `/api/posts?page=${pageParam}`;
   const response = await fetch(url);
   const data = await response.json();
   return data;
@@ -25,9 +24,9 @@ const InfiniteFeed = ({ category = null }) => {
     isLoading,
     hasNextPage,
     fetchNextPage,
-    isFetchingNextPage
+    isFetchingNextPage,
   } = useInfiniteQuery({
-    queryKey: ['posts', category], // Adjust query key to include category
+    queryKey: ["posts", category], // Adjust query key to include category
     queryFn: ({ pageParam = 1 }) => fetchPosts({ pageParam, cat: category }), // Fetch posts based on category
     getNextPageParam: (lastPage, pages) => {
       return lastPage.hasMore ? pages.length + 1 : undefined;
@@ -35,7 +34,7 @@ const InfiniteFeed = ({ category = null }) => {
     // Prefetch the first 5 posts on initial load (not triggered on subsequent scrolls)
     onSuccess: (data) => {
       if (data.pages.length === 1) {
-        setInitialPosts(data.pages[0].posts);  // Storing initial posts separately
+        setInitialPosts(data.pages[0].posts); // Storing initial posts separately
       }
     },
   });
@@ -61,19 +60,19 @@ const InfiniteFeed = ({ category = null }) => {
               </button>
               {/* Infinite Scroll inside the Latest Posts section */}
               <InfiniteScroll
-                dataLength={mergedPosts.length} // Total posts length
-                next={fetchNextPage} // Fetch next page on scroll
-                hasMore={hasNextPage} // Check if there are more posts to load
-                loader={<h4>Loading more posts...</h4>} // Loading indicator
-                endMessage={<p>No more posts</p>} // Message when no more posts
-                scrollThreshold={0.95} // Trigger fetching when 95% of the scroll is reached
+                dataLength={mergedPosts.length}
+                next={fetchNextPage}
+                hasMore={hasNextPage}
+                loader={<h4>Loading more posts...</h4>}
+                endMessage={<p>No more posts</p>}
+                scrollThreshold={0.95}
               >
                 {/* Render posts using LatestPopularPosts component */}
                 <LatestPopularPosts
-                  imf = {true}
-                  categoryC={category} // Pass the category if any
-                  category={category} 
-                  posts={mergedPosts} // Pass the combined posts (initial + infinite)
+                  imf={true}
+                  categoryC={category}
+                  category={category}
+                  posts={mergedPosts}
                 />
               </InfiniteScroll>
             </div>

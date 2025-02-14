@@ -3,6 +3,8 @@ import { ThemeContextProvider } from "../context/ThemeContext.jsx";
 import "../styles/globals.scss";
 import { ClerkProvider } from "@clerk/nextjs";
 import QueryProvider from "@/providers/QueryProvider";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css"; // Import the Toast CSS
 
 // export const metadata = {
 //   metadataBase: new URL(siteMetadata.siteUrl),
@@ -67,6 +69,7 @@ export default function RootLayout({ children }) {
             </ThemeContextProvider>
           </QueryProvider>
         </ClerkProvider>
+        <ToastContainer />
       </body>
     </html>
   );

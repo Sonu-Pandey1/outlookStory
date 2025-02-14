@@ -1,4 +1,4 @@
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
@@ -22,9 +22,11 @@ async function main() {
   // Create 5 users with unique details
   const users = [];
   for (let i = 1; i <= 5; i++) {
-    const user = await prisma.user.create({
-      data: {
-        userId: `user${i}`, // userId instead of id
+    const user = await prisma.user.upsert({
+      where: { userId: `user${i}` }, // Using userId to check if the user already exists
+      update: {}, // No update needed if the user already exists
+      create: {
+        userId: `user${i}`,
         email: `user${i}@example.com`,
         name: `User ${i}`,
         image: `https://randomuser.me/api/portraits/men/${i}.jpg`,
@@ -50,7 +52,7 @@ async function main() {
       posts.push(post);
     }
   }
-  console.log('Posts created.');
+  console.log("Posts created.");
 
   // Create likes for posts
   await prisma.like.createMany({
@@ -62,7 +64,7 @@ async function main() {
       { userId: users[4].userId, postId: posts[4].id },
     ],
   });
-  console.log('Likes created.');
+  console.log("Likes created.");
 
   // Create comments for posts
   const comments = [];
@@ -76,7 +78,7 @@ async function main() {
     });
     comments.push(comment);
   }
-  console.log('Comments created.');
+  console.log("Comments created.");
 
   // Create saved posts
   await prisma.savedPosts.createMany({
@@ -88,7 +90,7 @@ async function main() {
       { userId: users[4].userId, postId: posts[0].id },
     ],
   });
-  console.log('Saved posts created.');
+  console.log("Saved posts created.");
 }
 
 main()
