@@ -19,7 +19,7 @@ export default function Dashboard() {
   }, [searchParams]);
   return (
     <div className="d-flex flex-column flex-md-row min-vh-100">
-      <div className="col-md-3">
+      <div className="col-md-3 bg-danger">
         {/* Sidebar */}
         <DashSidebar />
       </div>

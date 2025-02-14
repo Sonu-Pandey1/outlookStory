@@ -64,21 +64,22 @@ export default function ClientLayout({ children }) {
   }, []);
 
   const pathname = usePathname();
-  const isLoginPage = pathname === "/login";
+  const isLoginPage = pathname === "/sign-in";
   const isCategoryRoute = pathname.split("/")[3];
+  const isDashboardPage = "/dashboard";
 
   if (mounted) {
     return (
       <>
-        {!isLoginPage && <Header />}
+        {!isLoginPage && !isDashboardPage && <Header />}
         <Navbar />
 
-        {!isCategoryRoute && !isLoginPage && <HeroWrapper theme={theme} />}
+        {!isCategoryRoute && !isLoginPage && !isDashboardPage && <HeroWrapper theme={theme} />}
         <main className={theme} style={{ transition: "all 0.3s ease" }}>
           {children}
         </main>
 
-        {!isLoginPage && <Footer />}
+        {!isLoginPage && !isDashboardPage && <Footer />}
       </>
     );
   }
