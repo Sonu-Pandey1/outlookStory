@@ -43,6 +43,63 @@ export const GET = async (req) => {
 };
 
 // POST A COMMENT
+// export const POST = async (req) => {
+//   const { userId } = getAuth(req); // Get Clerk's userId from auth context
+//   if (!userId) {
+//     return new NextResponse(JSON.stringify({ message: "Not Authenticated!" }), {
+//       status: 401,
+//     });
+//   }
+
+//   try {
+//     const body = await req.json();
+//     const { desc, postSlug } = body;
+
+//     if (!desc || !postSlug) {
+//       return new NextResponse(
+//         JSON.stringify({
+//           message: "Both description and postSlug are required.",
+//         }),
+//         { status: 400 }
+//       );
+//     }
+
+//     // Check if post exists
+//     const post = await prisma.post.findUnique({
+//       where: { slug: postSlug },
+//     });
+
+//     if (!post) {
+//       return new NextResponse(JSON.stringify({ message: "Post not found." }), {
+//         status: 404,
+//       });
+//     }
+
+//     // Create the comment
+//     const comment = await prisma.comment.create({
+//       data: {
+//         desc,
+//         postSlug,
+//         userId,
+//       },
+//       select: { userId: true, name: true, image: true },
+//     });
+
+//     return new NextResponse(JSON.stringify(comment), { status: 200 });
+//   } catch (err) {
+//     // Check if err is null or an error object
+//     if (err && err instanceof Error) {
+//       console.error("Error fetching comments:", err.message); // Log the error message
+//     } else {
+//       console.error("Unknown error:", err); // Log unknown errors
+//     }
+//     return new NextResponse(
+//       JSON.stringify({ message: "Something went wrong!" }),
+//       { status: 500 }
+//     );
+//   }
+// };
+
 export const POST = async (req) => {
   const { userId } = getAuth(req); // Get Clerk's userId from auth context
   if (!userId) {
@@ -82,13 +139,27 @@ export const POST = async (req) => {
         postSlug,
         userId,
       },
+      include: {
+        user: {
+          select: {
+            name: true,
+            image: true,
+          },
+        },
+      },
     });
 
-    return new NextResponse(JSON.stringify(comment), { status: 200 });
+    // Add the createdAt timestamp to the response
+    const commentWithTimestamp = {
+      ...comment,
+      createdAt: comment.createdAt.toISOString(), // Ensure createdAt is returned as ISO string
+    };
+
+    return new NextResponse(JSON.stringify(commentWithTimestamp), { status: 200 });
   } catch (err) {
     // Check if err is null or an error object
     if (err && err instanceof Error) {
-      console.error("Error fetching comments:", err.message); // Log the error message
+      console.error("Error posting comment:", err.message); // Log the error message
     } else {
       console.error("Unknown error:", err); // Log unknown errors
     }
@@ -98,6 +169,7 @@ export const POST = async (req) => {
     );
   }
 };
+
 
 // EDIT A COMMENT
 export const PUT = async (req) => {
