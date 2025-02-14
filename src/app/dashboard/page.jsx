@@ -9,10 +9,11 @@ import DashUsers from "../../components/DashUsers/DashUsers";
 import DashboardComp from "../../components/DashboardComp/DashboardComp";
 import "./Dashboard.scss";
 import DashComments from "@/components/DashComments/DashComments";
+import DashAllPosts from "@/components/DashAllPosts/DashAllPosts";
 
 export default function Dashboard() {
   const searchParams = useSearchParams();
-  const [tab, setTab] = useState("");
+  const [tab, setTab] = useState("dash");
   useEffect(() => {
     const urlParams = new URLSearchParams(searchParams);
     const tabFromUrl = urlParams.get("tab");
@@ -27,20 +28,19 @@ export default function Dashboard() {
         <DashSidebar />
       </div>
 
-      {/* profile... */}
+        {/* Dashboard Components */}
       {tab === "dash" && <DashboardComp />}
 
       {tab === "posts" && <DashPosts />}
 
-      {/* {tab === "allPosts" && <DashPosts />} */}
-
       {tab === "comments" && <DashComments />}
 
-      {tab === "profile" && <DashProfile />}
+      {tab === "allPosts" && <DashAllPosts />}
 
       {tab === "users" && <DashUsers />}
 
-    
+      {tab === "profile" && <DashProfile />}
+      
     </div>
   );
 }
