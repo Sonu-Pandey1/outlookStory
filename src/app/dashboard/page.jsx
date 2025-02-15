@@ -14,6 +14,7 @@ import DashAllPosts from "@/components/DashAllPosts/DashAllPosts";
 export default function Dashboard() {
   const searchParams = useSearchParams();
   const [tab, setTab] = useState("dash");
+
   useEffect(() => {
     const urlParams = new URLSearchParams(searchParams);
     const tabFromUrl = urlParams.get("tab");
@@ -21,6 +22,17 @@ export default function Dashboard() {
       setTab(tabFromUrl);
     }
   }, [searchParams]);
+
+  
+  // useEffect(() => {
+  //   const urlParams = new URLSearchParams(window.location.search);
+  //   const tabFromUrl = urlParams.get("tab");
+  //   if (tabFromUrl) {
+  //     setTab(tabFromUrl);
+  //   }
+  // }, []);
+
+
   return (
     <div className="d-flex flex-column flex-md-row dashboardContainer minH">
       {/* for diifrent sidebar and main dashborad use flex and flex row siderbar col-2 an remaing other dashboard componwnr are ... */}

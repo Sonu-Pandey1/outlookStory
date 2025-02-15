@@ -140,8 +140,6 @@
 
 // export default DashSidebar;
 
-
-
 "use client";
 
 import { useState, useEffect } from "react";
@@ -163,7 +161,7 @@ const DashSidebar = () => {
   const [tab, setTab] = useState("");
   const { user, isSignedIn, isLoading } = useUser(); // Add isLoading to check if user data is still loading
   console.log(user);
-  console.log(user.publicMetadata.role)
+  // console.log(user.publicMetadata.role);
 
   useEffect(() => {
     const tabFromUrl = new URLSearchParams(window.location.search).get("tab");
