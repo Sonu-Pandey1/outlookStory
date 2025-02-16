@@ -160,7 +160,7 @@ import Link from "next/link";
 const DashSidebar = () => {
   const [tab, setTab] = useState("");
   const { user, isSignedIn, isLoading } = useUser(); // Add isLoading to check if user data is still loading
-  console.log(user);
+  // console.log(user);
   // console.log(user.publicMetadata.role);
 
   useEffect(() => {
@@ -213,7 +213,7 @@ const DashSidebar = () => {
           {hasRole && (
             <li className="nav-item">
               <Link
-                href="/dashboard?tab=addPost"
+                href="/dashboard/create-post"
                 className={`nav-link ${tab === "addPosts" ? "active" : ""}`}
               >
                 <MdOutlinePostAdd className="me-2" />
