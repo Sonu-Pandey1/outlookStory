@@ -21,8 +21,11 @@ export default function CreatePostPage() {
   if (isSignedIn && user.publicMetadata?.role === "writer") {
     const handleSubmit = () => {
       // Simulate post submission
-      console.log("Post submitted:", { title: postTitle, content: postContent });
-      // You could send a POST request here to your API for saving the post
+      console.log("Post submitted:", {
+        title: postTitle,
+        content: postContent,
+      });
+      // You could send a POST request here to your API for saving the post     &apos for ` sign
     };
 
     return (
@@ -83,7 +86,10 @@ export default function CreatePostPage() {
         <div className="col-12">
           <div className="not-authorized bg-danger text-white p-5">
             <h2>You don`t have access to create posts.</h2>
-            <p>Only users with the Writer role can create posts. Please contact the admin for more information.</p>
+            <p>
+              Only users with the Writer role can create posts. Please contact
+              the admin for more information.
+            </p>
           </div>
         </div>
       </div>
