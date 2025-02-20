@@ -35,7 +35,9 @@ export default function CreatePostPage() {
             <DashSidebar />
           </div>
           <div className="col p-0 m-0">
-            <div className="create-post-page bg-light p-4">
+            <div className="create-post-page bg-light overflow-y-scroll p-4" 
+            style={{ height: "calc(100vh - 60px)" }}
+            >
               <h1>Create Your Post</h1>
               <div className="form-group">
                 <label htmlFor="postTitle">Post Title</label>
@@ -87,7 +89,7 @@ export default function CreatePostPage() {
           <div className="not-authorized bg-danger text-white p-5">
             <h2>You don`t have access to create posts.</h2>
             <p>
-              Only users with the Writer role can create posts. Please contact
+              Only users with the Writer role & admin can create posts. Please contact
               the admin for more information.
             </p>
           </div>
