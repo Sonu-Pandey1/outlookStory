@@ -1,0 +1,149 @@
+
+.sidebar-container {
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    height: 100%;
+    padding: 20px 20px;
+    position: relative;
+  
+    .nav {
+      padding-left: 0;
+      list-style: none;
+      margin: 0;
+  
+      .nav-item {
+        margin-bottom: 15px;
+  
+        .nav-link {
+          display: flex;
+          align-items: center;
+          color: inherit;
+          font-size: 1rem;
+          padding: 10px 20px;
+          border-radius: 8px;
+          text-decoration: none;
+  
+          &.active {
+            background-color: #007bff;
+            color: #fff;
+            font-weight: bold;
+          }
+  
+          &:hover {
+            background-color: #444;
+            color: #fff;
+            transition: background-color 0.3s ease;
+          }
+  
+          .me-2 {
+            margin-right: 10px;
+            font-size: 1.25rem;
+          }
+        }
+      }
+  
+      .mt-auto {
+        margin-top: auto;
+      }
+    }
+  }
+  
+  // Sidebar Item Active State
+  .nav-link.active {
+    background-color: #007bff;
+    color: inherit;
+    border-left: 5px solid #0056b3;
+  }
+  
+  // Hover Effects for Links
+  .nav-link:hover {
+    background-color: #575757; /* Darker gray on hover */
+    color: white; /* White text on hover */
+    transition: background-color 0.3s ease;
+  }
+  
+  // Sign Out Button Styling
+  .btn-danger {
+    transition: background-color 0.3s ease;
+  }
+  
+  .btn-danger:hover {
+    background-color: #e53935; /* Bright red on hover */
+  }
+  
+
+  /* Toggle Button */
+// .sidebar-toggle {
+//     display: none; // Hidden by default
+//     position: absolute;
+//     top: 15px;
+//     left: 15px;
+//     color: white;
+//     font-size: 2rem;
+//     cursor: pointer;
+//     z-index: 20;
+//   }
+  
+//   @media (max-width: 768px) {
+//     .sidebar-toggle {
+//       display: block; // Show the toggle button on small screens
+//     }
+  
+//     .sidebar-container.closed {
+//       transform: translateX(-100%); // Hide the sidebar when closed
+//       transition: transform 0.3s ease;
+//     }
+  
+//     .sidebar-container.open {
+//       transform: translateX(0); // Show the sidebar when open
+//     }
+//   }
+  
+  /* Responsive Styles */
+  
+  /* For small devices like mobile */
+//   @media (max-width: 768px) {
+//     .sidebar-container {
+//       width: 100%; // Sidebar will take full width on small screens
+//       height: auto;
+//       position: absolute;
+//       top: 0;
+//       left: 0;
+//       background-color: #333;
+//       z-index: 10; // Ensure sidebar stays on top
+//     }
+  
+//     /* If you need to make the links look better on smaller devices */
+//     .nav-link {
+//       font-size: 0.9rem; // Smaller font size on mobile
+//       padding: 12px 18px; // Adjust padding for mobile devices
+//     }
+  
+//     .nav-item {
+//       margin-bottom: 12px; // Smaller gap between items
+//     }
+  
+//     /* Collapsible Sidebar toggle icon, if needed */
+//     .sidebar-toggle {
+//       display: block;
+//       font-size: 1.5rem;
+//       margin: 15px;
+//       color: white;
+//       cursor: pointer;
+//       z-index: 20;
+//     }
+//   }
+  
+  /* For very small devices, like extra small mobile screens */
+//   @media (max-width: 480px) {
+//     .sidebar-container {
+//       padding: 10px;
+//     }
+  
+//     .nav-link {
+//       font-size: 0.85rem; // Even smaller font size
+//       padding: 10px 16px;
+//     }
+//   }
+  

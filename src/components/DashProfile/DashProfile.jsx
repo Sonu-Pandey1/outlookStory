@@ -1,17 +1,20 @@
 "use client";
 
+import { ThemeContext } from "@/context/ThemeContext";
 import { UserProfile } from "@clerk/nextjs";
 import { dark, light } from "@clerk/themes";
-import { useTheme } from "next-themes";
+import { useContext } from "react";
 
 export default function DashProfile() {
-  const { theme } = useTheme();
+  const { theme } = useContext(ThemeContext);
+
+  console.log(theme);
   return (
     <div
-      className="flex justify-center items-center w-full bg-info-subtle col ps-5 overflow-y-scroll"
+      className=" d-flex justify-content-center col overflow-y-scroll "
       style={{ height: "calc(100vh - 60px)" }}
     >
-      <UserProfile
+      <UserProfile 
         appearance={{
           baseTheme: theme === "dark" ? dark : light,
         }}
