@@ -77,7 +77,7 @@ const DashSidebar = () => {
           <li className="nav-item">
             <Link
               href="/dashboard/create-post"
-              className={`nav-link ${"/dashboard/create-post" ? "active" : ""}`}
+              className={`nav-link ${tab === "create-post" ? "active" : ""}` }
             >
               <MdOutlinePostAdd className="me-2" />
               Add Posts
