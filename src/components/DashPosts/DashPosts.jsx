@@ -13,7 +13,7 @@
 //   const [userPosts, setUserPosts] = useState([]);
 //   const [showModal, setShowModal] = useState(false);
 //   const [postIdToDelete, setPostIdToDelete] = useState("");
-    
+
 //   useEffect(() => {
 //     const fetchPosts = async () => {
 //       try {
@@ -161,6 +161,12 @@
 import React from "react";
 
 export default function DashPosts() {
-  return <div className=" bg-danger-subtle col">DashPosts</div>;
+  return (
+    <div
+      className=" bg-danger-subtle col overflow-y-scroll"
+      style={{ height: "calc(100vh - 60px)" }}
+    >
+      DashPosts
+    </div>
+  );
 }
-   

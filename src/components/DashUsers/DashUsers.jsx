@@ -169,7 +169,9 @@ const DashUsers = () => {
   if (loading) return <div>Loading...</div>;
 
   return (
-    <div className="container mt-5">
+    <div className="container mt-5 overflow-y-scroll" 
+    style={{ height: "calc(100vh - 60px)" }} 
+    >
       <h2>User Dashboard</h2>
 
       <TableContainer>
