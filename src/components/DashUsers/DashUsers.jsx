@@ -174,7 +174,7 @@ const DashUsers = () => {
       </TableContainer>
 
       <TablePagination
-      className=" overflow-hidden"
+        className=" overflow-hidden"
         component="div"
         count={users.length}
         page={page}
