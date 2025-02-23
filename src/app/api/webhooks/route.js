@@ -250,10 +250,11 @@
 //     return new Response("Internal Server Error", { status: 500 });
 //   }
 // }
-// error in this 
+// error in this
+
 import { Webhook } from "svix";
 import { headers } from "next/headers";
-import { Clerk } from "@clerk/express"; // Corrected import for Clerk SDK
+import { Clerk } from "@clerk/backend"; // ✅ Correct Clerk import for Next.js
 import prisma from "@/utils/connect";
 
 // Initialize Clerk with your secret key
@@ -262,7 +263,6 @@ const clerk = Clerk({ secretKey: process.env.CLERK_SECRET_KEY });
 export async function POST(req) {
   try {
     const SIGNING_SECRET = process.env.SIGNING_SECRET;
-
     if (!SIGNING_SECRET) {
       console.error("❌ Missing SIGNING_SECRET in environment variables");
       return new Response("Error: Missing SIGNING_SECRET", { status: 500 });
@@ -382,4 +382,3 @@ export async function POST(req) {
     return new Response("Internal Server Error", { status: 500 });
   }
 }
-
