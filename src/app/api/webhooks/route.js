@@ -117,7 +117,6 @@
 //   return new Response("✅ Webhook received", { status: 200 });
 // }
 
-
 import { Webhook } from "svix";
 import { headers } from "next/headers";
 import { clerkClient } from "@clerk/clerk-sdk-node";
@@ -185,53 +184,58 @@ export async function POST(req) {
 
       try {
         // ✅ Ensure user is updated by email (since it's unique)
-        const existingUser = await prisma.user.findUnique({
-          where: { email },
-        });
-
         let user;
-        if (existingUser) {
-          // ✅ Update existing user
-          user = await prisma.user.update({
-            where: { email },
-            data: {
-              name: `${first_name || ""} ${last_name || ""}`.trim(),
-              image: image_url || "",
-              updatedAt: new Date(),
-            },
-          });
-        } else {
-          // ✅ Create new user if not found
-          user = await prisma.user.create({
-            data: {
-              userId: id,
-              name: `${first_name || ""} ${last_name || ""}`.trim(),
-              email,
-              image: image_url || "",
-              role: "user",
-              createdAt: new Date(),
-              updatedAt: new Date(),
-            },
-          });
-        }
+        user = await prisma.user.upsert({
+          where: { email },
+          update: {
+            name: `${first_name || ""} ${last_name || ""}`.trim(),
+            image: image_url || "",
+            updatedAt: new Date(),
+          },
+          create: {
+            userId: id,
+            name: `${first_name || ""} ${last_name || ""}`.trim(),
+            email,
+            image: image_url || "",
+            role: "user",
+            createdAt: new Date(),
+            updatedAt: new Date(),
+          },
+        });
 
         console.log(`✅ User ${id} synchronized with Prisma`);
 
-        // ✅ Update metadata in Clerk
-        if (user) {
-          await clerkClient.users.updateUser(id, {
-            publicMetadata: {
-              userMongoId: user.userId,
-              role: user.role || "user",
-            },
-          });
-          console.log(`✅ User metadata updated in Clerk`);
+        try {
+          // ✅ Update metadata in Clerk (Only if user exists in Clerk)
+          const clerkUser = await clerkClient.users.getUser(id);
+          if (clerkUser) {
+            await clerkClient.users.updateUser(id, {
+              publicMetadata: {
+                userMongoId: user.userId,
+                role: user.role || "user",
+              },
+            });
+            console.log(`✅ User metadata updated in Clerk`);
+          } else {
+            console.warn(`⚠️ Clerk user ${id} not found. Skipping Clerk update.`);
+          }
+        } catch (error) {
+          if (error.status === 404) {
+            console.warn(`⚠️ Clerk user ${id} not found. Skipping Clerk update.`);
+          } else {
+            console.error("❌ Error updating Clerk user:", error);
+            return new Response("Error updating Clerk user", { status: 500 });
+          }
         }
 
-        return new Response("✅ User update successful", { status: 200 });
+        return new Response("✅ User synchronized successfully", { status: 200 });
       } catch (error) {
+        if (error.code === "P2002") {
+          console.error("❌ Unique constraint failed on email:", email);
+          return new Response("Error: Email already exists", { status: 400 });
+        }
         console.error("❌ Error updating user:", error);
-        return new Response("Error occurred during user update", { status: 500 });
+        return new Response("Error occurred during user synchronization", { status: 500 });
       }
     }
 
