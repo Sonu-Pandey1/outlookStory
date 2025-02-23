@@ -116,7 +116,6 @@
 
 //   return new Response("✅ Webhook received", { status: 200 });
 // }
-
 import { Webhook } from "svix";
 import { headers } from "next/headers";
 import { clerkClient } from "@clerk/clerk-sdk-node";
@@ -132,10 +131,10 @@ export async function POST(req) {
 
     console.log("📩 Webhook received");
 
-    // ✅ Create Svix instance
+    // Create Svix instance
     const wh = new Webhook(SIGNING_SECRET);
 
-    // ✅ Get headers from request
+    // Get headers from request
     const headerPayload = headers();
     const svix_id = headerPayload.get("svix-id");
     const svix_timestamp = headerPayload.get("svix-timestamp");
@@ -146,7 +145,7 @@ export async function POST(req) {
       return new Response("Error: Missing Svix headers", { status: 400 });
     }
 
-    // ✅ Get request body
+    // Get request body
     const payload = await req.json();
     const body = JSON.stringify(payload);
 
@@ -172,7 +171,7 @@ export async function POST(req) {
 
     console.log(`✅ Event received: ${eventType} for user ${id}`);
 
-    // ✅ Handle user.created & user.updated events
+    // Handle user.created & user.updated events
     if (eventType === "user.created" || eventType === "user.updated") {
       const { first_name, last_name, image_url, email_addresses } = evt?.data;
       const email = email_addresses?.[0]?.email_address || "";
@@ -183,9 +182,8 @@ export async function POST(req) {
       }
 
       try {
-        // ✅ Ensure user is updated by email (since it's unique)
-        let user;
-        user = await prisma.user.upsert({
+        // Update or create user by email since it's unique
+        let user = await prisma.user.upsert({
           where: { email },
           update: {
             name: `${first_name || ""} ${last_name || ""}`.trim(),
@@ -206,16 +204,22 @@ export async function POST(req) {
         console.log(`✅ User ${id} synchronized with Prisma`);
 
         try {
-          // ✅ Update metadata in Clerk (Only if user exists in Clerk)
+          // Retrieve current Clerk user
           const clerkUser = await clerkClient.users.getUser(id);
           if (clerkUser) {
-            await clerkClient.users.updateUser(id, {
-              publicMetadata: {
-                userMongoId: user.userId,
-                role: user.role || "user",
-              },
-            });
-            console.log(`✅ User metadata updated in Clerk`);
+            const currentMetadata = clerkUser.publicMetadata || {};
+            const newMetadata = {
+              userMongoId: user.userId,
+              role: user.role || "user",
+            };
+
+            // Only update if metadata has changed
+            if (JSON.stringify(currentMetadata) !== JSON.stringify(newMetadata)) {
+              await clerkClient.users.updateUser(id, { publicMetadata: newMetadata });
+              console.log(`✅ User metadata updated in Clerk`);
+            } else {
+              console.log(`⚠️ No metadata changes for Clerk user ${id}, skipping update.`);
+            }
           } else {
             console.warn(`⚠️ Clerk user ${id} not found. Skipping Clerk update.`);
           }
@@ -239,7 +243,7 @@ export async function POST(req) {
       }
     }
 
-    // ✅ Handle user.deleted event
+    // Handle user.deleted event
     if (eventType === "user.deleted") {
       try {
         await prisma.user.delete({ where: { userId: id } });
