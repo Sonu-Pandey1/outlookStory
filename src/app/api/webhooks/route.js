@@ -253,11 +253,8 @@
 // error in this
 import { Webhook } from "svix";
 import { headers } from "next/headers";
-import { Clerk } from "@clerk/clerk-sdk-node"; // ✅ Correct import
+import { clerkClient } from "@clerk/clerk-sdk-node"; // ✅ Correct import
 import prisma from "@/utils/connect";
-
-// Initialize Clerk
-const clerkClient = Clerk;
 
 export async function POST(req) {
   try {
