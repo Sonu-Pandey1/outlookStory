@@ -251,11 +251,13 @@
 //   }
 // }
 // error in this 
-
 import { Webhook } from "svix";
 import { headers } from "next/headers";
-import { ClerkExpressWithAuth } from "@clerk/express"; // Clerk SDK migration
-import prisma from "@/utils/connect"; // Updated Prisma connection
+import { Clerk } from "@clerk/express"; // Corrected import for Clerk SDK
+import prisma from "@/utils/connect";
+
+// Initialize Clerk with your secret key
+const clerk = Clerk({ secretKey: process.env.CLERK_SECRET_KEY });
 
 export async function POST(req) {
   try {
@@ -340,8 +342,9 @@ export async function POST(req) {
 
         console.log(`✅ User ${id} synchronized with Prisma`);
 
+        // Step 2: Update metadata in Clerk
         if (user) {
-          await ClerkExpressWithAuth.users.updateUser(id, {
+          await clerk.users.updateUser(id, {
             publicMetadata: {
               userMongoId: user.userId,
               role: user.role || "user",
@@ -363,7 +366,7 @@ export async function POST(req) {
         await prisma.user.delete({ where: { userId: id } });
         console.log(`✅ User ${id} deleted from Prisma`);
 
-        await ClerkExpressWithAuth.users.deleteUser(id);
+        await clerk.users.deleteUser(id);
         console.log(`✅ User ${id} deleted from Clerk`);
 
         return new Response("✅ User deletion successful", { status: 200 });
@@ -379,3 +382,4 @@ export async function POST(req) {
     return new Response("Internal Server Error", { status: 500 });
   }
 }
+
