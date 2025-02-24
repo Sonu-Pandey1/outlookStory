@@ -135,109 +135,174 @@ function Navbar() {
 
       {/* Mobile menu */}
       <div
-  className={`offcanvas offcanvas-end ${theme === "dark" ? "bg-dark text-light border-light" : "bg-light text-dark border-dark"}`}
-  tabIndex="-1"
-  id="offcanvasNavbar"
-  aria-labelledby="offcanvasNavbarLabel"
-  style={{ transition: "transform .6s ease-in-out" }}
->
-  <div className="offcanvas-header shadow">
-    <div className="offcanvas-title" id="offcanvasNavbarLabel">
-      <div className="loginBTNS">
-        <SignedOut>
-          <Link href={"/sign-in"} className="d-flex align-items-center">
-            <PiUserCircleCheckDuotone className="fs-2 me-2" />
-            <span className="fw-semibold">Login / Register</span>
-          </Link>
-        </SignedOut>
-        <SignedIn>
-          <UserButton
-            appearance={{ baseTheme: theme === "light" ? light : dark }}
-            userProfileUrl="/dashboard?tab=profile"
-          />
-        </SignedIn>
-      </div>
-    </div>
-    <button type="button" className="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-  </div>
+        className={`offcanvas offcanvas-end d-block d-md-none ${
+          theme === "dark"
+            ? "bg-dark text-light border-light"
+            : "bg-light text-dark border-dark"
+        }`}
+        tabIndex="-1"
+        id="offcanvasNavbar"
+        aria-labelledby="offcanvasNavbarLabel"
+        style={{ transition: "transform .6s ease-in-out" }}
+      >
+        <div className="offcanvas-header shadow">
+          <div className="offcanvas-title" id="offcanvasNavbarLabel">
+            <div className="loginBTNS">
+              <SignedOut>
+                <Link href={"/sign-in"} className="d-flex align-items-center">
+                  <PiUserCircleCheckDuotone className="fs-2 me-2" />
+                  <span className="fw-semibold">Login / Register</span>
+                </Link>
+              </SignedOut>
+              <SignedIn>
+                <UserButton
+                  appearance={{ baseTheme: theme === "light" ? light : dark }}
+                  userProfileUrl="/dashboard?tab=profile"
+                />
+              </SignedIn>
+            </div>
+          </div>
+          <button
+            type="button"
+            className="btn-close"
+            data-bs-dismiss="offcanvas"
+            aria-label="Close"
+          ></button>
+        </div>
 
-  <div className="offcanvas-body px-3 py-4">
-    {/* User Profile Section */}
-    <div className={`profile-card text-center p-3 rounded-4 shadow-sm ${theme === "dark" ? "dark-card" : "light-card"}`}>
-      <Image
-        src="https://i.pravatar.cc/100"
-        alt="User Avatar"
-        className="rounded-circle border border-3 border-light mb-3"
-        width={100}
-        height={100}
-      />
-      <h5 className="fw-bold">John Doe</h5>
-      <p className="text-muted">@johndoe</p>
-      <Link href="/profile" className="btn btn-outline-primary btn-sm">
-        View Profile
-      </Link>
-    </div>
-
-    {/* Trending Posts Section */}
-    <div className="trending-posts mb-4">
-      <h6 className="fw-bold text-uppercase">🔥 Trending Now</h6>
-      <ul className="list-unstyled">
-        {[
-          { title: "How AI is Changing the World", img: "https://source.unsplash.com/60x60/?ai" },
-          { title: "Top 10 Business Trends for 2025", img: "https://source.unsplash.com/60x60/?business" },
-          { title: "Best Travel Destinations in 2025", img: "https://source.unsplash.com/60x60/?travel" },
-        ].map((post, index) => (
-          <li key={index} className={`d-flex align-items-center gap-3 p-2 trending-item rounded-3 ${theme === "dark" ? "dark-item" : "light-item"}`}>
-            <Image src={post.img} alt="Post Thumbnail" className="rounded-3" width={60} height={60} />
-            <Link href={`/post/${index + 1}`} className="text-decoration-none fw-semibold">
-              {post.title}
+        <div className="offcanvas-body px-3 py-4">
+          {/* User Profile Section */}
+          <div
+            className={`profile-card text-center p-3 rounded-4 shadow-sm ${
+              theme === "dark" ? "dark-card" : "light-card"
+            }`}
+          >
+            <Image
+              src="https://i.pravatar.cc/100"
+              alt="User Avatar"
+              className="rounded-circle border border-3 border-light mb-3"
+              width={100}
+              height={100}
+            />
+            <h5 className="fw-bold">John Doe</h5>
+            <p className="text-muted">@johndoe</p>
+            <Link href="/profile" className="btn btn-outline-primary btn-sm">
+              View Profile
             </Link>
-          </li>
-        ))}
-      </ul>
-    </div>
+          </div>
 
-    {/* Popular Categories */}
-    <div className="categories mb-4">
-      <h6 className="fw-bold text-uppercase">📂 Categories</h6>
-      <div className="d-flex flex-wrap gap-2">
-        {["Technology", "Business", "Lifestyle", "Travel", "Health", "Food"].map((category, index) => (
-          <Link href={`/category/${category.toLowerCase()}`} key={index} className={`category-pill ${theme === "dark" ? "dark-pill" : "light-pill"}`}>
-            {category}
-          </Link>
-        ))}
+          {/* Trending Posts Section */}
+          <div className="trending-posts mb-4">
+            <h6 className="fw-bold text-uppercase">🔥 Trending Now</h6>
+            <ul className="list-unstyled">
+              {[
+                {
+                  title: "How AI is Changing the World",
+                  img: "https://source.unsplash.com/60x60/?ai",
+                },
+                {
+                  title: "Top 10 Business Trends for 2025",
+                  img: "https://source.unsplash.com/60x60/?business",
+                },
+                {
+                  title: "Best Travel Destinations in 2025",
+                  img: "https://source.unsplash.com/60x60/?travel",
+                },
+              ].map((post, index) => (
+                <li
+                  key={index}
+                  className={`d-flex align-items-center gap-3 p-2 trending-item rounded-3 ${
+                    theme === "dark" ? "dark-item" : "light-item"
+                  }`}
+                >
+                  <Image
+                    src={post.img}
+                    alt="Post Thumbnail"
+                    className="rounded-3"
+                    width={60}
+                    height={60}
+                  />
+                  <Link
+                    href={`/post/${index + 1}`}
+                    className="text-decoration-none fw-semibold"
+                  >
+                    {post.title}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Popular Categories */}
+          <div className="categories mb-4">
+            <h6 className="fw-bold text-uppercase">📂 Categories</h6>
+            <div className="d-flex flex-wrap gap-2">
+              {[
+                "Technology",
+                "Business",
+                "Lifestyle",
+                "Travel",
+                "Health",
+                "Food",
+              ].map((category, index) => (
+                <Link
+                  href={`/category/${category.toLowerCase()}`}
+                  key={index}
+                  className={`category-pill ${
+                    theme === "dark" ? "dark-pill" : "light-pill"
+                  }`}
+                >
+                  {category}
+                </Link>
+              ))}
+            </div>
+          </div>
+
+          {/* Social Media Links */}
+          <div className="social-links mb-4">
+            <h6 className="fw-bold text-uppercase">🌍 Stay Connected</h6>
+            <div className="d-flex gap-3">
+              {[
+                { icon: "fab fa-facebook-f", link: "https://facebook.com" },
+                { icon: "fab fa-twitter", link: "https://twitter.com" },
+                { icon: "fab fa-instagram", link: "https://instagram.com" },
+                { icon: "fab fa-linkedin-in", link: "https://linkedin.com" },
+              ].map((social, index) => (
+                <Link
+                  key={index}
+                  href={social.link}
+                  target="_blank"
+                  className="social-icon"
+                >
+                  <i className={social.icon}></i>
+                </Link>
+              ))}
+            </div>
+          </div>
+
+          {/* Newsletter Subscription */}
+          <div
+            className={`newsletter p-3 rounded-4 shadow-sm ${
+              theme === "dark" ? "dark-card" : "light-card"
+            }`}
+          >
+            <h6 className="fw-bold text-uppercase">📩 Subscribe</h6>
+            <p className="text-muted small">
+              Get the latest posts in your inbox!
+            </p>
+            <form>
+              <input
+                type="email"
+                className="form-control mb-2"
+                placeholder="Enter your email"
+              />
+              <button className="btn btn-warning w-100 fw-bold">
+                Subscribe
+              </button>
+            </form>
+          </div>
+        </div>
       </div>
-    </div>
-
-    {/* Social Media Links */}
-    <div className="social-links mb-4">
-      <h6 className="fw-bold text-uppercase">🌍 Stay Connected</h6>
-      <div className="d-flex gap-3">
-        {[
-          { icon: "fab fa-facebook-f", link: "https://facebook.com" },
-          { icon: "fab fa-twitter", link: "https://twitter.com" },
-          { icon: "fab fa-instagram", link: "https://instagram.com" },
-          { icon: "fab fa-linkedin-in", link: "https://linkedin.com" },
-        ].map((social, index) => (
-          <Link key={index} href={social.link} target="_blank" className="social-icon">
-            <i className={social.icon}></i>
-          </Link>
-        ))}
-      </div>
-    </div>
-
-    {/* Newsletter Subscription */}
-    <div className={`newsletter p-3 rounded-4 shadow-sm ${theme === "dark" ? "dark-card" : "light-card"}`}>
-      <h6 className="fw-bold text-uppercase">📩 Subscribe</h6>
-      <p className="text-muted small">Get the latest posts in your inbox!</p>
-      <form>
-        <input type="email" className="form-control mb-2" placeholder="Enter your email" />
-        <button className="btn btn-warning w-100 fw-bold">Subscribe</button>
-      </form>
-    </div>
-  </div>
-</div>
-
     </nav>
   );
 }

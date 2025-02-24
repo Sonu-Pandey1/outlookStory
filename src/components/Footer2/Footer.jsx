@@ -1,13 +1,19 @@
 import Link from "next/link";
 import Image from "next/image";
 import "./Footer.scss";
-import { FaFacebook, FaInstagram, FaLinkedin, FaTwitter, FaYoutube } from "react-icons/fa6";
+import {
+  FaFacebook,
+  FaInstagram,
+  FaLinkedin,
+  FaTwitter,
+  FaYoutube,
+} from "react-icons/fa6";
 import { CiTwitter } from "react-icons/ci";
 
 const Footer = () => {
   return (
     <footer className="footer pt-5 pb-3">
-      <div className="container-fluid px-5">
+      <div className="container-fluid px-4 px-md-5">
         <div className="row gy-4">
           {/* Logo and About Section */}
           <div className="col-md-4">
@@ -115,12 +121,12 @@ const Footer = () => {
               <div className="input-group">
                 <input
                   type="email"
-                  className="form-control"
+                  className="form-control w-100"
                   placeholder="Your email address"
                   aria-label="Your email"
                   required
                 />
-                <button className="btn btn-primary" type="submit">
+                <button className="btn btn-primary btn-sm" type="submit">
                   Subscribe
                 </button>
               </div>
@@ -134,7 +140,7 @@ const Footer = () => {
           <p className="text-center text-muted mb-0">
             © {new Date().getFullYear()} YourStory.com. All Rights Reserved.
           </p>
-          <div className="social-links d-flex">
+          <div className="social-links d-flex pt-2 ">
             <Link
               href="https://facebook.com"
               className="me-3 text-muted"
@@ -150,7 +156,7 @@ const Footer = () => {
               target="_blank"
               rel="noopener noreferrer"
             >
-              <FaYoutube/>
+              <FaYoutube />
             </Link>
             <Link
               href="https://twitter.com"
@@ -158,7 +164,7 @@ const Footer = () => {
               target="_blank"
               rel="noopener noreferrer"
             >
-              <FaTwitter/>
+              <FaTwitter />
             </Link>
             <Link
               href="https://instagram.com"
