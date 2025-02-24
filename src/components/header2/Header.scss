@@ -1,31 +1,62 @@
 .topHeader {
-  transition: background-color 0.3s ease;
-    font-size: 0.9rem;
-  .top-header-bar {
-    transition: color 0.3s ease;
-    .header-right {
-      .social-icons {
-        .icon {
-          color: red;
-          padding: 5px;
-          font-size: 25px;
-        }
-        .twitter {
-          color: #0089f2 !important;
-        }
-        .facebook {
-          color: blue;
-        }
-      }
-    }
-    .header-left {
-      transition: color 0.3s ease;
-      color: inherit ;
-      .top-navbar {
-        .top-nav-links {
-          color: inherit ;
-        }
-      }
-    }
+  width: 100%;
+  background-color:inherit;
+}
+
+// Responsive logo styling
+.logo-container, .ad-container {
+  position: relative;
+  width: 150px; // Adjust width as needed
+  height: 40px;
+}
+
+.ad-container {
+  width: 728px; // Desktop ad size
+  height: 90px;
+  .responsive-img{
+    height: 100%;
+    width: 100%;
+  }
+}
+
+// Responsive images
+.responsive-img {
+  object-fit: contain;
+}
+
+// Top navbar styles
+.top-navbar {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.top-navbar .top-nav-links {
+  color: var(--text-color);
+  font-size: 14px;
+  padding: 5px 10px;
+}
+
+// Social icons
+.social-icons {
+  display: flex;
+  gap: 10px;
+}
+
+.social-icons a {
+  font-size: 18px;
+  color: var(--text-color);
+}
+
+// Mobile Styles
+@media (max-width: 1000px) {
+  .ad-container {
+    width: 500px; // Desktop ad size
+    height: 90px;
+  }
+}
+@media (min-width: 1500px) {
+  .ad-container {
+    width: 100%; // Desktop ad size
+    height: 100px;
   }
 }

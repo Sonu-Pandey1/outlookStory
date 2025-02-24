@@ -58,7 +58,7 @@ function Navbar() {
               <IoHomeOutline />
               Home
             </Link>
-            <Link
+            {/* <Link
               href="/category/stories"
               className="link text-decoration-none d-flex align-items-center gap-2 pe-4"
             >
@@ -78,7 +78,7 @@ function Navbar() {
             >
               <PiBicycleThin />
               City Connect
-            </Link>
+            </Link> */}
             <Link
               href="/category/events"
               className="link text-decoration-none d-flex align-items-center gap-2 pe-4"
