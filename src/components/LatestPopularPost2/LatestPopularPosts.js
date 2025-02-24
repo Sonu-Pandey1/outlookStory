@@ -521,4 +521,4 @@ export default function LatestPopularPosts({ category = null }) {
       </section>
     </div>
   );
-}
+} 

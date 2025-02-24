@@ -5,6 +5,12 @@
   border-radius: 12px;
   transition: background-color 0.3s ease;
 
+  .imgWrapper{
+    height: 200px;
+    width: 100%;
+    // overflow: hidden;
+  }
+
   .card-body {
     transition: all 0.3s ease;
     padding: 15px;
@@ -29,7 +35,7 @@
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: normal;
-    }
+    } 
   }
 
   .badge {
@@ -53,3 +59,97 @@
   background-color: $light-bg;
   color: $dark-text;
 }
+
+// @use "../../styles/globals" as *;
+
+// .card {
+//   overflow: hidden;
+//   border-radius: 12px;
+//   transition: background-color 0.3s ease;
+
+//   .card-body {
+//     transition: all 0.3s ease;
+//     padding: 15px;
+//     color: inherit;
+
+//     .card-title {
+//       font-size: 1.2rem;
+//       margin-bottom: 8px;
+//     }
+
+//     .description {
+//       font-size: 0.9rem;
+//       color: inherit;
+//       margin-top: 8px;
+//     }
+
+//     .text-truncate-2 {
+//       display: -webkit-box;
+//       -webkit-line-clamp: 2;
+//       -webkit-box-orient: vertical;
+//       overflow: hidden;
+//       text-overflow: ellipsis;
+//       white-space: normal;
+//     }
+//   }
+
+//   .badge {
+//     font-size: 0.85rem;
+//     padding: 5px 10px;
+//     z-index: 1;
+//   }
+
+//   .card1 {
+//     h5 {
+//       font-size: 1.2rem !important;
+//     }
+//   }
+// }
+
+// // Responsive Design
+// @media (max-width: 768px) {
+//   .card {
+//     width: 90%;
+//     margin: auto;
+//   }
+
+//   .card-img-top {
+//     height: 200px !important;
+//   }
+
+//   .badge {
+//     font-size: 0.75rem;
+//     padding: 4px 8px;
+//     top: 180px !important;
+//   }
+// }
+
+// @media (max-width: 480px) {
+//   .card {
+//     width: 100%;
+//   }
+
+//   .card-img-top {
+//     height: 180px !important;
+//   }
+
+//   .card-body {
+//     padding: 10px;
+//   }
+
+//   .badge {
+//     font-size: 0.7rem;
+//     padding: 3px 6px;
+//     top: 170px !important;
+//   }
+// }
+
+// // Dark & Light Mode
+// .dark {
+//   background-color: $dark-bg;
+//   color: $light-text !important;
+// }
+// .light {
+//   background-color: $light-bg;
+//   color: $dark-text;
+// }

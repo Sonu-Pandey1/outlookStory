@@ -1,138 +1,139 @@
-@use "../styles/globals" as *;
+// @use "../styles/globals" as *;
 
-.homePage {
-  // transition: all 0.3s ease;
+// .homePage {
+//   // transition: all 0.3s ease;
 
-  .topSection {
-    .leftColumn {
-      .aroundTheWorld {
-        h5 {
-          font-size: 1rem;
-        }
-      }
-      .lifeStyle {
-        h5 {
-          font-size: 1.1rem;
-        }
-      }
-    }
-    .rightColumn {
-      .followUs {
-        .socialContainer {
-          padding: 10px;
-          background-color: inherit;
-          border-radius: 10px;
+//   .topSection {
+//     .leftColumn {
+//       .aroundTheWorld {
+//         h5 {
+//           font-size: 1rem;
+//         }
+//       }
+//       .lifeStyle {
+//         h5 {
+//           font-size: 1.1rem;
+//         }
+//       }
+//     }
+//     .rightColumn {
+//       .followUs {
+//         .socialContainer {
+//           padding: 10px;
+//           background-color: inherit;
+//           border-radius: 10px;
 
-          .col-4 {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 1.2rem;
-            text-decoration: none;
+//           .col-4 {
+//             display: flex;
+//             flex-direction: column;
+//             align-items: center;
+//             justify-content: center;
+//             padding: 1.2rem;
+//             text-decoration: none;
 
-            p {
-              margin: 0;
-              font-size: 0.85rem;
-            }
+//             p {
+//               margin: 0;
+//               font-size: 0.85rem;
+//             }
 
-            .fs-1 {
-              font-size: 2rem;
-            }
-          }
-        }
-      }
-      .advertisment {
-        //overlay effect
-        .imgContainer {
-          position: relative;
-          width: 100%;
-          height: 100%;
+//             .fs-1 {
+//               font-size: 2rem;
+//             }
+//           }
+//         }
+//       }
+//       .advertisment {
+//         //overlay effect
+//         .imgContainer {
+//           position: relative;
+//           width: 100%;
+//           height: 100%;
 
-          .card-img-top {
-            width: 100%;
-            height: auto;
-          }
+//           .card-img-top {
+//             width: 100%;
+//             height: auto;
+//           }
 
-          .overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.2); 
-            color: white;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 24px;
-            font-weight: bold;
-            transition: all 0.3s ease;
-          }
-        }
-      }
-    }
-  }
+//           .overlay {
+//             position: absolute;
+//             top: 0;
+//             left: 0;
+//             width: 100%;
+//             height: 100%;
+//             background-color: rgba(0, 0, 0, 0.2); 
+//             color: white;
+//             display: flex;
+//             justify-content: center;
+//             align-items: center;
+//             font-size: 24px;
+//             font-weight: bold;
+//             transition: all 0.3s ease;
+//           }
+//         }
+//       }
+//     }
+//   }
 
-  // Tab links with active state
-  .tabLink {
-    cursor: pointer;
-    padding: 5px 10px;
-    font-size: 14px;
-    transition: color 0.3s, background-color 0.3s;
+//   // Tab links with active state
+//   .tabLink {
+//     cursor: pointer;
+//     padding: 5px 10px;
+//     font-size: 14px;
+//     transition: color 0.3s, background-color 0.3s;
 
-    &.active {
-      color: white;
-      background-color: blue;
-      border-radius: 5px;
-    }
-  }
-  // General card hover effect
-  .card {
-    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-    border-radius: unset !important;
+//     &.active {
+//       color: white;
+//       background-color: blue;
+//       border-radius: 5px;
+//     }
+//   }
+//   // General card hover effect
+//   .card {
+//     transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+//     border-radius: unset !important;
 
-    &:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
-    }
-  }
+//     &:hover {
+//       transform: translateY(-5px);
+//       box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+//     }
+//   }
 
-  // Image container styles
-  .image-container {
-    width: 300px;
-    height: 100%;
-    overflow: hidden;
+//   // Image container styles
+//   .image-container {
+//     width: 300px;
+//     height: 100%;
+//     overflow: hidden;
 
-    img {
-      object-fit: cover;
-      width: 100%;
-      height: 100%;
-      transition: transform 0.3s ease-in-out;
-    }
+//     img {
+//       object-fit: cover;
+//       width: 100%;
+//       height: 100%;
+//       transition: transform 0.3s ease-in-out;
+//     }
 
-    &:hover img {
-      transform: scale(1.1);
-    }
-  }
+//     &:hover img {
+//       transform: scale(1.1);
+//     }
+//   }
 
-  // Truncate text to 2 lines
-  .text-truncate-2 {
-    display: -webkit-box;
-    line-clamp: 2;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-  // Dark and light mode Forsupport --------
-  .dark {
-    background-color: $dark-bg;
-    color: $light-text !important;
-  }
+//   // Truncate text to 2 lines
+//   .text-truncate-2 {
+//     display: -webkit-box;
+//     line-clamp: 2;
+//     -webkit-line-clamp: 2;
+//     -webkit-box-orient: vertical;
+//     overflow: hidden;
+//     text-overflow: ellipsis;
+//   }
+//   // Dark and light mode Forsupport --------
+//   .dark {
+//     background-color: $dark-bg;
+//     color: $light-text !important;
+//   }
 
-  .light {
-    background-color: $light-bg;
-    color: $dark-text;
-  }
-}
+//   .light {
+//     background-color: $light-bg;
+//     color: $dark-text;
+//   }
+// }
+
