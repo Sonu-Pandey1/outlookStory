@@ -48,6 +48,8 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <head>
+       {/* Favicon Link */}
+       <link rel="icon" href="/favicon.png" type="image/png" />
         <link
           href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
           rel="stylesheet"

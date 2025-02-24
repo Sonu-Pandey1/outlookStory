@@ -44,7 +44,7 @@ function Navbar() {
         {/* Brand logo */}
         <Link href={"/"} className="cursor-pointer">
           <Image
-            src="https://jnews.io/magazine/wp-content/uploads/sites/34/2017/12/logo_magz.png" //https://outlookstory.com/wp-content/uploads/2025/01/logo_OS.png
+            src= "/logo.png"   //"https://jnews.io/magazine/wp-content/uploads/sites/34/2017/12/logo_magz.png" //https://outlookstory.com/wp-content/uploads/2025/01/logo_OS.png
             alt="Logo"
             className="d-md-none"
             width={100}

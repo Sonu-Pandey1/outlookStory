@@ -52,7 +52,7 @@ function Header() {
           <div className="logo col ">
             <Link href="/">
               <div className="logo-container">
-                <Image src={logoSrc} alt="Logo" fill priority className="responsive-img" />
+                <Image src="/logo.png" alt="Logo" fill priority className="responsive-img" />
               </div>
             </Link>
           </div>
