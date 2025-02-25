@@ -53,7 +53,7 @@ const InfiniteFeed = ({ category = null }) => {
       <section>
         <div className="container-fluid px-4 pb-4 pt-2">
           <div className="row">
-            <div className="col-md-8 latestPostsContainer">
+            <div className="col-md-8 latestPostsContainer bg-danger pt-5">
               {/* Render "Latest Posts" section */}
               <button className="btn btn-outline-primary mb-3">
                 Latest Posts
@@ -65,7 +65,7 @@ const InfiniteFeed = ({ category = null }) => {
                 hasMore={hasNextPage}
                 loader={<h4>Loading more posts...</h4>}
                 endMessage={<p>No more posts</p>}
-                scrollThreshold={0.95}
+                scrollThreshold={0.90}
               >
                 {/* Render posts using LatestPopularPosts component */}
                 <LatestPopularPosts

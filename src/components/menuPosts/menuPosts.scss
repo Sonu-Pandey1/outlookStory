@@ -1,3 +1,5 @@
+
+
 .menuPostsContainer {
   .items {
     margin-top: 25px;
@@ -15,7 +17,7 @@
       align-items: center;
       font-style: italic;
       font-size: 1.2rem;
-      border-radius: 50%; // Perfect circle
+      border-radius: 50%; 
       transition: all 0.3s ease-in-out;
       box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
 
@@ -34,7 +36,6 @@
     overflow: hidden;
     color: inherit;
     transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-    // background-color:inherit;
 
     &:hover {
       transform: translateY(-5px);
@@ -67,8 +68,6 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
-      // align-items: center;
-      // text-align: center;
 
       .postTitle {
         font-size: 18px;
@@ -133,6 +132,38 @@
     flex-direction: column;
     gap: 5px;
 
+    .category {
+      padding: 3px 8px;
+      border-radius: 10px;
+      font-size: 12px;
+      color: white;
+      width: max-content;
+
+      &.stories {
+        background-color: #ff7857;
+      }
+
+      &.business {
+        background-color: #ffb14f;
+      }
+
+      &.cityConnect {
+        background-color: #7fb881;
+      }
+
+      &.events {
+        background-color: #ff7887;
+      }
+
+      &.videos {
+        background-color: #775aec;
+      }
+
+      &.launchPad {
+        background-color: #789cff;
+      }
+    }
+
     .text-truncate-2 {
       display: -webkit-box;
       line-clamp: 2;
@@ -140,38 +171,6 @@
       -webkit-box-orient: vertical;
       overflow: hidden;
       text-overflow: ellipsis;
-    }
-  }
-
-  .category {
-    padding: 3px 8px;
-    border-radius: 10px;
-    font-size: 12px;
-    color: white;
-    width: max-content;
-
-    &.travel {
-      background-color: #ff7857;
-    }
-
-    &.culture {
-      background-color: #ffb14f;
-    }
-
-    &.food {
-      background-color: #7fb881;
-    }
-
-    &.fashion {
-      background-color: #ff7887;
-    }
-
-    &.coding {
-      background-color: #775aec;
-    }
-
-    &.style {
-      background-color: #789cff;
     }
   }
 

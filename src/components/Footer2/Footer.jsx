@@ -19,7 +19,7 @@ const Footer = () => {
           <div className="col-md-4">
             <div className="footer-logo mb-3">
               <Image
-                src="https://jnews.io/magazine/wp-content/uploads/sites/34/2017/12/logo_magz_dark.png"
+                src= "/logo.png" 
                 alt="Logo"
                 width={150}
                 height={50}
@@ -63,48 +63,38 @@ const Footer = () => {
             <h5 className="footer-heading">Categories</h5>
             <ul className="list-unstyled d-flex flex-wrap gap-3">
               <li>
-                <Link href="/business" className="text-muted">
+                <Link href="/" className="text-muted">
+                  Home
+                </Link>
+              </li>
+              <li>
+                <Link href="/category/stories" className="text-muted">
+                  Stories
+                </Link>
+              </li>
+              <li>
+                <Link href="/category/business" className="text-muted">
                   Business
                 </Link>
               </li>
               <li>
-                <Link href="/fashion" className="text-muted">
-                  Fashion
+                <Link href="/category/cityConnect" className="text-muted">
+                  City Connect
                 </Link>
               </li>
               <li>
-                <Link href="/food" className="text-muted">
-                  Food
+                <Link href="/category/events" className="text-muted">
+                  Events
                 </Link>
               </li>
               <li>
-                <Link href="/haelth" className="text-muted">
-                  Health
+                <Link href="/category/videos" className="text-muted">
+                  Videos
                 </Link>
               </li>
               <li>
-                <Link href="/entertainment" className="text-muted">
-                  Entertainment
-                </Link>
-              </li>
-              <li>
-                <Link href="/lifestyle" className="text-muted">
-                  Lifestyle
-                </Link>
-              </li>
-              <li>
-                <Link href="/sports" className="text-muted">
-                  Sports
-                </Link>
-              </li>
-              <li>
-                <Link href="/travel" className="text-muted">
-                  Travel
-                </Link>
-              </li>
-              <li>
-                <Link href="/world" className="text-muted">
-                  World
+                <Link href="/category/launchPad" className="text-muted">
+                  Launch pad
                 </Link>
               </li>
             </ul>
@@ -138,7 +128,7 @@ const Footer = () => {
         {/* Footer Bottom Section */}
         <div className="footer-bottom mt-4 pt-4 border-top d-flex justify-content-between ">
           <p className="text-center text-muted mb-0">
-            © {new Date().getFullYear()} YourStory.com. All Rights Reserved.
+            © {new Date().getFullYear()} outlookstory.com. All Rights Reserved.
           </p>
           <div className="social-links d-flex pt-2 ">
             <Link

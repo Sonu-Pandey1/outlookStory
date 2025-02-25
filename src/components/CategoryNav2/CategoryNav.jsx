@@ -140,6 +140,7 @@ import React, { useContext, useState } from "react";
 import Image from "next/image";
 import "./Category.scss";
 import { ThemeContext } from "@/context/ThemeContext";
+import Card3 from "../Card2/Card3";
 
 const categoriesData = [
   {
@@ -147,27 +148,35 @@ const categoriesData = [
     articles: [
       {
         id: 1,
-        tag: "Fashion",
-        title: "Fashion Girls! These Are the 17 Chic Flats Everyone Will Want in 2018",
-        imgSrc: "https://jnews.io/magazine/wp-content/uploads/sites/34/2017/12/jnews-demo-3-750x536.jpg",
+        category: "Fashion",
+        title:
+          "Fashion Girls! These Are the 17 Chic Flats Everyone Will Want in 2018",
+        imgSrc:
+          "https://jnews.io/magazine/wp-content/uploads/sites/34/2017/12/jnews-demo-3-750x536.jpg",
       },
       {
         id: 2,
-        tag: "Travel",
-        title: "Barack Obama and Family Visit Balinese Paddy Fields During Vacation",
-        imgSrc: "https://jnews.io/magazine/wp-content/uploads/sites/34/2017/12/jnews-demo-20-350x250.jpg",
+        category: "Travel",
+        title:
+          "Barack Obama and Family Visit Balinese Paddy Fields During Vacation",
+        imgSrc:
+          "https://jnews.io/magazine/wp-content/uploads/sites/34/2017/12/jnews-demo-20-350x250.jpg",
       },
       {
         id: 3,
-        tag: "Entertainment",
-        title: "Hannah Donker Talks Being The Weeknd’s Love Interest in ‘Secrets’",
-        imgSrc: "https://jnews.io/magazine/wp-content/uploads/sites/34/2017/12/jnews-demo-4-350x250.jpg",
+        category: "Entertainment",
+        title:
+          "Hannah Donker Talks Being The Weeknd’s Love Interest in ‘Secrets’",
+        imgSrc:
+          "https://jnews.io/magazine/wp-content/uploads/sites/34/2017/12/jnews-demo-4-350x250.jpg",
       },
       {
         id: 4,
-        tag: "Business",
-        title: "Betterment Moves Beyond Robo-Advising with Human Financial Planners",
-        imgSrc: "https://jnews.io/magazine/wp-content/uploads/sites/34/2017/12/jnews-demo-1-750x536.jpg",
+        category: "Business",
+        title:
+          "Betterment Moves Beyond Robo-Advising with Human Financial Planners",
+        imgSrc:
+          "https://jnews.io/magazine/wp-content/uploads/sites/34/2017/12/jnews-demo-1-750x536.jpg",
       },
     ],
   },
@@ -176,27 +185,32 @@ const categoriesData = [
     articles: [
       {
         id: 1,
-        tag: "AI",
-        title: "AI Revolution: How Artificial Intelligence is Changing Everything",
-        imgSrc: "https://jnews.io/magazine/wp-content/uploads/sites/34/2017/12/jnews-demo-3-750x536.jpg",
+        category: "AI",
+        title:
+          "AI Revolution: How Artificial Intelligence is Changing Everything",
+        imgSrc:
+          "https://jnews.io/magazine/wp-content/uploads/sites/34/2017/12/jnews-demo-3-750x536.jpg",
       },
       {
         id: 2,
-        tag: "Gadgets",
+        category: "Gadgets",
         title: "Top 5 Must-Have Gadgets for 2024",
-        imgSrc: "https://jnews.io/magazine/wp-content/uploads/sites/34/2017/12/jnews-demo-3-750x536.jpg",
+        imgSrc:
+          "https://jnews.io/magazine/wp-content/uploads/sites/34/2017/12/jnews-demo-3-750x536.jpg",
       },
       {
         id: 3,
-        tag: "Innovation",
+        category: "Innovation",
         title: "The Future of Technology: Bold Predictions for the Next Decade",
-        imgSrc: "https://jnews.io/magazine/wp-content/uploads/sites/34/2017/12/jnews-demo-20-350x250.jpg",
+        imgSrc:
+          "https://jnews.io/magazine/wp-content/uploads/sites/34/2017/12/jnews-demo-20-350x250.jpg",
       },
       {
         id: 4,
-        tag: "Startups",
+        category: "Startups",
         title: "Top Tech Startups to Watch Out for in 2024",
-        imgSrc: "https://jnews.io/magazine/wp-content/uploads/sites/34/2017/12/jnews-demo-3-750x536.jpg",
+        imgSrc:
+          "https://jnews.io/magazine/wp-content/uploads/sites/34/2017/12/jnews-demo-3-750x536.jpg",
       },
     ],
   },
@@ -225,7 +239,9 @@ const CategoryNav = () => {
               <button
                 key={cat.category}
                 className={`btn ${
-                  activeCategory === cat.category ? "btn-primary" : "btn-outline-primary"
+                  activeCategory === cat.category
+                    ? "btn-primary"
+                    : "btn-outline-primary"
                 }`}
                 onClick={() => handleCategoryChange(cat.category)}
               >
@@ -238,21 +254,7 @@ const CategoryNav = () => {
         {/* Articles Grid */}
         <div className="row">
           {activeArticles?.map((article) => (
-            <div key={article.id} className="col-lg-3 col-md-4 col-sm-6 col-12 mb-4">
-              <div className="card border-0 shadow-sm">
-                <Image
-                  src={article.imgSrc}
-                  alt={article.title}
-                  width={350}
-                  height={200}
-                  className="card-img-top rounded-0"
-                />
-                <div className={`card-body ${theme === "dark" ? "dark" : "light"} p-3`}>
-                  <span className="badge bg-primary">{article.tag}</span>
-                  <h6 className="card-title mt-2 text-truncate-2">{article.title}</h6>
-                </div>
-              </div>
-            </div>
+            <Card3 key={article.id} item={article} />
           ))}
         </div>
       </div>
