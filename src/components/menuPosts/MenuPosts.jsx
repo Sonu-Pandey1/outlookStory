@@ -116,13 +116,13 @@ const MenuPosts = ({ withImage, upperMenu, upperMenuTop }) => {
               </div>
             )}
 
-            <div className="textContainer bg-danger">
+            <div className="textContainer">
               <span
                 className={`category ${post.catSlug || "default-category"}`}
               >
                 {post.catSlug || "Uncategorized"}
               </span>
-              <h3 className="postTitle text-truncate-2">{post.title}</h3>
+              <h3 className="postTitle text-truncate-2 py-1">{post.title}</h3>
               <div className="detail d-flex gap-3">
                 <span className="date">
                   {post.createdAt

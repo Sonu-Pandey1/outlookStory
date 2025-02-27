@@ -85,9 +85,9 @@ export default function LatestPopularPosts({ category = null }) {
                     <div key={index} className="col-md-12">
                       <Link
                         href={`/category/${item.catSlug}/${item.slug}`}
-                        className="text-decoration-none"
+                        className="text-decoration-none cardLatest pt-5 mt-5"
                       >
-                        <div className="card cardLatest py-sm-0 border-0 shadow-sm h-100 d-flex flex-column flex-sm-row flex-md-column flex-lg-row">
+                        <div className="card  py-sm-0 border-0 shadow-sm h-100 d-flex flex-column flex-sm-row flex-md-column flex-lg-row">
                           <div className="position-relative">
                             <div className="image-container">
                               <Image
@@ -103,9 +103,7 @@ export default function LatestPopularPosts({ category = null }) {
                             </span>
                           </div>
                           <div
-                            className={`card-body ${
-                              theme === "dark" ? "dark" : "light"
-                            } p-lg-2 ps-lg-4`}
+                            className={`card-body p-lg-2 ps-lg-4`}
                           >
                             <h6 className="card-title text-truncate-2">
                               {item.title}

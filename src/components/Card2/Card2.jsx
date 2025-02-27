@@ -28,7 +28,7 @@ function Card2() {
         </div>
 
         {/* Card Body */}
-        <div className={`card-body ps-3  ${theme ==="dark"?"dark":"light"}`} style={{ flex: "1" }}>
+        <div className={`card-body ps-sm-3   ${theme ==="dark"?"dark":"light"}`} style={{ flex: "1" }}>
 
           {/* Title with two-line truncation */}
           <h5 className="card-title text-truncate-2">

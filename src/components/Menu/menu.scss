@@ -1,4 +1,4 @@
-.menuWrapper{
+.menuWrapper {
   .menuContainer {
     .container {
       flex: 2;
@@ -8,7 +8,7 @@
       flex: 2;
       // margin-top: 40px;
     }
-  
+
     .subtitle {
       color: gray;
       font-size: 16px;
@@ -17,88 +17,5 @@
     .title {
       font-size: 28px;
     }
-  
-    @media screen and (max-width: 1024px) {
-      .container {
-        display: none;
-      }
-    }
   }
 }
-
-
-// .menuWrapper {
-//   .menuContainer {
-//     // For singlePage and upperMenu
-
-//     &.singlePage {
-//       // Styles specific to the single page view
-//       .container {
-//         flex: 2;
-//         margin-top: 40px;
-//       }
-//     }
-
-//     &.upperMenu {
-//       // Styles specific to the upperMenu (when singlePage is false and upperMenu is true)
-//       .container2 {
-//         flex: 2;
-//         // margin-top: 40px; // Uncomment if needed
-//       }
-//     }
-
-//     &.lowerMenu {
-//       // Styles for lowerMenu (when both singlePage and upperMenu are false)
-//       .container2 {
-//         flex: 2;
-//         // margin-top: 40px; // Uncomment if needed
-//       }
-//     }
-
-//     .subtitle {
-//       // Common subtitle styling
-//       color: gray;
-//       font-size: 16px;
-//       font-weight: 400;
-//     }
-
-//     .title {
-//       // Common title styling
-//       font-size: 28px;
-//     }
-
-//     @media screen and (max-width: 1024px) {
-//       // Media query for responsiveness
-//       .container {
-//         display: none; // Hide container for smaller screens
-//       }
-//     }
-//   }
-
-//   // Styles for when `singlePage` is true
-//   .singlePage {
-//     .menuContainer {
-//       .container {
-//         margin-top: 40px; // Apply margin-top for singlePage
-//       }
-//     }
-//   }
-
-//   // Styles for when `upperMenu` is true
-//   .upperMenu {
-//     .menuContainer {
-//       .container2 {
-//         margin-top: 40px; // Apply margin-top for upperMenu
-//       }
-//     }
-//   }
-
-//   // Styles for when both `singlePage` and `upperMenu` are false
-//   .lowerMenu {
-//     .menuContainer {
-//       .container2 {
-//         margin-top: 40px; // Apply margin-top for lowerMenu
-//       }
-//     }
-//   }
-// }

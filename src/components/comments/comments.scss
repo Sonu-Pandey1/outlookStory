@@ -1,145 +1,72 @@
-.commentsContainer {
-  padding: 20px;
-  max-width: 800px;
-  margin: 0 auto;
+@use "../../styles/globals" as *;
 
+.comments-container {
+  background-color: inherit;
+  color: inherit;
+  // transition: background-color 0.3s, color 0.3s;
   .title {
-    color: var(--softTextColor);
-    margin-bottom: 30px;
-    font-size: 2rem;
-    font-weight: 600;
-    text-align: center;
+    padding: 10px;
   }
 
-  .write {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    margin-bottom: 20px;
-  }
-
-  .input {
-    background-color: #fff;
-    color: #333;
-    padding: 15px;
-    border-radius: 8px;
-    border: 1px solid #ddd;
+  textarea {
+    background-color: inherit !important;
+    box-shadow: 0 0 2px white;
+    color: inherit !important;
+    padding: 10px;
+    border-radius: 5px;
     font-size: 1rem;
     resize: none;
-    min-height: 100px;
-    transition: border-color 0.3s ease;
-  }
 
-  .button {
-    padding: 12px 20px;
-    background-color: teal;
-    color: white;
-    font-weight: bold;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 1rem;
-    transition: background-color 0.3s ease;
-
-    &:hover {
-      background-color: darkcyan;
+    &::placeholder {
+      color: inherit !important;
+      opacity: 0.6;
     }
 
-    &:disabled {
-      background-color: #ddd;
-      cursor: not-allowed;
+    &:focus {
+      border-color: var(--primaryColor) !important;
+      outline: none !important;
+      box-shadow: 0 0 5px white;
     }
   }
 
-  .comments {
-    margin-top: 40px;
-
-    .comment {
-      background-color: #f9f9f9;
-      border-radius: 8px;
-      padding: 15px;
-      margin-bottom: 20px;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-
-      .comment-header {
-        display: flex;
-        justify-content: space-between;
-        margin-bottom: 10px;
-        align-items: center;
-      }
-
-      .user {
-        display: flex;
-        align-items: center;
-        gap: 15px;
-        font-size: 0.9rem;
-      }
-
-      .image {
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
-        object-fit: cover;
-      }
-
-      .userInfo {
-        color: var(--softTextColor);
-      }
-
-      .username {
-        font-weight: 500;
-        color: #333;
-      }
-
-      .date {
-        font-size: 14px;
-        color: #777;
-      }
-
-      .desc {
-        font-size: 1rem;
-        margin-left: 50px;
-        color: #333;
-      }
-
-      .edit-comment {
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-
-        textarea {
-          background-color: #fff;
-          border: 1px solid #ddd;
-          border-radius: 8px;
-          padding: 12px;
-          min-height: 80px;
-        }
-      }
-    }
+  .commentCard {
+    background-color: inherit !important;
+    color: inherit !important;
+    box-shadow: 0 0 2px white;
   }
 
-  .no-comments {
-    text-align: center;
-    font-size: 1.2rem;
-    color: #777;
-    padding: 10px;
-    background-color: #f1f1f1;
-    border-radius: 8px;
+  .commentDate {
+    // color: var(--softTextColor) !important;
+    font-size: 0.85rem;
   }
+}
 
-  @media (max-width: 768px) {
-    .write {
-      gap: 10px;
+// Dark Mode Adjustments
+.dark {
+  .comments-container {
+    .title {
+      background-color: #222 !important;
+      color: #fff !important;
+      padding: 10px;
+      border-radius: 5px;
+      box-shadow: 0 0px 5px rgba(255, 255, 255, 0.1); // Soft glow effect for contrast
     }
 
-    .input {
-      font-size: 0.9rem;
-      padding: 12px;
+    textarea {
+      background-color: #333 !important;
+      color: #fff !important;
+      border: 1px solid #555 !important;
     }
 
-    .button {
-      padding: 10px 15px;
-      font-size: 0.9rem;
+    .commentCard {
+      background-color: #2a2a2a !important;
+      color: #fff !important;
+      border: 1px solid #444 !important; // Slightly visible border in dark mode
+      box-shadow: 0 2px 4px rgba(255, 255, 255, 0.1); // Soft glow effect for contrast
+    }
+
+    .commentDate {
+      color: #999 !important; // More readable in dark mode
     }
   }
 }

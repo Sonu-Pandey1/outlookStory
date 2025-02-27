@@ -78,12 +78,13 @@ const SinglePage = () => {
       <div className="singlePage">
         <div className="container-fluid p-4">
           <div className="row">
-            <div className="col col-8 leftCol">
-              <div className="title">
+            <div className="col-12 col-md-7 col-lg-8 leftCol">
+              <div className="title pb-2">
                 <h1>{data.title}</h1>
               </div>
-              <div className="writerInfo d-flex align-items-center pt-2 ">
-                <span className="userImg pe-3">
+
+              <div className="writerInfo d-flex flex-wrap align-items-center pt-2">
+                <span className="userImg pe-3 d-flex align-items-center">
                   {data?.user?.image && (
                     <div className="userImageContainer">
                       <Image
@@ -98,13 +99,11 @@ const SinglePage = () => {
                 </span>
                 <span className="username pe-2">
                   by{" "}
-                  <Link className=" text-decoration-none" href="/">
-                    {" "}
+                  <Link className="text-decoration-none" href="/">
                     {data?.user.name}
                   </Link>
                 </span>
                 <span className="date pe-2">
-                  {" "}
                   --{" "}
                   {new Date(data.createdAt)
                     .toISOString()
@@ -113,12 +112,12 @@ const SinglePage = () => {
                     .reverse()
                     .join("-")}
                 </span>
-                <span className="categories"> in {data.catSlug}</span>
-                <span className="views ps-4">
-                  {" "}
+                <span className="categories ps-5 ps-sm-0" > in {data.catSlug}</span>
+                <span className="views ps-5 ps-sm-4">
                   <FaEye className="viewsIcon" /> {data.views}
                 </span>
               </div>
+
               <div className="postDetailsContainer py-4">
                 {data?.img && (
                   <div className="postImageWrapper pb-4">
@@ -133,60 +132,57 @@ const SinglePage = () => {
                 )}
                 <div className="postDetails">
                   <div
-                    className="description"
+                    className="description pb-5 pt-3"
                     dangerouslySetInnerHTML={{ __html: data?.desc }}
                   />
 
-                  <div className="writerInfo2 p-5 d-flex align-items-center gap-4 shadow ">
-                    <div className="userImg pe-3">
-                      {data?.user?.image && (
-                        <div className="userImageContainer">
-                          <Image
-                            src={data.user.image}
-                            alt="avatar"
-                            className="avatar"
-                            height={300}
-                            width={500}
-                          />
-                        </div>
-                      )}
-                    </div>
-                    <div className="userDetails">
-                      <p className="username pe-2 fs-5">
-                        {" "}
-                        <Link className=" text-decoration-none" href="/">
-                          {" "}
-                          {data?.user.name}
-                        </Link>
-                      </p>
-                      <p className="userBio">
-                        Lorem ipsum dolor sit amet, consectetur adipisicing
-                        elit. Hic non aperiam tenetur at ratione ex repellat
-                        earum blanditiis eaque dolorem magni reprehenderit minus
-                        vel dolor, eveniet modi amet commodi .
-                      </p>
-                      <div className="socicalIcons d-flex gap-3">
-                        <Facebook className="icon" />
-                        <Twitter className="icon" />
-                        <Instagram className="icon" />
-                        <LinkedIn className="icon" />
+                  <div className="p-3">
+                    <div className="writerInfo2 p-4 shadow border row ">
+                      <div className="userImg text-center col-12 col-md-4 d-flex justify-content-center align-items-center">
+                        {data?.user?.image && (
+                          <div className="userImageContainer bg-danger">
+                            <Image
+                              src={data.user.image}
+                              alt="avatar"
+                              className="avatar"
+                              height={300}
+                              width={500}
+                            />
+                          </div>
+                        )}
+                      </div>
+                      <div className="userDetails text-center text-sm-start pt-4 pt-sm-0 col-12 col-md-8">
+                        <p className="username pe-2 fs-5">
+                          <Link className=" text-decoration-none" href="/">
+                            {data?.user.name}
+                          </Link>
+                        </p>
+                        <p className="userBio">
+                          Lorem ipsum dolor sit amet, consectetur adipisicing
+                          elit. Hic non aperiam tenetur at ratione ex repellat
+                          earum blanditiis eaque dolorem magni reprehenderit
+                          minus vel dolor, eveniet modi amet commodi.
+                        </p>
+                        <p className="socialIcons  d-flex justify-content-center justify-content-sm-start gap-3">
+                          <Facebook className="icon" />
+                          <Twitter className="icon" />
+                          <Instagram className="icon" />
+                          <LinkedIn className="icon" />
+                        </p>
                       </div>
                     </div>
                   </div>
-
-                  <div className="relatedBlogs">
-                    {/* //todo ---- related blogs section need to create stilll panding !*/}
-                  </div>
-
-                  <div className="comment">
-                    <Comments postSlug={slug} />
-                  </div>
+                </div>
+              </div>
+              <div>
+                <div className="comment d-none d-md-block">
+                  <Comments postSlug={slug} />
                 </div>
               </div>
             </div>
 
-            <div className="col col-4 rightCol">
-              <div className="advertisement px-5">
+            <div className="col-12 col-md-5 col-lg-4 rightCol ">
+              <div className="advertisement px-sm-5">
                 <Image
                   src="https://jnews.io/magazine/wp-content/uploads/sites/34/2017/12/300x250_2.jpg"
                   alt="advertisement-img"
@@ -195,8 +191,11 @@ const SinglePage = () => {
                   height={250}
                 />
               </div>
-              <div className="othereBlogs">
+              <div className="othereBlogs ">
                 <Menu singlePage={true} />
+              </div>
+              <div className="comment d-md-none">
+                <Comments postSlug={slug} />
               </div>
             </div>
           </div>

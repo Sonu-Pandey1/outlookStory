@@ -2,6 +2,7 @@
   .container-fluid {
     .leftCol {
       .writerInfo {
+      padding: 10px;
         .userImg {
           .userImageContainer {
             width: 40px;
@@ -23,7 +24,6 @@
             padding-bottom: 3px;
           }
         }
-       
 
         span {
           font-size: 1rem;
@@ -46,6 +46,7 @@
         }
         .postDetails {
           .writerInfo2 {
+            border-radius: 10px;
             .userImg {
               .userImageContainer {
                 width: 80px;
@@ -81,6 +82,31 @@
           // width: 100%;
           object-fit: cover;
         }
+      }
+    }
+  }
+}
+
+.dark {
+  .singlePage {
+    // transition: background-color 0.3s, color 0.3s;
+
+    .writerInfo{
+      background-color: #2a2a2a !important;
+      color: #fff !important;
+      border: 1px solid #444 !important; // Slightly visible border in dark mode
+      box-shadow: 0 2px 4px rgba(255, 255, 255, 0.1); // Soft glow effect for contrast
+      padding: 10px;
+    }
+
+    .writerInfo2 {
+      background-color: #2a2a2a !important;
+      color: #fff !important;
+      border: 1px solid #444 !important; // Slightly visible border in dark mode
+      box-shadow: 0 2px 4px rgba(255, 255, 255, 0.1); // Soft glow effect for contrast
+
+      .socicalIcons {
+        color: #999 !important; // More readable in dark mode
       }
     }
   }

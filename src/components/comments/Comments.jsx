@@ -1,13 +1,17 @@
 "use client";
 
-import { useState } from "react";
+import { useContext, useState } from "react";
 import useSWR, { mutate } from "swr";
 import { useUser } from "@clerk/nextjs";
 import Link from "next/link";
-import { FaRegComment } from "react-icons/fa";
+import { FaPen, FaTrash } from "react-icons/fa";
 import { toast } from "react-toastify";
 import ClipLoader from "react-spinners/ClipLoader";
-import "./comments.scss";
+import { ThemeContext } from "@/context/ThemeContext";
+
+import Image from "next/image";
+import { FaCommentDots } from "react-icons/fa6";
+import "./Comments.scss";
 
 const fetcher = async (url) => {
   const res = await fetch(url);
@@ -40,12 +44,7 @@ const Comments = ({ postSlug }) => {
       });
 
       if (res.ok) {
-        const newComment = await res.json();
-        mutate(
-          `/api/comments?postSlug=${postSlug}`,
-          [...data, newComment],
-          false //
-        );
+        mutate(`/api/comments?postSlug=${postSlug}`);
         setDesc("");
         toast.success("Comment posted successfully!");
       } else {
@@ -66,15 +65,10 @@ const Comments = ({ postSlug }) => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-          commentId,
-          desc: newDesc,
-          postSlug,
-        }),
+        body: JSON.stringify({ commentId, desc: newDesc, postSlug }),
       });
 
       if (res.ok) {
-        const updatedComment = await res.json();
         mutate(`/api/comments?postSlug=${postSlug}`);
         toast.success("Comment updated successfully.");
         setEditingCommentId(null);
@@ -112,99 +106,111 @@ const Comments = ({ postSlug }) => {
     }
   };
 
+  const { theme } = useContext(ThemeContext);
+
   return (
-    <div className="commentsContainer">
-      <h2 className="title">Comments</h2>
+    <div
+      className={`container comments-container p-0 p-md-4 ${
+        theme === "dark" ? "dark" : "light"
+      }`}
+    >
+      <div className="d-flex gap-5 title align-items-center mb-4">
+        <h2 className="">Comments </h2>
+        <span className="totalComments">
+          <FaCommentDots /> {data?.length || 0}
+        </span>
+      </div>
 
       {isSignedIn ? (
-        <div className="write">
+        <div className="mb-4">
           <textarea
+            className="form-control mb-2 "
             value={desc}
             onChange={(e) => setDesc(e.target.value)}
             placeholder="Write a comment..."
-            className="input"
           ></textarea>
           <button
             onClick={handlePostComment}
             disabled={loading}
-            className="button"
+            className="btn btn-primary w-100"
           >
             {loading ? <ClipLoader size={20} color="#fff" /> : "Post Comment"}
           </button>
         </div>
       ) : (
-        <Link href="/sign-in">Log in to post a comment</Link>
+        <Link href="/sign-in" className="btn btn-outline-primary w-100">
+          Log in to post a comment
+        </Link>
       )}
 
       {isLoading ? (
         <p>Loading comments...</p>
       ) : error ? (
-        <p>Failed to load comments.</p>
+        <p className="text-danger">Failed to load comments.</p>
       ) : (
-        <div className="comments">
+        <div className="comments-list">
           {data && data.length > 0 ? (
             data.map((comment) => (
-              <div key={comment.id} className="comment">
-                <div className="comment-header">
-                  <div className="user">
-                    {comment.user ? (
-                      <>
-                        <img
-                          src={comment.user.image || "/default-avatar.png"}
-                          alt="User Avatar"
-                          className="image"
-                        />
-                        <div className="userInfo">
-                          <span className="username">{comment.user.name}</span>
-                          <span className="date">
-                            {new Date(comment.createdAt).toLocaleString()}
-                          </span>
-                        </div>
-                      </>
-                    ) : (
-                      <span>Anonymous</span>
-                    )}
+              <div key={comment.id} className="commentCard card mb-3 p-3">
+                <div className="d-flex justify-content-between align-items-center">
+                  <div className="d-flex align-items-center">
+                    <Image
+                      src={comment.user?.image || "/default-avatar.png"}
+                      alt="User Avatar"
+                      className="rounded-circle me-2"
+                      width="40"
+                      height="40"
+                    />
+                    <div>
+                      <span className="fw-bold ">
+                        {comment.user?.name || "Anonymous"}
+                      </span>
+                      <br />
+                      <small className="commentDate">
+                        {new Date(comment.createdAt).toLocaleString()}
+                      </small>
+                    </div>
                   </div>
                   {isSignedIn && (
-                    <>
+                    <div className="d-flex gap-2">
                       <button
                         onClick={() => setEditingCommentId(comment.id)}
-                        className="button"
+                        className="btn btn-sm btn-warning"
                       >
-                        Edit
+                        <FaPen />
                       </button>
                       <button
                         onClick={() => handleDeleteComment(comment.id)}
-                        className="button"
+                        className="btn btn-sm btn-danger"
                       >
-                        Delete
+                        <FaTrash />
                       </button>
-                    </>
+                    </div>
                   )}
                 </div>
 
                 {editingCommentId === comment.id ? (
-                  <div className="edit-comment">
+                  <div className="mt-2">
                     <textarea
+                      className="form-control"
                       defaultValue={comment.desc}
                       onChange={(e) => setDesc(e.target.value)}
-                      placeholder="Edit your comment..."
                     ></textarea>
                     <button
                       onClick={() => handleEditComment(comment.id, desc)}
                       disabled={loading}
-                      className="button"
+                      className="btn btn-success mt-2 w-100"
                     >
                       {loading ? <ClipLoader size={20} color="#fff" /> : "Save"}
                     </button>
                   </div>
                 ) : (
-                  <p className="desc">{comment.desc}</p>
+                  <p className="mt-2">{comment.desc}</p>
                 )}
               </div>
             ))
           ) : (
-            <p className="no-comments">No comments yet.</p>
+            <p className="text-center text-muted">No comments yet.</p>
           )}
         </div>
       )}

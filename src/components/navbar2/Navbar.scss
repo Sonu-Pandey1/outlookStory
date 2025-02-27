@@ -2,6 +2,7 @@
 
 .navbar {
   transition: background-color 0.3s ease;
+
   .cursor-pointer {
     cursor: pointer;
   }
@@ -162,3 +163,9 @@
 .social-icon:hover {
   color: #ff758c;
 }
+
+// .dark{
+//   .navbar{
+//     background-color: #a18cd1 !important;
+//   }
+// }

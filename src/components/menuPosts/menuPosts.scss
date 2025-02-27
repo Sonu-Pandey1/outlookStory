@@ -1,5 +1,3 @@
-
-
 .menuPostsContainer {
   .items {
     margin-top: 25px;
@@ -17,7 +15,7 @@
       align-items: center;
       font-style: italic;
       font-size: 1.2rem;
-      border-radius: 50%; 
+      border-radius: 50%;
       transition: all 0.3s ease-in-out;
       box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
 
@@ -139,28 +137,66 @@
       color: white;
       width: max-content;
 
+      // &.stories {
+      //   background-color: #ff7857;
+      // }
+
+      // &.business {
+      //   background-color: #ffb14f;
+      // }
+
+      // &.cityConnect {
+      //   background-color: #7fb881;
+      // }
+
+      // &.events {
+      //   background-color: #ff7887;
+      // }
+
+      // &.videos {
+      //   background-color: #775aec;
+      // }
+
+      // &.launchPad {
+      //   background-color: #789cff;
+      // }
+
+      // &.style {
+      //   background-color: #57c4ff31;
+      // }
+
       &.stories {
-        background-color: #ff7857;
+        background-color: #da85c731;
+        color: inherit;
       }
 
       &.business {
-        background-color: #ffb14f;
+        background-color: #7fb88133;
+        color: inherit;
       }
 
       &.cityConnect {
-        background-color: #7fb881;
+        background-color: #ff795736;
+        color: inherit;
       }
 
       &.events {
-        background-color: #ff7887;
+        background-color: #ffb04f45;
+        color: inherit;
       }
 
       &.videos {
-        background-color: #775aec;
+        background-color: #5e4fff31;
+        color: inherit;
+      }
+      &.launchPad {
+        background-color: #789cff5b;
+        color: inherit;
       }
 
-      &.launchPad {
-        background-color: #789cff;
+      &.style {
+        background-color: #57c4ff31;
+        color: inherit;
       }
     }
 
@@ -193,4 +229,19 @@
   .viewsIcon {
     padding-bottom: 3px;
   }
+}
+
+
+.dark {
+    .item{
+      background-color: #2a2a2a !important;
+      color: #fff !important;
+      border: 1px solid #444 !important; // Slightly visible border in dark mode
+      box-shadow: 0 2px 4px rgba(255, 255, 255, 0.1); // Soft glow effect for contrast
+      padding: 10px;
+      border-radius: 10px;
+    }
+
+ 
+  
 }
