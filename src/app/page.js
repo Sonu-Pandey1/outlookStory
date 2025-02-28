@@ -169,7 +169,7 @@ const Home = () => {
           <div className="container-fluid px-4">
             <div className="row">
               {/* Left Column */}
-              <div className="col-sm-8 col-12 leftColumn">
+              <div className=" col-12 col-md-8 col-lg-7 col-xxl-8  leftColumn">
                 <div>
                   {/* Left top Column */}
                   <div className="topStories">
@@ -178,17 +178,7 @@ const Home = () => {
                       <button className="btn btn-outline-primary">
                         Top Stories
                       </button>
-                      {/* <div className="d-flex gap-2">
-                {["All", "World", "Business", "Fashion", "Entertainment"].map((category) => (
-                  <span
-                    key={category}
-                    className={`tabLink ${activeCategory1 === category ? "active" : ""}`}
-                    onClick={() => handleCategoryChange1(category)}
-                  >
-                    {category}
-                  </span>
-                ))}
-              </div> */}
+                     
                     </div>
 
                     <div className="bottom top-Stories row ">
@@ -216,6 +206,7 @@ const Home = () => {
                       <button className="btn btn-outline-primary">
                         Around the World
                       </button>
+                      {/* 1 */}
                       <div className="d-flex justify-content-between align-items-center">
                         {/* Small Screen (3-dot Dropdown) */}
                         <div className="d-sm-none position-relative">
@@ -239,13 +230,13 @@ const Home = () => {
 
                           {dropdownOpen && (
                             <ul
-                              className="dropdown-menu show position-absolute"
+                              className="dropdown-menu show position-absolute ssss"
                               style={{ right: 0, minWidth: "120px" }}
                             >
                               {categories.map((category) => (
                                 <li key={category}>
                                   <button
-                                    className={`dropdown-item ${
+                                    className={`dropdown-item ss ${
                                       selectedCategory === category
                                         ? "active"
                                         : ""
@@ -283,7 +274,7 @@ const Home = () => {
                           {categories.map((category) => (
                             <span
                               key={category}
-                              className={`px-3 py-1 rounded`}
+                              className={`px-3 py-1 rounded sss`}
                               onClick={() => setSelectedCategory(category)}
                               style={{
                                 cursor: "pointer",
@@ -341,6 +332,7 @@ const Home = () => {
                       <button className="btn btn-outline-primary">
                         Lifestyle
                       </button>
+                      {/* 2 */}
                       <div className="d-flex justify-content-between align-items-center">
                         {/* Small Screen (3-dot Dropdown) */}
                         <div className="d-sm-none position-relative">
@@ -364,13 +356,13 @@ const Home = () => {
 
                           {dropdownOpen && (
                             <ul
-                              className="dropdown-menu show position-absolute"
+                              className="dropdown-menu show position-absolute ssss"
                               style={{ right: 0, minWidth: "120px" }}
                             >
                               {categories.map((category) => (
                                 <li key={category}>
                                   <button
-                                    className={`dropdown-item ${
+                                    className={`dropdown-item ss ${
                                       selectedCategory === category
                                         ? "active"
                                         : ""
@@ -408,7 +400,7 @@ const Home = () => {
                           {categories.map((category) => (
                             <span
                               key={category}
-                              className={`px-3 py-1 rounded`}
+                              className={`px-3 py-1 rounded sss`}
                               onClick={() => setSelectedCategory(category)}
                               style={{
                                 cursor: "pointer",
@@ -446,7 +438,7 @@ const Home = () => {
               </div>
 
               {/* Right Column */}
-              <div className="col-lg-4 col-12 my-4 ps-3 pe-3 rightColumn">
+              <div className="col-12 col-md-4 col-lg-5 col-xxl-4 my-4 ps-3 pe-3 rightColumn">
                 {/* Follow Us Section */}
                 <div className="followUs">
                   <div className="mb-4  d-flex justify-content-between gap-3">

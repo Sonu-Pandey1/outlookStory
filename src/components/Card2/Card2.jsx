@@ -19,16 +19,12 @@ function Card2() {
             height={150}
             alt="card-img"
             src="https://jnews.io/magazine/wp-content/uploads/sites/34/2017/12/jnews-demo-3-750x536.jpg"
-            style={{
-              objectFit: "cover",
-              width: "100%",
-              height: "100%",
-            }}
+            style={{ objectFit: "cover", width: "100%", height: "100%" }}
           />
         </div>
 
         {/* Card Body */}
-        <div className={`card-body ps-sm-3   ${theme ==="dark"?"dark":"light"}`} style={{ flex: "1" }}>
+        <div className={`card-body ps-sm-3`} style={{ flex: "1" }}>
 
           {/* Title with two-line truncation */}
           <h5 className="card-title text-truncate-2">

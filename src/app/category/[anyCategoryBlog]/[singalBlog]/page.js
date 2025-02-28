@@ -140,7 +140,7 @@ const SinglePage = () => {
                     <div className="writerInfo2 p-4 shadow border row ">
                       <div className="userImg text-center col-12 col-md-4 d-flex justify-content-center align-items-center">
                         {data?.user?.image && (
-                          <div className="userImageContainer bg-danger">
+                          <div className="userImageContainer">
                             <Image
                               src={data.user.image}
                               alt="avatar"
