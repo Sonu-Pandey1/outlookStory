@@ -44,7 +44,7 @@ function Navbar() {
         {/* Brand logo */}
         <Link href={"/"} className="cursor-pointer">
           <Image
-            src= "/logo.png"   //"https://jnews.io/magazine/wp-content/uploads/sites/34/2017/12/logo_magz.png" //https://outlookstory.com/wp-content/uploads/2025/01/logo_OS.png
+            src="/logo.png" //"https://jnews.io/magazine/wp-content/uploads/sites/34/2017/12/logo_magz.png" //https://outlookstory.com/wp-content/uploads/2025/01/logo_OS.png
             alt="Logo"
             className="d-md-none"
             width={100}
@@ -109,7 +109,7 @@ function Navbar() {
         </div>
 
         {/* Authentication buttons */}
-        <div className="loginBTNS d-none d-md-block">
+        <div className="loginBTNS d-none d-md-block pt-1">
           <SignedOut>
             {/* <SignInButton /> */}
             <Link href={"/sign-in"}>
@@ -121,14 +121,22 @@ function Navbar() {
           </SignedOut>
           <SignedIn>
             <UserButton
-              appearance={{ baseTheme: theme === "light" ? light : dark }}
+              appearance={{
+                baseTheme: theme === "light" ? light : dark,
+                elements: {
+                  avatarBox: {
+                    width: "35px", // Adjust as needed
+                    height: "35px", // Adjust as needed
+                  },
+                },
+              }}
               userProfileUrl="/dashboard?tab=profile"
             />
           </SignedIn>
         </div>
 
         {/* Theme toggle */}
-        <div>
+        <div className="ps-3">
           <ThemeToggle />
         </div>
       </div>

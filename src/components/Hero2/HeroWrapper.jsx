@@ -35,7 +35,8 @@ const pageData = {
     {
       category: "Business",
       title: "Global Markets Hit by New Economic Challenges in 2023",
-      image:"https://jnews.io/magazine/wp-content/uploads/sites/34/2017/11/jnews-demo-23-120x86.jpg",
+      image:
+        "https://jnews.io/magazine/wp-content/uploads/sites/34/2017/11/jnews-demo-23-120x86.jpg",
     },
     {
       category: "Business",
@@ -58,51 +59,60 @@ const pageData = {
   ],
   cityConnect: [
     {
-      image: "https://jnews.io/magazine/wp-content/uploads/sites/34/2017/12/jnews-demo-1-750x536.jpg",
+      image:
+        "https://jnews.io/magazine/wp-content/uploads/sites/34/2017/12/jnews-demo-1-750x536.jpg",
       title: "Top 10 Trending Videos of 2023",
       category: "cityConnect",
     },
     {
-      image: "https://jnews.io/magazine/wp-content/uploads/sites/34/2017/12/jnews-demo-3-750x536.jpg",
+      image:
+        "https://jnews.io/magazine/wp-content/uploads/sites/34/2017/12/jnews-demo-3-750x536.jpg",
       title: "Must-Watch Documentaries",
       category: "cityConnect",
     },
     {
-      image: "https://jnews.io/magazine/wp-content/uploads/sites/34/2017/12/jnews-demo-1-750x536.jpg",
+      image:
+        "https://jnews.io/magazine/wp-content/uploads/sites/34/2017/12/jnews-demo-1-750x536.jpg",
       title: "Viral Clips: What's Hot This Week",
       category: "cityConnect",
     },
     {
-      image: "https://jnews.io/magazine/wp-content/uploads/sites/34/2017/12/jnews-demo-1-750x536.jpg",
+      image:
+        "https://jnews.io/magazine/wp-content/uploads/sites/34/2017/12/jnews-demo-1-750x536.jpg",
       title: "Behind the Scenes of Viral Videos",
       category: "cityConnect",
     },
   ],
   launchPad: [
     {
-      image: "https://jnews.io/magazine/wp-content/uploads/sites/34/2017/12/jnews-demo-24-750x536.jpg",
+      image:
+        "https://jnews.io/magazine/wp-content/uploads/sites/34/2017/12/jnews-demo-24-750x536.jpg",
       title: "Top 10 Trending Videos of 2023",
       category: "launchPad",
     },
     {
-      image: "https://jnews.io/magazine/wp-content/uploads/sites/34/2017/12/jnews-demo-3-750x536.jpg",
+      image:
+        "https://jnews.io/magazine/wp-content/uploads/sites/34/2017/12/jnews-demo-3-750x536.jpg",
       title: "Must-Watch Documentaries",
       category: "launchPad",
     },
     {
-      image: "https://jnews.io/magazine/wp-content/uploads/sites/34/2017/12/jnews-demo-3-750x536.jpg",
+      image:
+        "https://jnews.io/magazine/wp-content/uploads/sites/34/2017/12/jnews-demo-3-750x536.jpg",
       title: "Viral Clips: What's Hot This Week",
       category: "launchPad",
     },
     {
-      image: "https://jnews.io/magazine/wp-content/uploads/sites/34/2017/12/jnews-demo-1-750x536.jpg",
+      image:
+        "https://jnews.io/magazine/wp-content/uploads/sites/34/2017/12/jnews-demo-1-750x536.jpg",
       title: "Behind the Scenes of Viral Videos",
       category: "launchPad",
     },
   ],
   videos: [
     {
-      image: "https://jnews.io/magazine/wp-content/uploads/sites/34/2017/12/jnews-demo-3-750x536.jpg",
+      image:
+        "https://jnews.io/magazine/wp-content/uploads/sites/34/2017/12/jnews-demo-3-750x536.jpg",
       title: "Top 10 Trending Videos of 2023",
       category: "Videos",
     },
@@ -124,7 +134,8 @@ const pageData = {
   ],
   events: [
     {
-      image: "https://jnews.io/magazine/wp-content/uploads/sites/34/2017/12/jnews-demo-3-750x536.jpg",
+      image:
+        "https://jnews.io/magazine/wp-content/uploads/sites/34/2017/12/jnews-demo-3-750x536.jpg",
       title: "Upcoming Events You Can't Miss",
       category: "Events",
     },
@@ -146,7 +157,8 @@ const pageData = {
   ],
   default: [
     {
-      image: "https://jnews.io/magazine/wp-content/uploads/sites/34/2017/12/jnews-demo-3-750x536.jpg",
+      image:
+        "https://jnews.io/magazine/wp-content/uploads/sites/34/2017/12/jnews-demo-3-750x536.jpg",
       title: "Explore the Unknown",
       category: "Default",
     },
@@ -168,10 +180,10 @@ const pageData = {
   ],
 };
 
-export default function HeroWrapper({theme}) {
+export default function HeroWrapper({ theme }) {
   const pathname = usePathname(); // Get the current path
   const pageType = pathname.split("/")[2]; // Extract page type from the URL (e.g., "/story" -> "story")
-// console.log(pageType)
+  // console.log(pageType)
   // Custom default data for homepage or 404
   const defaultData = Object.values(pageData).map((category) => category[0]); // Take 1 story from each category
 
@@ -184,5 +196,5 @@ export default function HeroWrapper({theme}) {
   // console.log("Page Type:", pageType);
   // console.log("Hero Data:", heroData);
 
-  return <Hero data={heroData} theme = {theme} />;
+  return <Hero data={heroData} theme={theme} />;
 }

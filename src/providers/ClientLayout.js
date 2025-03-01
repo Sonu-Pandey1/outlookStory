@@ -75,7 +75,7 @@ export default function ClientLayout({ children }) {
         {!isLoginPage && !isDashboardPage && !isCreatePostPage && <Header />}
         <Navbar />
 
-        {/* {!isCategoryRoute && !isLoginPage && !isDashboardPage && !isCreatePostPage && <HeroWrapper theme={theme} />} */}
+        {!isCategoryRoute && !isLoginPage && !isDashboardPage && !isCreatePostPage && <HeroWrapper theme={theme} />}
 
         <main className={theme} style={{ transition: "all 0.3s ease" }}>
           {children}
