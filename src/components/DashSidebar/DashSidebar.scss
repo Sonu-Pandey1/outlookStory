@@ -6,6 +6,7 @@
     height: 100%;
     padding: 20px 20px;
     position: relative;
+    z-index: 1000000;
   
     .nav {
       padding-left: 0;
@@ -73,77 +74,3 @@
   }
   
 
-  /* Toggle Button */
-// .sidebar-toggle {
-//     display: none; // Hidden by default
-//     position: absolute;
-//     top: 15px;
-//     left: 15px;
-//     color: white;
-//     font-size: 2rem;
-//     cursor: pointer;
-//     z-index: 20;
-//   }
-  
-//   @media (max-width: 768px) {
-//     .sidebar-toggle {
-//       display: block; // Show the toggle button on small screens
-//     }
-  
-//     .sidebar-container.closed {
-//       transform: translateX(-100%); // Hide the sidebar when closed
-//       transition: transform 0.3s ease;
-//     }
-  
-//     .sidebar-container.open {
-//       transform: translateX(0); // Show the sidebar when open
-//     }
-//   }
-  
-  /* Responsive Styles */
-  
-  /* For small devices like mobile */
-//   @media (max-width: 768px) {
-//     .sidebar-container {
-//       width: 100%; // Sidebar will take full width on small screens
-//       height: auto;
-//       position: absolute;
-//       top: 0;
-//       left: 0;
-//       background-color: #333;
-//       z-index: 10; // Ensure sidebar stays on top
-//     }
-  
-//     /* If you need to make the links look better on smaller devices */
-//     .nav-link {
-//       font-size: 0.9rem; // Smaller font size on mobile
-//       padding: 12px 18px; // Adjust padding for mobile devices
-//     }
-  
-//     .nav-item {
-//       margin-bottom: 12px; // Smaller gap between items
-//     }
-  
-//     /* Collapsible Sidebar toggle icon, if needed */
-//     .sidebar-toggle {
-//       display: block;
-//       font-size: 1.5rem;
-//       margin: 15px;
-//       color: white;
-//       cursor: pointer;
-//       z-index: 20;
-//     }
-//   }
-  
-  /* For very small devices, like extra small mobile screens */
-//   @media (max-width: 480px) {
-//     .sidebar-container {
-//       padding: 10px;
-//     }
-  
-//     .nav-link {
-//       font-size: 0.85rem; // Even smaller font size
-//       padding: 10px 16px;
-//     }
-//   }
-  

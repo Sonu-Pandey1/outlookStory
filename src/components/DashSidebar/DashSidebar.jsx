@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import {
   HiUser,
   HiArrowSmRight,
@@ -16,13 +16,16 @@ import Link from "next/link";
 import "./DashSidebar.scss";
 import { HiMenu, HiX } from "react-icons/hi"; // Add icons for toggling
 import { useSearchParams } from "next/navigation";
+import { ThemeContext } from "@/context/ThemeContext";
 
-const DashSidebar = () => {
+const DashSidebar = ({ sidebarOpen, setSidebarOpen }) => {
   const searchParams = useSearchParams();
   const [tab, setTab] = useState(""); // Active tab state
   const [isOpen, setIsOpen] = useState(true); // Sidebar open/close state
   const { user, isSignedIn, isLoading } = useUser(); // Add isLoading to check if user data is still loading
   console.log(tab);
+
+  const { theme } = useContext(ThemeContext);
 
   useEffect(() => {
     const urlParams = new URLSearchParams(searchParams);
@@ -43,10 +46,18 @@ const DashSidebar = () => {
   const hasRole = user?.publicMetadata?.role;
 
   return (
-    <div className={`sidebar-container ${isOpen ? "open" : "closed"}`}>
-      <div className="sidebar-toggle" onClick={() => setIsOpen(!isOpen)}>
-        {isOpen ? <HiX /> : <HiMenu />} {/* Toggle icon */}
+    <div
+      className={`sidebar-container ${
+        theme === "dark" ? "bg-dark" : "bg-light"
+      } position-fixed  `}
+    >
+      <div
+        className="d-flex align-items-center justify-content-end p-2 d-block d-md-none"
+        onClick={() => setSidebarOpen(!sidebarOpen)}
+      >
+        {sidebarOpen ? <HiX className="fs-3 text-danger"/> : <HiMenu />}
       </div>
+
       {/* Sidebar Items */}
       <ul className="nav flex-column">
         {hasRole && (
@@ -77,7 +88,7 @@ const DashSidebar = () => {
           <li className="nav-item">
             <Link
               href="/dashboard/create-post"
-              className={`nav-link ${tab === "create-post" ? "active" : ""}` }
+              className={`nav-link ${tab === "create-post" ? "active" : ""}`}
             >
               <MdOutlinePostAdd className="me-2" />
               Add Posts

@@ -58,5 +58,6 @@ html {
 }
 
 .minH {
-  height: calc(100vh - 60px);
+  height: calc(100vh - 62px) !important;
+  overflow: hidden !important;
 }
