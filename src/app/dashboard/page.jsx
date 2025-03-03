@@ -56,7 +56,7 @@ export default function Dashboard() {
         {/* Main Content */}
         <div className="col-12 col-md-9 col-lg-10">
 
-          <div className={`d-md-none ps-4 pt-0 fs-3 ms-2 ${theme == "dark"?"text-white":"text-dark"} `} onClick={() => setSidebarOpen(!sidebarOpen)}>
+          <div className={`d-md-none ps-4 pt-0 fs-3 ms-2 ${theme == "dark" ? "text-white" : "text-dark"} `} onClick={() => setSidebarOpen(!sidebarOpen)}>
             {sidebarOpen ? <HiX /> : <HiMenu />} {/* Toggle icon */}
           </div>
 
