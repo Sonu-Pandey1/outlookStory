@@ -24,6 +24,7 @@ model User {
 model Post {
   id         String       @id @default(cuid()) @map("_id")
   createdAt  DateTime     @default(now())
+  updatedAt  DateTime?    @updatedAt
   slug       String       @unique
   title      String
   desc       String
@@ -41,6 +42,7 @@ model Post {
 model Comment {
   id        String   @id @default(cuid()) @map("_id")
   createdAt DateTime @default(now())
+  updatedAt  DateTime?    @updatedAt
   desc      String
   userId    String // Relating comment to user's userId
   user      User     @relation(fields: [userId], references: [userId],onDelete: Cascade) // Relating to User's userId

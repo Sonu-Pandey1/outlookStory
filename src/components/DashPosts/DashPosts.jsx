@@ -1,173 +1,424 @@
+
+// "use client";
+
+// import { useState, useEffect } from "react";
+// import { useUser } from "@clerk/nextjs";
+// import {
+//   Button,
+//   Table,
+//   TableBody,
+//   TableCell,
+//   TableContainer,
+//   TableHead,
+//   TableRow,
+//   Paper,
+//   TablePagination,
+//   Modal,
+//   Typography,
+//   CircularProgress,
+// } from "@mui/material";
+// import Image from "next/image";
+// import Link from "next/link";
+
+// const DashPosts = () => {
+//   const { isSignedIn, user, isLoaded } = useUser();
+//   const [posts, setPosts] = useState([]);
+//   const [loading, setLoading] = useState(false);
+//   const [page, setPage] = useState(0);
+//   const [rowsPerPage, setRowsPerPage] = useState(6);
+//   const [showModal, setShowModal] = useState(false);
+//   const [postIdToDelete, setPostIdToDelete] = useState(null);
+//   console.log("Rendered Posts:", posts);
+//   console.log(user)
+
+//   useEffect(() => {
+//     if (!isLoaded || !isSignedIn) return;
+//     fetchPosts();
+//   }, [isLoaded, isSignedIn]);
+
+//   const fetchPosts = async () => {
+//     setLoading(true);
+//     try {
+//       const response = await fetch("/api/posts/all"); // Fetch all posts from new API
+//       const data = await response.json();
+  
+//       console.log("Fetched Data:", data);
+  
+//       if (!data || !Array.isArray(data.posts)) {
+//         throw new Error("Invalid response structure");
+//       }
+  
+//       const filteredPosts = data.posts.filter((post) => {
+//         console.log("Checking post:", post);
+//         if (user?.publicMetadata?.role === "admin") return true;
+//         if (user?.publicMetadata?.role === "writer") return post.userId === user.id;
+//         return false;
+//       });
+  
+//       setPosts(filteredPosts);
+//     } catch (error) {
+//       console.error("Error fetching posts:", error);
+//     } finally {
+//       setLoading(false);
+//     }
+//   };
+  
+
+//   const handleDelete = async () => {
+//     setShowModal(false);
+//     try {
+//       const response = await fetch(`/api/posts/${postIdToDelete}`, {
+//         method: "DELETE",
+//         headers: { "Content-Type": "application/json" },
+//       });
+
+//       if (response.ok) {
+//         setPosts((prevPosts) => prevPosts.filter((post) => post.id !== postIdToDelete));
+//       }
+//     } catch (error) {
+//       console.error("Error deleting post:", error);
+//     }
+//   };
+
+//   const handleChangePage = (_, newPage) => {
+//     setPage(newPage);
+//   };
+
+//   const handleChangeRowsPerPage = (event) => {
+//     setRowsPerPage(parseInt(event.target.value, 10));
+//     setPage(0);
+//   };
+
+//   if (user?.publicMetadata?.role === "user") {
+//     return <Typography variant="h5">You do not have access to this page.</Typography>;
+//   }
+
+//   console.log("Rendered Posts:", posts);
+
+//   return (
+//     <div>
+//       <Typography variant="h4">Manage Posts</Typography>
+
+//       {loading ? (
+//         <CircularProgress />
+//       ) : posts.length === 0 ? (
+//         <Typography>No posts available.</Typography>
+//       ) : (
+//         <>
+//           <TableContainer component={Paper}>
+//             <Table>
+//               <TableHead>
+//                 <TableRow>
+//                   <TableCell>Image</TableCell>
+//                   <TableCell>Title</TableCell>
+//                   <TableCell>Author</TableCell>
+//                   <TableCell>Date</TableCell>
+//                   <TableCell>Views</TableCell>
+//                   <TableCell>Comments</TableCell>
+//                   {(user?.publicMetadata?.role === "admin" || user?.publicMetadata?.role === "writer") && (
+//                     <TableCell>Actions</TableCell>
+//                   )}
+//                 </TableRow>
+//               </TableHead>
+//               <TableBody>
+//                 {(posts || []).slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((post) => (
+//                   <TableRow key={post.id}>
+//                     <TableCell>
+//                       <Image
+//                         src={post.image || "/default-post.jpg"}
+//                         alt={post.title || "No Title"}
+//                         width={50}
+//                         height={50}
+//                         style={{ borderRadius: "5px" }}
+//                       />
+//                     </TableCell>
+//                     <TableCell>
+//                       <Link href={`/post/${post.slug}`}>{post.title}</Link>
+//                     </TableCell>
+//                     <TableCell>{post.authorName || "Unknown"}</TableCell>
+//                     <TableCell>{new Date(post.updatedAt || post.createdAt).toLocaleString()}</TableCell>
+//                     <TableCell>{post.views || 0}</TableCell>
+//                     <TableCell>{post.commentsCount || 0}</TableCell>
+//                     {(user?.publicMetadata?.role === "admin" || post.userId === user.id) && (
+//                       <TableCell>
+//                         <Button variant="contained" color="primary" href={`/dashboard/edit-post/${post.id}`}>
+//                           Edit
+//                         </Button>
+//                         <Button
+//                           variant="contained"
+//                           color="secondary"
+//                           onClick={() => {
+//                             setShowModal(true);
+//                             setPostIdToDelete(post.id);
+//                           }}
+//                         >
+//                           Delete
+//                         </Button>
+//                       </TableCell>
+//                     )}
+//                   </TableRow>
+//                 ))}
+//               </TableBody>
+//             </Table>
+//           </TableContainer>
+//           <TablePagination
+//             rowsPerPageOptions={[6, 10, 25, 50, 100]}
+//             component="div"
+//             count={posts.length}
+//             rowsPerPage={rowsPerPage}
+//             page={page}
+//             onPageChange={handleChangePage}
+//             onRowsPerPageChange={handleChangeRowsPerPage}
+//           />
+//         </>
+//       )}
+
+//       <Modal open={showModal} onClose={() => setShowModal(false)}>
+//         <Paper style={{ padding: 20, margin: "auto", maxWidth: 400, textAlign: "center" }}>
+//           <Typography variant="h6">Are you sure you want to delete this post?</Typography>
+//           <Button variant="contained" color="error" onClick={handleDelete} style={{ margin: "10px" }}>
+//             Yes, Delete
+//           </Button>
+//           <Button variant="contained" onClick={() => setShowModal(false)}>
+//             Cancel
+//           </Button>
+//         </Paper>
+//       </Modal>
+//     </div>
+//   );
+// };
+
+// export default DashPosts;
+
+
 "use client";
 
 import { useState, useEffect } from "react";
 import { useUser } from "@clerk/nextjs";
-import Link from "next/link";
-import { HiOutlineExclamationCircle } from "react-icons/hi";
-import { Button, Modal, Table } from "react-bootstrap";
+import {
+  Button,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
+  TablePagination,
+  Modal,
+  Typography,
+  CircularProgress,
+} from "@mui/material";
 import Image from "next/image";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 
-export default function DashPosts() {
-  const { user } = useUser();
-  console.log("user", user);
-
-  const [userPosts, setUserPosts] = useState([]);
+const DashPosts = () => {
+  const { isSignedIn, user, isLoaded } = useUser();
+  const [posts, setPosts] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(6);
   const [showModal, setShowModal] = useState(false);
-  const [postIdToDelete, setPostIdToDelete] = useState("");
+  const [postIdToDelete, setPostIdToDelete] = useState(null);
+  const router = useRouter();
+  console.log(postIdToDelete)
 
   useEffect(() => {
-    const fetchPosts = async () => {
-      try {
-        const res = await fetch("/api/post/get", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            userId: user?.publicMetadata?.userMongoId,
-          }),
-        });
-        const data = await res.json();
-        console.log(data);
+    if (!isLoaded || !isSignedIn) return;
+    fetchPosts();
+  }, [isLoaded, isSignedIn]);
 
-        if (res.ok) {
-          setUserPosts(data.posts);
-        }
-      } catch (error) {
-        console.log(error.message);
-      }
-    };
-    if (user?.publicMetadata?.isAdmin) {
-      fetchPosts();
-    }
-  }, [user?.publicMetadata?.isAdmin, user?.publicMetadata?.userMongoId]);
-
-  const handleDeletePost = async () => {
-    setShowModal(false);
+  const fetchPosts = async () => {
+    setLoading(true);
     try {
-      const res = await fetch("/api/post/delete", {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          postId: postIdToDelete,
-          userId: user?.publicMetadata?.userMongoId,
-        }),
-      });
-      const data = await res.json();
-      if (res.ok) {
-        const newPosts = userPosts.filter(
-          (post) => post._id !== postIdToDelete
-        );
-        setUserPosts(newPosts);
-        setPostIdToDelete(""); // Reset postIdToDelete after deletion
-      } else {
-        console.log(data.message);
+      const response = await fetch("/api/posts/all"); // Fetch all posts from new API
+      const data = await response.json();
+
+      if (!data || !Array.isArray(data.posts)) {
+        throw new Error("Invalid response structure");
       }
+
+      const filteredPosts = data.posts.filter((post) => {
+        if (user?.publicMetadata?.role === "admin") return true;
+        if (user?.publicMetadata?.role === "writer") return post.userId === user.id;
+        return false;
+      });
+
+      setPosts(filteredPosts);
     } catch (error) {
-      console.log(error.message);
+      console.error("Error fetching posts:", error);
+    } finally {
+      setLoading(false);
     }
   };
+//? this is ok but issues is params 
+  // const handleDelete = async () => {
+  //   if (!postIdToDelete) {
+  //     console.error("No post ID to delete.");
+  //     return;
+  //   }
+  
+  //   try {
+  //     const response = await fetch(`/api/posts/${postIdToDelete}`, {
+  //       method: "DELETE",
+  //       body: JSON.stringify({ postId: postIdToDelete }),
+  //       headers: { "Content-Type": "application/json" },
+  //     });
+  
+  //     if (!response.ok) {
+  //       const errorData = await response.json();
+  //       throw new Error(errorData.message || "Failed to delete post");
+  //     }
+  
+  //     console.log("✅ Post deleted successfully:", postIdToDelete);
+  
+  //     setPosts((prevPosts) => prevPosts.filter((post) => post.id !== postIdToDelete));
+  //     setShowModal(false);
+  //     setPostIdToDelete(null);
+  //   } catch (error) {
+  //     console.error("Error deleting post:", error);
+  //   }
+  // };
+  
+  const handleDelete = async () => {
+    if (!postIdToDelete) {
+      console.error("No post ID to delete.");
+      return;
+    }
+  
+    try {
+      const response = await fetch(`/api/posts/delete`, { // Change to generic endpoint
+        method: "DELETE",
+        body: JSON.stringify({ postId: postIdToDelete }),
+        headers: { "Content-Type": "application/json" },
+      });
+  
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || "Failed to delete post");
+      }
+  
+      console.log("✅ Post deleted successfully:", postIdToDelete);
+  
+      setPosts((prevPosts) => prevPosts.filter((post) => post.id !== postIdToDelete));
+      setShowModal(false);
+      setPostIdToDelete(null);
+    } catch (error) {
+      console.error("Error deleting post:", error);
+    }
+  };
+  
 
-  if (!user?.publicMetadata?.isAdmin) {
-    return (
-      <div className="d-flex flex-column justify-content-center align-items-center py-5">
-        <h1 className="h4">You are not an admin!</h1>
-      </div>
-    );
+  const handleChangePage = (_, newPage) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+  };
+
+  if (user?.publicMetadata?.role === "user") {
+    return <Typography variant="h5">You do not have access to this page.</Typography>;
   }
 
   return (
-    <div className="overflow-auto px-3 py-4 bg-danger col">
-      {user?.publicMetadata?.isAdmin && userPosts.length > 0 ? (
-        <Table striped bordered hover responsive>
-          <thead>
-            <tr>
-              <th>Date updated</th>
-              <th>Post image</th>
-              <th>Post title</th>
-              <th>Category</th>
-              <th>Delete</th>
-              <th>Edit</th>
-            </tr>
-          </thead>
-          <tbody>
-            {userPosts.map((post) => (
-              <tr key={post._id}>
-                <td>{new Date(post.updatedAt).toLocaleDateString()}</td>
-                <td>
-                  <Link href={`/post/${post.slug}`}>
-                    <Image
-                      src={post.image}
-                      alt={post.title}
-                      className="w-20 h-10 object-cover bg-gray-500"
-                    />
-                  </Link>
-                </td>
-                <td>
-                  <Link className="text-dark" href={`/post/${post.slug}`}>
-                    {post.title}
-                  </Link>
-                </td>
-                <td>{post.category}</td>
-                <td>
-                  <Button
-                    variant="danger"
-                    onClick={() => {
-                      setShowModal(true);
-                      setPostIdToDelete(post._id);
-                    }}
-                  >
-                    Delete
-                  </Button>
-                </td>
-                <td>
-                  <Link
-                    className="btn btn-warning"
-                    href={`/dashboard/update-post/${post._id}`}
-                  >
-                    Edit
-                  </Link>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </Table>
+    <div>
+      <Typography variant="h4">Manage Posts</Typography>
+
+      {loading ? (
+        <CircularProgress />
+      ) : posts.length === 0 ? (
+        <Typography>No posts available.</Typography>
       ) : (
-        <p>You have no posts yet!</p>
+        <>
+          <TableContainer component={Paper}>
+            <Table>
+              <TableHead>
+                <TableRow>
+                  <TableCell>Image</TableCell>
+                  <TableCell>Title</TableCell>
+                  <TableCell>Author</TableCell>
+                  <TableCell>Date</TableCell>
+                  <TableCell>Views</TableCell>
+                  <TableCell>Comments</TableCell>
+                  {(user?.publicMetadata?.role === "admin" || user?.publicMetadata?.role === "writer") && (
+                    <TableCell>Actions</TableCell>
+                  )}
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {(posts || []).slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((post) => (
+                  <TableRow key={post.id}>
+                    <TableCell>
+                      <Image
+                        src={post.image || "/default-post.jpg"}
+                        alt={post.title || "No Title"}
+                        width={50}
+                        height={50}
+                        style={{ borderRadius: "5px" }}
+                      />
+                    </TableCell>
+                    <TableCell>
+                      <Link href={`/post/${post.slug}`}>{post.title}</Link>
+                    </TableCell>
+                    <TableCell>{post.authorName || "Unknown"}</TableCell>
+                    <TableCell>{new Date(post.updatedAt || post.createdAt).toLocaleString()}</TableCell>
+                    <TableCell>{post.views || 0}</TableCell>
+                    <TableCell>{post.commentsCount || 0}</TableCell>
+                    {(user?.publicMetadata?.role === "admin" || post.userId === user.id) && (
+                      <TableCell>
+                        <Button
+                          variant="contained"
+                          color="primary"
+                          onClick={() => router.push(`/dashboard/create-post?edit=${post.id}`)}
+                        >
+                          Edit
+                        </Button>
+                        <Button
+  variant="contained"
+  color="secondary"
+  onClick={() => {
+    console.log("Setting postIdToDelete:", post.id); // ✅ Debugging line
+    setShowModal(true);
+    setPostIdToDelete(post.id); // ✅ Assign correct post ID
+  }}
+>
+  Delete
+</Button>
+                      </TableCell>
+                    )}
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+          <TablePagination
+            rowsPerPageOptions={[6, 10, 25, 50, 100]}
+            component="div"
+            count={posts.length}
+            rowsPerPage={rowsPerPage}
+            page={page}
+            onPageChange={handleChangePage}
+            onRowsPerPageChange={handleChangeRowsPerPage}
+          />
+        </>
       )}
 
-      <Modal show={showModal} onHide={() => setShowModal(false)} centered>
-        <Modal.Header closeButton />
-        <Modal.Body>
-          <div className="text-center">
-            <HiOutlineExclamationCircle className="h3 text-warning mb-3" />
-            <h4>Are you sure you want to delete this post?</h4>
-            <div className="d-flex justify-content-center gap-3 mt-4">
-              <Button variant="danger" onClick={handleDeletePost}>
-                Yes, I`m sure
-              </Button>
-              <Button variant="secondary" onClick={() => setShowModal(false)}>
-                No, cancel
-              </Button>
-            </div>
-          </div>
-        </Modal.Body>
+      <Modal open={showModal} onClose={() => setShowModal(false)}>
+        <Paper style={{ padding: 20, margin: "auto", maxWidth: 400, textAlign: "center" }}>
+          <Typography variant="h6">Are you sure you want to delete this post?</Typography>
+          <Button variant="contained" color="error" onClick={handleDelete} style={{ margin: "10px" }}>
+            Yes, Delete
+          </Button>
+          <Button variant="contained" onClick={() => setShowModal(false)}>
+            Cancel
+          </Button>
+        </Paper>
       </Modal>
     </div>
   );
-}
+};
 
-// import React from "react";
-
-// export default function DashPosts() {
-//   return (
-//     <div
-//       className=" bg-danger-subtle col overflow-y-scroll"
-//       style={{ height: "calc(100vh - 60px)" }}
-//     >
-//       DashPosts
-//     </div>
-//   );
-// }
+export default DashPosts;

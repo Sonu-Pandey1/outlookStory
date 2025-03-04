@@ -1,123 +1,197 @@
+
 "use client";
 
-import { useState, useEffect } from "react";
-import { Button, Table, Modal } from "react-bootstrap";
-import { HiOutlineExclamationCircle } from "react-icons/hi";
-import Image from "next/image";
+import { useEffect, useState } from "react";
+import { useUser } from "@clerk/nextjs";
+import {
+  Button,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
+  TablePagination,
+  TextField,
+  Box,
+} from "@mui/material";
 
-export default function DashComments() {
+const DashComments = () => {
+  const { isSignedIn, user, isLoaded } = useUser();
   const [comments, setComments] = useState([]);
-  const [showModal, setShowModal] = useState(false);
-  const [commentIdToDelete, setCommentIdToDelete] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(6);
+  const [editingCommentId, setEditingCommentId] = useState(null);
+  const [editedCommentText, setEditedCommentText] = useState("");
 
   useEffect(() => {
-    const fetchComments = async () => {
-      try {
-        const res = await fetch("/api/comments/get", {
-          method: "GET", // assuming GET method for fetching comments
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
-
-        const data = await res.json();
-        if (res.ok) {
-          setComments(data.comments);
-        } else {
-          console.error("Failed to fetch comments");
-        }
-      } catch (error) {
-        console.error("Error fetching comments:", error.message);
-      }
-    };
-
+    if (!isLoaded || !isSignedIn) return;
     fetchComments();
-  }, []);
+  }, [isLoaded, isSignedIn]);
 
-  const handleDeleteComment = async () => {
-    setShowModal(false);
+  const fetchComments = async () => {
+    setLoading(true);
     try {
-      const res = await fetch("/api/comments/delete", {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ commentId: commentIdToDelete }),
-      });
-      const data = await res.json();
-      if (res.ok) {
-        setComments((prev) => prev.filter((comment) => comment._id !== commentIdToDelete));
-        setCommentIdToDelete(""); // Reset commentIdToDelete after deletion
+      const response = await fetch("/api/comments");
+      const data = await response.json();
+
+      if (user?.publicMetadata?.role === "admin") {
+        setComments(data);
       } else {
-        console.log(data.message);
+        setComments(data.filter((comment) => comment.userId === user.id));
       }
     } catch (error) {
-      console.log("Error deleting comment:", error.message);
+      console.error("Error fetching comments:", error);
+    }
+    setLoading(false);
+  };
+
+  const handleDelete = async (id) => {
+    if (!window.confirm("Are you sure you want to delete this comment?")) return;
+    try {
+      const response = await fetch("/api/comments", {
+        method: "DELETE",
+        body: JSON.stringify({ commentId: id }),
+        headers: { "Content-Type": "application/json" },
+      });
+      if (response.ok) {
+        setComments(comments.filter((comment) => comment.id !== id));
+      }
+    } catch (error) {
+      console.error("Error deleting comment:", error);
     }
   };
 
+  const handleEdit = (comment) => {
+    setEditingCommentId(comment.id);
+    setEditedCommentText(comment.desc);
+  };
+
+  const handleSaveEdit = async (id, postSlug) => {
+    setLoading(true);
+    try {
+      const response = await fetch("/api/comments", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ commentId: id, desc: editedCommentText, postSlug }),
+      });
+      if (response.ok) {
+        setComments(
+          comments.map((comment) =>
+            comment.id === id ? { ...comment, desc: editedCommentText, updatedAt: new Date().toISOString() } : comment
+          )
+        );
+        setEditingCommentId(null);
+      } else {
+        console.error("Failed to update comment.");
+      }
+    } catch (error) {
+      console.error("Error updating comment:", error);
+    }
+    setLoading(false);
+  };
+
+  const handleCancelEdit = () => {
+    setEditingCommentId(null);
+    setEditedCommentText("");
+  };
+
   return (
-    <div
-      className="col bg-body-secondary overflow-y-scroll"
-      style={{ height: "calc(100vh - 60px)" }}
-    >
-      <h2>Comment&#39;s</h2>
-
-      {comments.length > 0 ? (
-        <Table striped bordered hover responsive>
-          <thead>
-            <tr>
-              <th>Commenter</th>
-              <th>Comment</th>
-              <th>Post</th>
-              <th>Date</th>
-              <th>Delete</th>
-            </tr>
-          </thead>
-          <tbody>
-            {comments.map((comment) => (
-              <tr key={comment._id}>
-                <td>{comment.user?.name || "Anonymous"}</td>
-                <td>{comment.text}</td>
-                <td>{comment.postTitle}</td>
-                <td>{new Date(comment.createdAt).toLocaleDateString()}</td>
-                <td>
-                  <Button
-                    variant="danger"
-                    onClick={() => {
-                      setShowModal(true);
-                      setCommentIdToDelete(comment._id);
-                    }}
-                  >
-                    Delete
-                  </Button>
-                </td>
-              </tr>
+    <Box sx={{ maxWidth: "100%", overflowX: "auto", padding: 2 }}>
+      <h2>Latest Comments</h2>
+      {loading && <p>Loading...</p>}
+      <TableContainer component={Paper} sx={{ maxWidth: "100%" }}>
+        <Table sx={{ minWidth: 650 }}>
+          <TableHead>
+            <TableRow>
+              <TableCell>User</TableCell>
+              <TableCell>Comment</TableCell>
+              <TableCell>Post</TableCell>
+              <TableCell>Time</TableCell>
+              <TableCell>Actions</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {comments.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((comment) => (
+              <TableRow key={comment.id}>
+                <TableCell>
+                  <Box display="flex" alignItems="center">
+                    <img
+                      src={comment.user?.image || "/default-avatar.png"}
+                      alt={comment.user?.name || "Unknown"}
+                      width="30"
+                      height="30"
+                      style={{ borderRadius: "50%", marginRight: "10px" }}
+                    />
+                    {comment.user?.name || "Unknown"}
+                  </Box>
+                </TableCell>
+                <TableCell>
+                  {editingCommentId === comment.id ? (
+                    <TextField
+                      fullWidth
+                      value={editedCommentText}
+                      onChange={(e) => setEditedCommentText(e.target.value)}
+                      variant="outlined"
+                      size="small"
+                    />
+                  ) : (
+                    <Box sx={{ wordBreak: "break-word" }}>{comment.desc}</Box>
+                  )}
+                </TableCell>
+                <TableCell>{comment.postSlug}</TableCell>
+                <TableCell>{new Date(comment.updatedAt || comment.createdAt).toLocaleString()}</TableCell>
+                <TableCell>
+                  {editingCommentId === comment.id ? (
+                    <>
+                      <Button
+                        variant="contained"
+                        color="success"
+                        size="small"
+                        onClick={() => handleSaveEdit(comment.id, comment.postSlug)}
+                        sx={{ marginRight: 1 }}
+                      >
+                        Save
+                      </Button>
+                      <Button variant="contained" color="warning" size="small" onClick={handleCancelEdit}>
+                        Cancel
+                      </Button>
+                    </>
+                  ) : (
+                    <>
+                      <Button
+                        variant="contained"
+                        color="primary"
+                        size="small"
+                        onClick={() => handleEdit(comment)}
+                        sx={{ marginRight: 1 }}
+                      >
+                        Edit
+                      </Button>
+                      <Button variant="contained" color="secondary" size="small" onClick={() => handleDelete(comment.id)}>
+                        Delete
+                      </Button>
+                    </>
+                  )}
+                </TableCell>
+              </TableRow>
             ))}
-          </tbody>
+          </TableBody>
         </Table>
-      ) : (
-        <p>No comments available!</p>
-      )}
-
-      {/* Modal Confirmation for Delete */}
-      <Modal show={showModal} onHide={() => setShowModal(false)} centered>
-        <Modal.Header closeButton />
-        <Modal.Body>
-          <div className="text-center">
-            <HiOutlineExclamationCircle className="h3 text-warning mb-3" />
-            <h4>Are you sure you want to delete this comment?</h4>
-            <div className="d-flex justify-content-center gap-3 mt-4">
-              <Button variant="danger" onClick={handleDeleteComment}>
-                Yes, I&#39;m sure
-              </Button>
-              <Button variant="secondary" onClick={() => setShowModal(false)}>
-                No, cancel
-              </Button>
-            </div>
-          </div>
-        </Modal.Body>
-      </Modal>
-    </div>
+      </TableContainer>
+      <TablePagination
+        rowsPerPageOptions={[6, 10, 25, 50, 100]}
+        component="div"
+        count={comments.length}
+        rowsPerPage={rowsPerPage}
+        page={page}
+        onPageChange={(event, newPage) => setPage(newPage)}
+        onRowsPerPageChange={(event) => setRowsPerPage(parseInt(event.target.value, 10))}
+      />
+    </Box>
   );
-}
+};
+
+export default DashComments;
