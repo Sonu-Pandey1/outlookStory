@@ -295,8 +295,13 @@ const DashPosts = () => {
     setPage(0);
   };
 
-  if (user?.publicMetadata?.role === "user") {
-    return <Typography variant="h5">You do not have access to this page.</Typography>;
+  if (user?.publicMetadata?.role?.toLowerCase() === "user") {
+    return (
+      <div className="container text-center mt-5">
+        <h2 className="text-danger">Access Denied</h2>
+        <p className="text-muted">You do not have access to this dashboard. Please contact an admin for access.</p>
+      </div>
+    );
   }
 
   return (
