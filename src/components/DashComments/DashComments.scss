@@ -1,0 +1,14 @@
+.DashCommentsContainer {
+    background-color: inherit !important;
+    color: inherit !important;
+
+    .dark {
+        background-color: #2a2a2a !important;
+        // border-radius: 10px;
+        transition: 0.2s all ease-in-out;
+
+        .forDarkColor {
+            color: #fff !important;
+        }
+    }
+}

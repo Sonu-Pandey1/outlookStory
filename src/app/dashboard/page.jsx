@@ -1,5 +1,3 @@
-
-
 "use client";
 
 import { useContext, useEffect, useState } from "react";
@@ -11,7 +9,6 @@ import DashUsers from "../../components/DashUsers/DashUsers";
 import DashboardComp from "../../components/DashboardComp/DashboardComp";
 import "./Dashboard.scss";
 import DashComments from "@/components/DashComments/DashComments";
-import DashAllPosts from "@/components/DashAllPosts/DashAllPosts";
 import { useUser } from "@clerk/nextjs";
 import NotFoundPage from "../not-found.js";
 import { HiMenu, HiX } from "react-icons/hi";
@@ -63,7 +60,6 @@ export default function Dashboard() {
           {hasRole && tab === "dash" && <DashboardComp />}
           {hasRole && tab === "posts" && <DashPosts />}
           {hasRole && tab === "comments" && <DashComments />}
-          {user?.publicMetadata?.role === "admin" && tab === "allPosts" && <DashAllPosts />}
           {user?.publicMetadata?.role === "admin" && tab === "users" && <DashUsers />}
           {hasRole && tab === "profile" && <DashProfile />}
         </div>

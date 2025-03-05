@@ -111,18 +111,6 @@ const DashSidebar = ({ sidebarOpen, setSidebarOpen }) => {
         {user?.publicMetadata?.role === "admin" && (
           <li className="nav-item">
             <Link
-              href="/dashboard?tab=allPosts"
-              className={`nav-link ${tab === "allPosts" ? "active" : ""}`}
-            >
-              <HiClipboardDocumentList className="me-2" />
-              All Posts
-            </Link>
-          </li>
-        )}
-
-        {user?.publicMetadata?.role === "admin" && (
-          <li className="nav-item">
-            <Link
               href="/dashboard?tab=users"
               className={`nav-link ${tab === "users" ? "active" : ""}`}
             >
