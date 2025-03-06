@@ -280,6 +280,7 @@ import {
 import { Edit, Delete } from "@mui/icons-material";
 import Image from "next/image";
 import Loader from "../Loader";
+import * as timeago from "timeago.js";
 import { ThemeContext } from "@/context/ThemeContext";
 import "./DashUsers.scss"
 
@@ -375,6 +376,7 @@ const DashUsers = () => {
               <TableCell className="forDarkColor">Image</TableCell>
               <TableCell className="forDarkColor">Name</TableCell>
               <TableCell className="forDarkColor">Role</TableCell>
+              <TableCell className="forDarkColor">Time</TableCell>
               <TableCell className="forDarkColor">Actions</TableCell>
             </TableRow>
           </TableHead>
@@ -388,6 +390,7 @@ const DashUsers = () => {
                 </TableCell>
                 <TableCell className="forDarkColor">{user.name}</TableCell>
                 <TableCell className="forDarkColor">{user.role}</TableCell>
+                <TableCell className="forDarkColor"> <p>{timeago.format(user.createdAt)}</p></TableCell>
                 <TableCell>
                   <IconButton color="primary" onClick={() => handleEdit(user)}>
                     <Edit />

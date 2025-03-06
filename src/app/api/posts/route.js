@@ -8,6 +8,9 @@ export async function GET() {
         user: true, // Fetch user data
         comments: true, // Fetch comments
       },
+      orderBy: {
+        createdAt: "desc",
+      },
     });
 
     return NextResponse.json(posts, { status: 200 });
