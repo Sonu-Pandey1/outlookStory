@@ -1,7 +1,13 @@
+
 import prisma from "@/utils/connect";
+
 import { NextResponse } from "next/server";
 
 // GET a single post by ID
+
+
+
+
 export async function GET(req, { params }) {
   try {
     if (!params?.slug) {
@@ -9,6 +15,13 @@ export async function GET(req, { params }) {
     }
 
     const slug = params.slug;
+    console.log("Fetching post with slug:", slug);
+
+    // Debugging: Check all slugs stored
+    const allPosts = await prisma.post.findMany({
+      select: { slug: true },
+    });
+    console.log("All stored slugs:", allPosts);
 
     // Fetch post by slug
     const post = await prisma.post.findFirst({
@@ -20,6 +33,7 @@ export async function GET(req, { params }) {
       }
     });
 
+    console.log("Post found:", post); // Log if found
 
     if (!post) {
       return NextResponse.json({ error: "Post not found", storedSlugs: allPosts }, { status: 404 });
@@ -32,16 +46,18 @@ export async function GET(req, { params }) {
   }
 }
 
+
+
 // UPDATE a post by ID
 export async function PUT(req, { params }) {
   try {
-    const { slug } = params;
+    const { slug } = params; // Extract post ID from URL
     const { title, desc, img, catSlug } = await req.json();
 
     console.log("Updating post with ID:", slug);
 
     const updatedPost = await prisma.post.update({
-      where: { id: slug },
+      where: { slug: slug },
       data: { title, desc, img, catSlug },
     });
 
