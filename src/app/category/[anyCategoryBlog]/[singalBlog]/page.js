@@ -250,6 +250,7 @@ const SinglePage = () => {
   if (loading) return <div>Loading...</div>;
 
   if (!data) return <PostNotFound />;
+  console.log(data)
 
   return (
     <div className="singlePage">

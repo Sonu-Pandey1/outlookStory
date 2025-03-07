@@ -26,6 +26,11 @@ export async function GET(req, { params }) {
     // Fetch post by slug
     const post = await prisma.post.findFirst({
       where: { slug },
+      include: {
+        user: {
+          select: { userId: true, name: true, image: true },
+        }
+      }
     });
     
     console.log("Post found:", post); // Log if found

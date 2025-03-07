@@ -3,56 +3,39 @@ import { getAuth } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
 
 // GET ALL COMMENTS FOR A POST
-// export const GET = async (req) => {
-//   const { searchParams } = new URL(req.url);
-//   const postSlug = searchParams.get("postSlug");
-
-//   if (!postSlug) {
-//     return new NextResponse(
-//       JSON.stringify({ message: "Post slug is missing." }),
-//       { status: 400 }
-//     );
-//   }
-
-//   try {
-//     const comments = await prisma.comment.findMany({
-//       where: { postSlug },
-//       include: {
-//         user: {
-//           select: { userId: true, name: true, image: true },
-//         },
-//       },
-//       orderBy: { createdAt: "desc" },
-//     });
-
-//     return new NextResponse(JSON.stringify(comments), { status: 200 });
-//   } catch (err) {
-//     // Check if err is null or an error object
-//     if (err && err instanceof Error) {
-//       console.error("Error fetching comments:", err.message); // Log the error message
-//     } else {
-//       console.error("Unknown error:", err); // Log unknown errors
-//     }
-//     return new NextResponse(
-//       JSON.stringify({
-//         message: "Something went wrong!",
-//       }),
-//       { status: 500 }
-//     );
-//   }
-// };
-
 export const GET = async (req) => {
   try {
-    const comments = await prisma.comment.findMany({
-      include: {
-        user: {
-          select: { userId: true, name: true, image: true },
+    const { searchParams } = new URL(req.url);
+    const postSlug = searchParams.get("postSlug");
+
+    let comments;
+
+    if (postSlug) {
+      // ✅ Fetch only comments related to the specific post
+      comments = await prisma.comment.findMany({
+        where: { postSlug },
+        include: {
+          user: {
+            select: { userId: true, name: true, image: true },
+          },
         },
-      },
-      orderBy: { createdAt: "desc" }, // Fetch latest comments first
-      take: 20, // Limit to the latest 20 comments
-    });
+        orderBy: { createdAt: "desc" },
+      });
+    } else {
+      // ✅ Fetch latest 20 comments for the dashboard (from all posts)
+      comments = await prisma.comment.findMany({
+        include: {
+          user: {
+            select: { userId: true, name: true, image: true },
+          },
+          post: {
+            select: { title: true, slug: true }, // Include post info in dashboard
+          },
+        },
+        orderBy: { createdAt: "desc" },
+        take: 20, // Latest 20 comments
+      });
+    }
 
     return new NextResponse(JSON.stringify(comments), { status: 200 });
   } catch (err) {
@@ -63,6 +46,28 @@ export const GET = async (req) => {
     );
   }
 };
+
+// export const GET = async (req) => {
+//   try {
+//     const comments = await prisma.comment.findMany({
+//       include: {
+//         user: {
+//           select: { userId: true, name: true, image: true },
+//         },
+//       },
+//       orderBy: { createdAt: "desc" }, // Fetch latest comments first
+//       take: 20, // Limit to the latest 20 comments
+//     });
+
+//     return new NextResponse(JSON.stringify(comments), { status: 200 });
+//   } catch (err) {
+//     console.error("Error fetching comments:", err.message);
+//     return new NextResponse(
+//       JSON.stringify({ message: "Something went wrong!" }),
+//       { status: 500 }
+//     );
+//   }
+// };
 
 
 // POST A COMMENT
@@ -181,6 +186,11 @@ export const PUT = async (req) => {
     const updatedComment = await prisma.comment.update({
       where: { id: commentId },
       data: { desc },
+      include: {
+    user: {
+      select: { name: true, image: true },
+    },
+  },
     });
 
     return new NextResponse(JSON.stringify(updatedComment), { status: 200 });
@@ -249,7 +259,7 @@ export const DELETE = async (req) => {
     );
   } catch (err) {
     if (err && err instanceof Error) {
-      console.error("Error fdeleting comments:", err.message);
+      console.error("Error deleting comment", err.message);
     } else {
       console.error("Unknown error:", err);
     }
