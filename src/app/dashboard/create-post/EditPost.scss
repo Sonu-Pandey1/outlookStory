@@ -1,0 +1,46 @@
+.edit-post-container {
+    max-width: 600px;
+    margin: 50px auto;
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  
+    h2 {
+      font-size: 24px;
+      font-weight: bold;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+  
+    .edit-post-form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+  
+      .form-control {
+        padding: 12px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        transition: border 0.3s ease-in-out;
+  
+        &:focus {
+          border-color: #007bff;
+          box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+        }
+      }
+  
+      button {
+        font-size: 16px;
+        font-weight: bold;
+        padding: 10px;
+        border-radius: 5px;
+        transition: background 0.3s ease-in-out;
+  
+        &:hover {
+          background: #0056b3;
+        }
+      }
+    }
+  }
+  

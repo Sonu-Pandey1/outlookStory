@@ -23,7 +23,7 @@ const MenuPosts = ({ withImage, upperMenu, upperMenuTop }) => {
   const [posts1, setPosts1] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-
+console.log(posts)
   useEffect(() => {
     const fetchPosts = async () => {
       try {

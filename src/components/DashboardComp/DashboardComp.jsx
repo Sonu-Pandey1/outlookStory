@@ -9,16 +9,15 @@ import CountUp from "react-countup";
 import * as timeago from "timeago.js";
 import { ThemeContext } from "@/context/ThemeContext";
 import React, { useState, useEffect, useContext } from "react";
-import { FaPen, FaTrash, FaEye, FaPlus, FaUsers, FaPage4 } from "react-icons/fa";
-import { FaComments, FaRegEye, FaStreetView } from "react-icons/fa6";
-import { HiDocumentText } from "react-icons/hi";
+import { FaPen, FaTrash, FaEye, FaPlus, FaUsers} from "react-icons/fa";
+import { FaComments, FaRegEye } from "react-icons/fa6";
 import { HiOutlineClipboardDocumentList } from "react-icons/hi2";
 
 export default function DashboardComp() {
   const router = useRouter();
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [totalUsers, setTotalUsers] = useState(0); // New state for user count
+  const [totalUsers, setTotalUsers] = useState(0);
   const { user, isLoaded, signOut } = useUser();
   const { theme } = useContext(ThemeContext);
 
@@ -30,7 +29,7 @@ export default function DashboardComp() {
   const fetchPosts = async () => {
     setLoading(true);
     try {
-      const response = await fetch("/api/posts");
+      const response = await fetch("/api/Dashboard");
       if (!response.ok) throw new Error("Failed to fetch posts");
 
       const data = await response.json();
@@ -58,8 +57,7 @@ export default function DashboardComp() {
       if (!response.ok) throw new Error("Failed to fetch users");
 
       const data = await response.json();
-
-      // Ensure we correctly access the user array
+      
       if (!data.users || !Array.isArray(data.users)) {
         throw new Error("Invalid response structure");
       }
@@ -97,7 +95,7 @@ export default function DashboardComp() {
         <div className="user-info d-flex align-items-center">
           <div className="avatar-container me-3">
             <Image
-              src={userImage}
+              src={userImage || "/fallback-image.jpg"}
               alt="User Avatar"
               width={50}
               height={50}

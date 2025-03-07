@@ -1,4 +1,5 @@
-import React, { useContext, useState, useEffect, useCallback } from "react";
+
+import React, { useContext, useState, useEffect } from "react";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { ThemeContext } from "@/context/ThemeContext";
@@ -9,12 +10,22 @@ import Menu from "../Menu/Menu";
 
 // Fetch posts based on category and pagination
 const fetchPosts = async ({ pageParam = 1, cat }) => {
-  const url = cat
-    ? `/api/posts?page=${pageParam}&cat=${cat}`
-    : `/api/posts?page=${pageParam}`;
-  const response = await fetch(url);
-  if (!response.ok) throw new Error("Failed to fetch posts");
-  return response.json();
+  try {
+    const url = cat
+      ? `/api/posts?page=${pageParam}&cat=${cat}`
+      : `/api/posts?page=${pageParam}`;
+    const response = await fetch(url);
+    if (!response.ok) throw new Error("Failed to fetch posts");
+    const data = await response.json();
+
+    return {
+      posts: data.posts || [],
+      hasMore: data.hasMore ?? false, // Ensure `hasMore` is always a boolean
+    };
+  } catch (error) {
+    console.error("Error fetching posts:", error);
+    return { posts: [], hasMore: false };
+  }
 };
 
 export default function LatestPopularPosts({ category = null }) {
@@ -27,15 +38,14 @@ export default function LatestPopularPosts({ category = null }) {
     isLoading,
     hasNextPage,
     fetchNextPage,
-    isFetchingNextPage,
   } = useInfiniteQuery({
     queryKey: ["posts", category],
     queryFn: ({ pageParam = 1 }) => fetchPosts({ pageParam, cat: category }),
     getNextPageParam: (lastPage, pages) =>
-      lastPage.hasMore ? pages.length + 1 : undefined,
+      lastPage?.hasMore ? pages.length + 1 : undefined,
   });
 
-  // Store the first batch of posts separately to avoid refetching issues
+  // Store the first batch of posts separately
   useEffect(() => {
     if (data?.pages?.length === 1) {
       setInitialPosts(data.pages[0].posts);
@@ -43,9 +53,12 @@ export default function LatestPopularPosts({ category = null }) {
   }, [data]);
 
   // Merge initial posts with subsequent pages
-  const mergedPosts = initialPosts.concat(
-    data?.pages?.flatMap((page) => page.posts) || []
-  );
+  const mergedPosts = [
+    ...initialPosts,
+    ...(data?.pages?.flatMap((page) => page.posts) || []),
+  ];
+
+  console.log("Merged Posts:", mergedPosts);
 
   if (isLoading && initialPosts.length === 0) return <div>Loading...</div>;
   if (isError) return <div>Error fetching posts!</div>;
@@ -77,58 +90,62 @@ export default function LatestPopularPosts({ category = null }) {
                     No more posts
                   </p>
                 }
-                scrollThreshold={0.90}
+                scrollThreshold={0.9}
               >
                 {/* Render posts */}
                 <div className="row g-3 latestPosts pt-1">
-                  {mergedPosts.map((item, index) => (
-                    <div key={index} className="col-md-12">
-                      <Link
-                        href={`/category/${item.catSlug}/${item.slug}`}
-                        className="text-decoration-none cardLatest pt-5 mt-5"
-                      >
-                        <div className="card  py-sm-0 border-0 shadow-sm h-100 d-flex flex-column flex-sm-row flex-md-column flex-lg-row">
-                          <div className="position-relative">
-                            <div className="image-container">
-                              <Image
-                                src={item.img || "/fallback-image.jpg"}
-                                alt={item.title}
-                                width={350}
-                                height={200}
-                                className="card-img-top rounded-0"
-                              />
-                            </div>
-                            <span className="position-absolute top-0 m-2 text-black badge bg-info">
-                              {item.catSlug}
-                            </span>
-                          </div>
-                          <div
-                            className={`card-body p-lg-2 ps-lg-4`}
-                          >
-                            <h6 className="card-title text-truncate-2">
-                              {item.title}
-                            </h6>
-                            <span className="small">
-                              BY{" "}
-                              <span className="fs-6 text-primary">
-                                {item.userEmail}
+                  {mergedPosts.map((item, index) =>
+                    item ? ( // Ensure `item` is defined before rendering
+                      <div key={index} className="col-md-12">
+                        <Link
+                          href={`/category/${item.catSlug || "uncategorized"}/${item.slug || "unknown"}`}
+                          className="text-decoration-none cardLatest pt-5 mt-5"
+                        >
+                          <div className="card py-sm-0 border-0 shadow-sm h-100 d-flex flex-column flex-sm-row flex-md-column flex-lg-row">
+                            <div className="position-relative">
+                              <div className="image-container">
+                                <Image
+                                  src={item.img || "/fallback-image.jpg"}
+                                  alt={item.title || "No Title"}
+                                  width={350}
+                                  height={200}
+                                  className="card-img-top rounded-0"
+                                />
+                              </div>
+                              <span className="position-absolute top-0 m-2 text-black badge bg-info">
+                                {item.catSlug || "Uncategorized"}
                               </span>
-                              <small className="ps-3">
-                                {item.createdAt.slice(0, 10)}
-                              </small>
-                              <small className="ps-3">{item.views}</small>
-                            </span>
-                            <p className="description text-truncate-2">
-                              {item.desc}
-                            </p>
-                            <button className="btn btn-sm btn-outline-success">
-                              Read More
-                            </button>
+                            </div>
+                            <div className="card-body p-lg-2 ps-lg-4">
+                              <h6 className="card-title text-truncate-2">
+                                {item.title || "Untitled Post"}
+                              </h6>
+                              <span className="small">
+                                BY{" "}
+                                <span className="fs-6 text-primary">
+                                  {item.userEmail || "Unknown Author"}
+                                </span>
+                                <small className="ps-3">
+                                  {item.createdAt
+                                    ? item.createdAt.slice(0, 10)
+                                    : "Unknown Date"}
+                                </small>
+                                <small className="ps-3">
+                                  {item.views ?? "0"} views
+                                </small>
+                              </span>
+                              <p className="description text-truncate-2">
+                                {item.desc || "No description available."}
+                              </p>
+                              <button className="btn btn-sm btn-outline-success">
+                                Read More
+                              </button>
+                            </div>
                           </div>
-                        </div>
-                      </Link>
-                    </div>
-                  ))}
+                        </Link>
+                      </div>
+                    ) : null
+                  )}
                 </div>
               </InfiniteScroll>
             </div>
