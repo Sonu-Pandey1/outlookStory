@@ -58,7 +58,7 @@ export default function LatestPopularPosts({ category = null }) {
     ...(data?.pages?.flatMap((page) => page.posts) || []),
   ];
 
-  console.log("Merged Posts:", mergedPosts);
+  // console.log("Merged Posts:", mergedPosts);
 
   if (isLoading && initialPosts.length === 0) return <div>Loading...</div>;
   if (isError) return <div>Error fetching posts!</div>;
@@ -123,7 +123,7 @@ export default function LatestPopularPosts({ category = null }) {
                               <span className="small">
                                 BY{" "}
                                 <span className="fs-6 text-primary">
-                                  {item.userEmail || "Unknown Author"}
+                                  {item.user?.name || "Unknown Author"}
                                 </span>
                                 <small className="ps-3">
                                   {item.createdAt

@@ -34,6 +34,14 @@ export async function GET(request) {
     take: postsPerPage,
     skip: postsPerPage * (page - 1),
     where: cat ? { catSlug: cat } : {}, // If no category, fetch all posts
+    // orderBy: { createdAt: "desc" }, // Sort newest first
+    // orderBy: { updatedAt: "desc" }, // 👈 Sort by updatedAt instead of createdAt
+    orderBy: { views: "desc" }, // Most viewed posts first
+    include: {
+      user: {
+        select: { name: true }, // Only fetch user name
+      },
+    },
   };
 
   try {
