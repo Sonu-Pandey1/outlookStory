@@ -4,17 +4,34 @@ import prisma from "@/utils/connect";
 import { NextResponse } from "next/server";
 
 // GET a single post by ID
+
+
+
+
 export async function GET(req, { params }) {
   try {
-    const { slug } = params; // Extract post ID from URL
-    console.log("Fetching post with ID:", slug);
+    if (!params?.slug) {
+      return NextResponse.json({ error: "Missing post slug" }, { status: 400 });
+    }
 
-    const post = await prisma.post.findUnique({
-      where: { id: slug }, // Ensure ID type matches DB schema (string or integer)
+    const slug = params.slug;
+    console.log("Fetching post with slug:", slug);
+
+    // Debugging: Check all slugs stored
+    const allPosts = await prisma.post.findMany({
+      select: { slug: true },
     });
+    console.log("All stored slugs:", allPosts);
+
+    // Fetch post by slug
+    const post = await prisma.post.findFirst({
+      where: { slug },
+    });
+    
+    console.log("Post found:", post); // Log if found
 
     if (!post) {
-      return NextResponse.json({ error: "Post not found" }, { status: 404 });
+      return NextResponse.json({ error: "Post not found", storedSlugs: allPosts }, { status: 404 });
     }
 
     return NextResponse.json(post, { status: 200 });
@@ -23,6 +40,8 @@ export async function GET(req, { params }) {
     return NextResponse.json({ error: "Error fetching post" }, { status: 500 });
   }
 }
+
+
 
 // UPDATE a post by ID
 export async function PUT(req, { params }) {
