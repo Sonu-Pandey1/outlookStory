@@ -7,6 +7,8 @@ import Image from "next/image";
 import { useContext } from "react";
 import { ThemeContext } from "@/context/ThemeContext";
 import "./Header.scss";
+import { GiBookAura } from "react-icons/gi";
+import { TiContacts } from "react-icons/ti";
 
 function Header() {
   const { theme } = useContext(ThemeContext);
@@ -23,7 +25,7 @@ function Header() {
   return (
     <div className={`topHeader ${theme} d-none d-md-block`}>
       <header className="container-fluid">
-        
+
         {/* Top Header Section */}
         <div className="top-header-bar d-flex flex-wrap justify-content-between align-items-center border-bottom px-3 py-2">
           <div className="header-left d-flex flex-wrap align-items-center gap-3">
@@ -31,8 +33,18 @@ function Header() {
             <nav className="top-navbar d-flex flex-wrap">
               <Link href="#" className="text-decoration-none p-2 top-nav-links">Landing Page</Link>
               <Link href="#" className="text-decoration-none p-2 top-nav-links">Shop</Link>
-              <Link href="#" className="text-decoration-none p-2 top-nav-links">Contact</Link>
-              <Link href="#" className="text-decoration-none p-2 top-nav-links">Explore</Link>
+              <Link
+                href="/about"
+                className="link text-decoration-none d-flex align-items-center p-2"
+              >
+                About
+              </Link>
+              <Link
+                href="/contact"
+                className="link text-decoration-none d-flex align-items-center p-2"
+              >
+                Contact Us
+              </Link>
             </nav>
           </div>
           <div className="header-right">
@@ -47,22 +59,22 @@ function Header() {
         </div>
 
         {/* Logo & Advertisement Section */}
-      <div className="imgWrapper container-fluid">
-      <div className="header-logo-advertisement d-flex align-items-center p-3 row">
-          <div className="logo col ">
-            <Link href="/">
-              <div className="logo-container">
-                <Image src="/logo.png" alt="Logo" fill priority className="responsive-img" />
+        <div className="imgWrapper container-fluid">
+          <div className="header-logo-advertisement d-flex align-items-center p-3 row">
+            <div className="logo col ">
+              <Link href="/">
+                <div className="logo-container">
+                  <Image src="/logo.png" alt="Logo" fill priority className="responsive-img" />
+                </div>
+              </Link>
+            </div>
+            <div className="advertisement-logo col p-0">
+              <div className="ad-container ">
+                <Image src={adLogoSrc} alt="Advertisement" fill priority className="responsive-img" />
               </div>
-            </Link>
-          </div>
-          <div className="advertisement-logo col p-0">
-            <div className="ad-container ">
-              <Image src={adLogoSrc} alt="Advertisement" fill priority className="responsive-img" />
             </div>
           </div>
         </div>
-      </div>
 
         {/* Main Navbar Placeholder */}
         <div className="main-navbar">
