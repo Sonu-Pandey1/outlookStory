@@ -22,7 +22,7 @@ export default function DashboardComp() {
   const [postIdToDelete, setPostIdToDelete] = useState(null);
   const { user, isLoaded, signOut } = useUser();
   const { theme } = useContext(ThemeContext);
-  console.log(posts)
+  // console.log(posts)
 
   const userName = user ? `${user.firstName} ${user.lastName}` : "Unknown User";
   const userRole = user?.publicMetadata?.role?.toLowerCase() || "user";

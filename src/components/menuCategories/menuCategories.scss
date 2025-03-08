@@ -13,38 +13,71 @@
   text-decoration: none;
   color: inherit;
 
+
+
   &.style {
     background-color: #57c4ff31;
+    border: 1px solid #57c4ff31;
+
+    &:hover {
+      border: 1px solid #57c4ffa1;
+    }
   }
 
   &.fashion {
     background-color: #da85c731;
+    border: 1px solid #da85c731;
+
+    &:hover {
+      border: 1px solid #da85c8be;
+    }
+
   }
 
   &.food {
     background-color: #7fb88133;
+    border: 1px solid #7fb88133;
+
+    &:hover {
+      border: 1px solid #7fb881bd;
+    }
   }
 
   &.travel {
     background-color: #ff795736;
+    border: 1px solid #ff795736;
+
+    &:hover {
+      border: 1px solid #ff7957b9;
+    }
   }
 
   &.culture {
     background-color: #ffb04f45;
+    border: 1px solid #ffb04f45;
+
+    &:hover {
+      border: 1px solid #ffb04fbd;
+    }
   }
 
   &.coding {
     background-color: #5e4fff31;
+    border: 1px solid #5e4fff31;
+
+    &:hover {
+      border: 1px solid #5e4fffb2;
+    }
   }
 }
 
 .dark {
-    .categoryList{
-      background-color: #2a2a2a !important;
-      color: #fff !important;
-      border: 1px solid #444 !important; // Slightly visible border in dark mode
-      box-shadow: 0 2px 4px rgba(255, 255, 255, 0.1); // Soft glow effect for contrast
-      padding: 10px;
-      border-radius: 10px;
-    }
+  .categoryList {
+    background-color: #2a2a2a !important;
+    color: #fff !important;
+    border: 1px solid #444 !important; // Slightly visible border in dark mode
+    box-shadow: 0 2px 4px rgba(255, 255, 255, 0.1); // Soft glow effect for contrast
+    padding: 10px;
+    border-radius: 10px;
+  }
 }

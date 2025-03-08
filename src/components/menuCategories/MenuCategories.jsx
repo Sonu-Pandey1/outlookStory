@@ -11,15 +11,17 @@ const MenuCategories = () => {
       <Link href="/category/business" className="categoryItem fashion">
         Business
       </Link>
-      <Link href="/category/cityConnect" className="categoryItem food">
-        City Connect
-      </Link>
       <Link href="/category/events" className="categoryItem travel">
         Events
       </Link>
+
       <Link href="/category/videos" className="categoryItem culture">
         Videos
       </Link>
+      <Link href="/category/cityConnect" className="categoryItem food">
+        City Connect
+      </Link>
+
       <Link href="/category/launchPad" className="categoryItem coding">
         Launch Pad
       </Link>

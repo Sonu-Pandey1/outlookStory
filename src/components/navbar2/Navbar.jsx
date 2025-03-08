@@ -1,4 +1,5 @@
 "use client";
+
 import "./Navbar.scss";
 import { IoHomeOutline } from "react-icons/io5";
 import { MdCamera } from "react-icons/md";
@@ -14,16 +15,28 @@ import Image from "next/image";
 import Link from "next/link";
 import ThemeToggle from "../themeToggle/ThemeToggle";
 import { dark, light } from "@clerk/themes";
-import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
+import { SignedIn, SignedOut, UserButton, useUser } from "@clerk/nextjs";
+import MenuCategories from "../menuCategories/MenuCategories";
+import { CiFacebook } from "react-icons/ci";
+import { SiYoutubekids } from "react-icons/si";
+import { FaInstagram, FaTwitter } from "react-icons/fa6";
+import { ImConnection } from "react-icons/im";
+import { TiContacts } from "react-icons/ti";
+import { GiBookAura } from "react-icons/gi";
 
 function Navbar() {
-  const { theme, toggle } = useContext(ThemeContext);
+  const { theme } = useContext(ThemeContext);
+  const { user } = useUser();
+
+  const userName = user ? `${user.firstName} ${user.lastName}` : "Unknown User";
+  const UserName = user?.username || "";
+  const userRole = user?.publicMetadata?.role?.toLowerCase() || "user";
+  const userImage = user?.imageUrl || "/fallback-image.jpg";
 
   return (
     <nav
-      className={`navbar shadow navbar-expand-md sticky-top ${
-        theme === "dark" ? "dark" : "light"
-      }`}
+      className={`navbar shadow navbar-expand-md sticky-top ${theme === "dark" ? "dark" : "light"
+        }`}
     >
       <div className="container-fluid px-4">
         <button
@@ -125,8 +138,8 @@ function Navbar() {
                 baseTheme: theme === "light" ? light : dark,
                 elements: {
                   avatarBox: {
-                    width: "35px", // Adjust as needed
-                    height: "35px", // Adjust as needed
+                    width: "35px",
+                    height: "35px",
                   },
                 },
               }}
@@ -143,16 +156,16 @@ function Navbar() {
 
       {/* Mobile menu */}
       <div
-        className={`offcanvas offcanvas-end d-block d-md-none ${
-          theme === "dark"
-            ? "bg-dark text-light border-light"
-            : "bg-light text-dark border-dark"
-        }`}
+        className={`offcanvas offcanvas-start d-block d-md-none ${theme === "dark"
+          ? "bg-dark text-light border-light"
+          : "bg-light text-dark border-dark"
+          }`}
         tabIndex="-1"
         id="offcanvasNavbar"
         aria-labelledby="offcanvasNavbarLabel"
-        style={{ transition: "transform .6s ease-in-out" }}
+        style={{ transition: "transform 0.4s ease-in-out" }}
       >
+        {/* Sidebar Hader ------ */}
         <div className="offcanvas-header shadow">
           <div className="offcanvas-title" id="offcanvasNavbarLabel">
             <div className="loginBTNS">
@@ -164,138 +177,158 @@ function Navbar() {
               </SignedOut>
               <SignedIn>
                 <UserButton
-                  appearance={{ baseTheme: theme === "light" ? light : dark }}
+                  appearance={{
+                    baseTheme: theme === "light" ? light : dark,
+                    elements: {
+                      avatarBox: {
+                        width: "35px", // Adjust as needed
+                        height: "35px", // Adjust as needed
+                      },
+                    },
+                  }}
                   userProfileUrl="/dashboard?tab=profile"
+
                 />
+
               </SignedIn>
             </div>
           </div>
           <button
             type="button"
-            className="btn-close"
+            className="btn-close bg-danger"
             data-bs-dismiss="offcanvas"
             aria-label="Close"
           ></button>
         </div>
 
-        <div className="offcanvas-body px-3 py-4">
+        {/* Sidebar Body ------ */}
+        <div className="offcanvas-body px-3 py-4 ">
           {/* User Profile Section */}
           <div
-            className={`profile-card text-center p-3 rounded-4 shadow-sm ${
-              theme === "dark" ? "dark-card" : "light-card"
-            }`}
+            className={`profile-card text-center p-3 rounded-4 shadow-sm ${theme === "dark" ? "dark-card" : "light-card"
+              }`}
           >
             <Image
-              src="https://i.pravatar.cc/100"
+              src={userImage}
               alt="User Avatar"
               className="rounded-circle border border-3 border-light mb-3"
               width={100}
               height={100}
             />
-            <h5 className="fw-bold">John Doe</h5>
-            <p className="text-muted">@johndoe</p>
-            <Link href="/profile" className="btn btn-outline-primary btn-sm">
-              View Profile
-            </Link>
+            <h5 className="fw-bold">{userName}</h5>
+            <p className=" fw-lighter">{UserName}</p>
+            {/* <p className=" fw-lighter">{userRole}</p> */}
+            <div className="d-flex justify-content-center gap-3 py-3">
+              {userRole !== "user" && <Link href="/dashboard" className="btn btn-outline-success btn-sm">
+                Dashboard
+              </Link>}
+              <Link href="/dashboard?tab=profile" className="btn btn-outline-primary btn-sm">
+                View Profile
+              </Link>
+
+            </div>
           </div>
 
           {/* Trending Posts Section */}
           <div className="trending-posts mb-4">
-            <h6 className="fw-bold text-uppercase">🔥 Trending Now</h6>
-            <ul className="list-unstyled">
-              {[
-                {
-                  title: "How AI is Changing the World",
-                  img: "https://source.unsplash.com/60x60/?ai",
-                },
-                {
-                  title: "Top 10 Business Trends for 2025",
-                  img: "https://source.unsplash.com/60x60/?business",
-                },
-                {
-                  title: "Best Travel Destinations in 2025",
-                  img: "https://source.unsplash.com/60x60/?travel",
-                },
-              ].map((post, index) => (
-                <li
-                  key={index}
-                  className={`d-flex align-items-center gap-3 p-2 trending-item rounded-3 ${
-                    theme === "dark" ? "dark-item" : "light-item"
-                  }`}
-                >
-                  <Image
-                    src={post.img}
-                    alt="Post Thumbnail"
-                    className="rounded-3"
-                    width={60}
-                    height={60}
-                  />
-                  <Link
-                    href={`/post/${index + 1}`}
-                    className="text-decoration-none fw-semibold"
-                  >
-                    {post.title}
-                  </Link>
-                </li>
-              ))}
+            <h6 className="fw-bold text-uppercase">🔥 Pages</h6>
+            <ul className="navbar-nav">
+              {/* Navbar links with icons */}
+              <Link
+                href="/"
+                className="link text-decoration-none d-flex align-items-center gap-2"
+              >
+                <IoHomeOutline />
+                Home
+              </Link>
+              <Link
+                href="/category/stories"
+                className="link text-decoration-none d-flex align-items-center gap-2"
+              >
+                <MdCamera />
+                Stories
+              </Link>
+              <Link
+                href="/category/business"
+                className="link text-decoration-none d-flex align-items-center gap-2"
+              >
+                <MdOutlineAddBusiness />
+                Business
+              </Link>
+              <Link
+                href="/category/cityConnect"
+                className="link text-decoration-none d-flex align-items-center gap-2"
+              >
+                <PiBicycleThin />
+                City Connect
+              </Link>
+              <Link
+                href="/category/events"
+                className="link text-decoration-none d-flex align-items-center gap-2"
+              >
+                <MdOutlineEventAvailable />
+                Events
+              </Link>
+              <Link
+                href="/category/videos"
+                className="link text-decoration-none d-flex align-items-center gap-2"
+              >
+                <MdVideoLibrary />
+                Videos
+              </Link>
+              <Link
+                href="/category/launchPad"
+                className="link text-decoration-none d-flex align-items-center gap-2"
+              >
+                <MdRocketLaunch />
+                Launch Pad
+              </Link>
+              <Link
+                href="/about"
+                className="link text-decoration-none d-flex align-items-center gap-2"
+              >
+                <GiBookAura />
+                About
+              </Link>
+              <Link
+                href="/contact"
+                className="link text-decoration-none d-flex align-items-center gap-2"
+              >
+                <TiContacts />
+                Contact Us
+              </Link>
             </ul>
           </div>
 
           {/* Popular Categories */}
-          <div className="categories mb-4">
+          <div className="categories">
             <h6 className="fw-bold text-uppercase">📂 Categories</h6>
             <div className="d-flex flex-wrap gap-2">
-              {[
-                "Technology",
-                "Business",
-                "Lifestyle",
-                "Travel",
-                "Health",
-                "Food",
-              ].map((category, index) => (
-                <Link
-                  href={`/category/${category.toLowerCase()}`}
-                  key={index}
-                  className={`category-pill ${
-                    theme === "dark" ? "dark-pill" : "light-pill"
-                  }`}
-                >
-                  {category}
-                </Link>
-              ))}
+              <MenuCategories />
             </div>
           </div>
 
           {/* Social Media Links */}
           <div className="social-links mb-4">
-            <h6 className="fw-bold text-uppercase">🌍 Stay Connected</h6>
-            <div className="d-flex gap-3">
-              {[
-                { icon: "fab fa-facebook-f", link: "https://facebook.com" },
-                { icon: "fab fa-twitter", link: "https://twitter.com" },
-                { icon: "fab fa-instagram", link: "https://instagram.com" },
-                { icon: "fab fa-linkedin-in", link: "https://linkedin.com" },
-              ].map((social, index) => (
-                <Link
-                  key={index}
-                  href={social.link}
-                  target="_blank"
-                  className="social-icon"
-                >
-                  <i className={social.icon}></i>
-                </Link>
-              ))}
+            <h6 className="fw-bold text-uppercase ">🌍 Stay Connected</h6>
+            <div className="d-flex gap-5 justify-content-center">
+              <div className="social-icons gap-5 py-3">
+                <a href="#" aria-label="Facebook"><CiFacebook className="icon facebook" /></a>
+                <a href="#" aria-label="YouTube"><SiYoutubekids className="icon youtube" /></a>
+                <a href="#" aria-label="Twitter"><FaTwitter className="icon twitter" /></a>
+                <a href="#" aria-label="Instagram"><FaInstagram className="icon instagram" /></a>
+                <a href="#" aria-label="Connection"><ImConnection className="icon connection" /></a>
+              </div>
             </div>
           </div>
 
           {/* Newsletter Subscription */}
           <div
-            className={`newsletter p-3 rounded-4 shadow-sm ${
-              theme === "dark" ? "dark-card" : "light-card"
-            }`}
+            className={`newsletter rounded-4 shadow-sm py-2 ${theme === "dark" ? "dark-card" : "light-card"
+              }`}
           >
-            <h6 className="fw-bold text-uppercase">📩 Subscribe</h6>
-            <p className="text-muted small">
+            <h6 className="fw-bold text-uppercase">🔥 Subscribe</h6>
+            <p className="small">
               Get the latest posts in your inbox!
             </p>
             <form>

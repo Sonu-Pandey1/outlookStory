@@ -7,20 +7,18 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    // background-color: red;
-    
+
     .cl-userButton {
-      transform: scale(1.9); // Increases profile icon size
+      transform: scale(1.9);
       display: flex;
       align-items: center;
       justify-content: center;
     }
-  
+
     a {
-      font-size: 1.2rem; // Increase text size
+      font-size: 1.2rem;
     }
   }
-  
 
   .cursor-pointer {
     cursor: pointer;
@@ -51,6 +49,7 @@
 
       &:hover {
         color: $primary-color;
+
         &::before {
           width: 100%;
         }
@@ -73,25 +72,29 @@
     outline: none !important;
     box-shadow: none !important;
   }
-  
+
   .navbar-toggler:focus,
   .navbar-toggler:active {
     outline: none !important;
     box-shadow: none !important;
     border: none !important;
   }
-  
 
+  // sidebar start here ----
   .offcanvas {
     background-color: $light-bg;
   }
 
+  // sidebar body ----
   .offcanvas-body {
     padding: 15px;
+    height: calc(100vh - 60px);
+    overflow-y: scroll !important;
+    //todo -- after apply sidebar scroll but overall site scrolling stop need to fix !
   }
 
   /* Media Queries */
-  @media (max-width: 768px) {
+@media (max-width: 768px) {
     .navbar-nav {
       display: flex;
       flex-direction: column;
@@ -111,6 +114,7 @@
     }
   }
 }
+
 @media (max-width: 950px) {
   .navbar-nav {
     .cc {
@@ -118,70 +122,6 @@
     }
   }
 }
-
-// /* Light Mode */
-// .light-card {
-//   background: rgba(255, 255, 255, 0.85);
-//   backdrop-filter: blur(10px);
-//   border-radius: 12px;
-//   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-// }
-
-// .light-item:hover {
-//   background: rgba(0, 0, 0, 0.05);
-//   transform: translateX(5px);
-// }
-
-// .light-pill {
-//   background: linear-gradient(135deg, #ff758c, #ff7eb3);
-//   color: white;
-//   font-size: 14px;
-//   padding: 5px 10px;
-//   border-radius: 20px;
-//   text-decoration: none;
-//   transition: all 0.3s;
-// }
-
-// .light-pill:hover {
-//   background: linear-gradient(135deg, #ff7eb3, #ff758c);
-// }
-
-// /* Dark Mode */
-// .dark-card {
-//   background: rgba(30, 30, 30, 0.85);
-//   backdrop-filter: blur(10px);
-//   border-radius: 12px;
-//   box-shadow: 0 4px 10px rgba(255, 255, 255, 0.1);
-// }
-
-// .dark-item:hover {
-//   background: rgba(255, 255, 255, 0.1);
-//   transform: translateX(5px);
-// }
-
-// .dark-pill {
-//   background: linear-gradient(135deg, #a18cd1, #fbc2eb);
-//   color: black;
-//   font-size: 14px;
-//   padding: 5px 10px;
-//   border-radius: 20px;
-//   text-decoration: none;
-//   transition: all 0.3s;
-// }
-
-// .dark-pill:hover {
-//   background: linear-gradient(135deg, #fbc2eb, #a18cd1);
-// }
-
-// /* Social Media Icons */
-// .social-icon {
-//   font-size: 24px;
-//   transition: 0.3s;
-// }
-
-// .social-icon:hover {
-//   color: #ff758c;
-// }
 
 // .dark{
 //   .navbar{

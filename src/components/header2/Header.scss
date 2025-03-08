@@ -40,6 +40,21 @@
 .social-icons {
   display: flex;
   gap: 10px;
+  .facebook{
+    color: rgb(49, 149, 243);
+  }
+  .youtube{
+    color: rgba(255, 0, 0, 0.63);
+  }
+  .twitter{
+    color: rgb(30, 27, 218);
+  }
+  .instagram{
+    color: rgb(226, 34, 34);
+  }
+  .connection{
+    color: rgb(255, 153, 0);
+  }
 }
 
 .social-icons a {
