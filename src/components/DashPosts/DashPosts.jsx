@@ -236,6 +236,7 @@ const DashPosts = () => {
   const [showModal, setShowModal] = useState(false);
   const [postIdToDelete, setPostIdToDelete] = useState(null);
   const router = useRouter();
+  console.log(posts)
 
   const { theme } = useContext(ThemeContext);
 
@@ -350,7 +351,7 @@ const DashPosts = () => {
                       <Button
                         variant="contained"
                         color="primary"
-                        onClick={() => router.push(`/dashboard/create-post?edit=${post.id}`)}
+                        onClick={() => router.push(`/dashboard/create-post?edit=${post.slug}`)}
                       >
                         Edit
                       </Button>

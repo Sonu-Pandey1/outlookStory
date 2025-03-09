@@ -1,5 +1,5 @@
 const siteMetadata = {
-    title: "OutlookStory blogs",
+    title: "OutlookStory",
     description: "A modern blog platform built with Next.js and MongoDB.",
     siteUrl: "https://outlookstory.com", // Change this to your actual domain
     socialBanner: "/social-banner.png", // Recommended size: 1200x630px

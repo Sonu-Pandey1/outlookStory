@@ -741,6 +741,7 @@
 
 // export default SinglePage;
 
+//* dont remove it posssible need thr=em
 
 "use client";
 
@@ -851,11 +852,11 @@ const SinglePage = () => {
               <div className="writerInfo d-flex flex-wrap align-items-center pt-2">
                 {data?.user?.image && (
                   <div className="userImageContainer">
-                    <Image src={data.user.image} alt="Author" className="avatar" height={50} width={50} />
+                    <Image src={data.user.image} alt="Author" className="avatar rounded-5" height={50} width={50} />
                   </div>
                 )}
-                <span className="username pe-2">
-                  by <Link className="text-decoration-none" href="/">{data?.user?.name || "Unknown User"}</Link>
+                <span className="username pe-2 ps-3">
+                   by <Link className="text-decoration-none" href="/">{data?.user?.name || "Unknown User"}</Link>
                 </span>
                 <span className="date pe-2">— {formattedDate}</span>
                 <span className="categories ps-5 ps-sm-0"> in {data?.catSlug || "Uncategorized"} </span>
