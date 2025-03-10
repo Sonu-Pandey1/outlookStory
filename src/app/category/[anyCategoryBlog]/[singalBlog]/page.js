@@ -458,7 +458,7 @@
 //   if (loading) return <div>Loading...</div>;
 
 //   if (!data) return <PostNotFound />;
-  
+
 //   return (
 //     <div className="singlePage">
 //       <div className="container-fluid p-4">
@@ -849,14 +849,14 @@ const SinglePage = () => {
               </div>
 
               {/* Writer Info */}
-              <div className="writerInfo d-flex flex-wrap align-items-center pt-2">
+              <div className="writerInfo d-flex flex-wrap align-items-center pt-2 ">
                 {data?.user?.image && (
                   <div className="userImageContainer">
                     <Image src={data.user.image} alt="Author" className="avatar rounded-5" height={50} width={50} />
                   </div>
                 )}
                 <span className="username pe-2 ps-3">
-                   by <Link className="text-decoration-none" href="/">{data?.user?.name || "Unknown User"}</Link>
+                  by <Link className="text-decoration-none" href="/">{data?.user?.name || "Unknown User"}</Link>
                 </span>
                 <span className="date pe-2">— {formattedDate}</span>
                 <span className="categories ps-5 ps-sm-0"> in {data?.catSlug || "Uncategorized"} </span>
@@ -872,6 +872,45 @@ const SinglePage = () => {
                 )}
                 <div className="postDetails">
                   <div className="description pb-5 pt-3" dangerouslySetInnerHTML={{ __html: data?.desc }} />
+
+                  {/* Writer Info 2 */}
+                  <div className="p-3">
+                    <div className="writerInfo2 p-4 shadow border row">
+                      <div className="userImg text-center col-12 col-md-4 d-flex justify-content-center align-items-center">
+                        {data?.user?.image && (
+                          <div className="userImageContainer">
+                            <Image
+                              src={data.user.image}
+                              alt="User Avatar"
+                              className="avatar"
+                              height={300}
+                              width={500}
+                            />
+                          </div>
+                        )}
+                      </div>
+                      <div className="userDetails text-center text-sm-start pt-4 pt-sm-0 col-12 col-md-8">
+                        <p className="username pe-2 fs-5">
+                          <Link className="text-decoration-none" href="/">
+                            {data?.user?.name || "Unknown User"}
+                          </Link>
+                        </p>
+                        <p className="userBio">
+                          Lorem ipsum dolor sit amet, consectetur adipisicing
+                          elit. Hic non aperiam tenetur at ratione ex repellat
+                          earum blanditiis eaque dolorem magni reprehenderit
+                          minus vel dolor, eveniet modi amet commodi.
+                        </p>
+                        <p className="socialIcons d-flex justify-content-center justify-content-sm-start gap-3">
+                          <Facebook className="icon" />
+                          <Twitter className="icon" />
+                          <Instagram className="icon" />
+                          <LinkedIn className="icon" />
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
                 </div>
               </div>
 

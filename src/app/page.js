@@ -20,131 +20,47 @@ import LatestPopularPosts from "@/components/LatestPopularPost2/LatestPopularPos
 import Menu from "@/components/Menu/Menu";
 import InfiniteFeed from "@/components/infinitePosts";
 import Card3 from "@/components/Card2/Card3";
-// import InfiniteFeed from "@/components/infinitePosts";
 
-const aroundTheWorldData = [
-  // Data for Entertainment
-  {
-    id: 1,
-    category: "Entertainment",
-    title:
-      "Instagram Is Testing Photo Albums, Because Nothing Is Sacred Anymore",
-    imgSrc:
-      "https://jnews.io/magazine/wp-content/uploads/sites/34/2017/12/jnews-demo-3-750x536.jpg",
-  },
-  {
-    id: 2,
-    category: "Entertainment",
-    title: "Netflix Introduces a Cheaper Subscription Plan With Ads",
-    imgSrc:
-      "https://jnews.io/magazine/wp-content/uploads/sites/34/2017/12/jnews-demo-20-350x250.jpg",
-  },
-  {
-    id: 3,
-    category: "Entertainment",
-    title: "Marvel Studios Unveils New Superhero Movies for 2024",
-    imgSrc:
-      "https://jnews.io/magazine/wp-content/uploads/sites/34/2017/12/jnews-demo-4-350x250.jpg",
-  },
 
-  // Data for Business
-  {
-    id: 4,
-    category: "Business",
-    title: "Global Markets Hit by New Economic Challenges in 2023",
-    imgSrc:
-      "https://jnews.io/magazine/wp-content/uploads/sites/34/2017/12/jnews-demo-1-750x536.jpg",
-  },
-  {
-    id: 5,
-    category: "Business",
-    title: "Top CEOs Announce Bold Plans for 2025",
-    imgSrc:
-      "https://jnews.io/magazine/wp-content/uploads/sites/34/2017/12/jnews-demo-3-750x536.jpg",
-  },
-  {
-    id: 6,
-    category: "Business",
-    title: "Cryptocurrency Adoption Grows Despite Market Volatility",
-    imgSrc:
-      "https://jnews.io/magazine/wp-content/uploads/sites/34/2017/12/jnews-demo-1-750x536.jpg",
-  },
 
-  // Data for Sports
-  {
-    id: 7,
-    category: "Sports",
-    title: "Olympic Games to Introduce New Sports Categories",
-    imgSrc:
-      "https://jnews.io/magazine/wp-content/uploads/sites/34/2017/12/jnews-demo-3-750x536.jpg",
-  },
-  {
-    id: 8,
-    category: "Sports",
-    title: "World Cup Final Sets New Viewership Record",
-    imgSrc:
-      "https://jnews.io/magazine/wp-content/uploads/sites/34/2017/12/jnews-demo-1-750x536.jpg",
-  },
-  {
-    id: 9,
-    category: "Sports",
-    title: "Tennis Legends Play Charity Match for Global Peace",
-    imgSrc:
-      "https://jnews.io/magazine/wp-content/uploads/sites/34/2017/12/jnews-demo-3-750x536.jpg",
-  },
-
-  // Data for World
-  {
-    id: 10,
-    category: "World",
-    title: "Chinese ‘Rooftopper’ Films His Own Death During Skyscraper Stunt",
-    imgSrc:
-      "https://jnews.io/magazine/wp-content/uploads/sites/34/2017/12/jnews-demo-1-750x536.jpg",
-  },
-  {
-    id: 11,
-    category: "World",
-    title: "New Sustainable Cities Emerging Across the Globe",
-    imgSrc:
-      "https://jnews.io/magazine/wp-content/uploads/sites/34/2017/12/jnews-demo-3-750x536.jpg",
-  },
-  {
-    id: 12,
-    category: "World",
-    title: "Global Leaders Gather to Discuss Climate Change Solutions",
-    imgSrc:
-      "https://jnews.io/magazine/wp-content/uploads/sites/34/2017/12/jnews-demo-1-750x536.jpg",
-  },
-];
-
-// API fetch for all posts
-const getPostsByCategory = async () => {
-  const res = await fetch(`/api/posts`, {
-    cache: "no-store",
-  });
-
-  if (!res.ok) {
-    throw new Error("Failed to fetch posts");
-  }
-
-  return res.json();
-};
 
 const Home = () => {
-  const [activeCategory, setActiveCategory] = useState("All");
-  const [activeCategory1, setActiveCategory1] = useState("All");
-  const [activeCategory2, setActiveCategory2] = useState("All");
+
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const categories = ["All", "Business", "Sports", "World"];
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  const [selectedCategory, setSelectedCategory] = useState(categories[0]);
+  const [categories, setCategories] = useState(["All"]);
+  const [selectedCategory, setSelectedCategory] = useState("All");
+  const { theme } = useContext(ThemeContext);
 
+  // Fetch categories from API
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const res = await fetch("/api/categories");
+        const data = await res.json();
+        if (!Array.isArray(data)) throw new Error("Invalid categories format");
+
+        setCategories(["All", ...data.map((category) => category.title)]);
+      } catch (error) {
+        console.error("Error fetching categories:", error);
+      }
+    };
+
+    fetchCategories();
+  }, []);
+
+  // Fetch posts based on selected category
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const data = await getPostsByCategory();
+        setLoading(true);
+        let url = "/api/posts";
+        if (selectedCategory !== "All") url += `?category=${selectedCategory}`;
+
+        const res = await fetch(url);
+        const data = await res.json();
         setPosts(data.posts);
       } catch (err) {
         setError("Failed to load posts. Please try again later.");
@@ -154,12 +70,8 @@ const Home = () => {
     };
 
     fetchPosts();
-  }, []);
+  }, [selectedCategory]);
 
-  const { theme } = useContext(ThemeContext);
-
-  const searchParams = useSearchParams();
-  const page = searchParams.get("page");
 
   return (
     <>
@@ -178,22 +90,64 @@ const Home = () => {
                       <button className="btn btn-outline-primary">
                         Top Stories
                       </button>
-                     
+
                     </div>
 
                     <div className="bottom top-Stories row ">
                       <div className="bigCards  col-12 ">
-                        <Card />
+                        <div className="row">
+                          {loading ? (
+                            <p>Loading...</p>
+                          ) : error ? (
+                            <p>{error}</p>
+                          ) : posts.length === 0 ? (
+                            <p>No posts available in this category.</p>
+                          ) : (
+                            posts.slice(0, 1).map((post) => <Card key={post.id} item={post} />)
+                          )}
+                        </div>
                       </div>
 
                       <div className="smallCards d-flex flex-wrap gap-0 gap-sm-3 col-12">
-                        <div className="d-flex gap-0 gap-sm-3 w-100 flex-column flex-sm-row">
-                          <Card2 />
-                          <Card2 />
+                        <div className="d-flex gap-0 gap-sm-3 w-100 flex-sm-column flex-sm-row">
+                          <div className="row">
+                            {loading ? (
+                              <p>Loading...</p>
+                            ) : error ? (
+                              <p>{error}</p>
+                            ) : posts.length === 0 ? (
+                              <p>No posts available in this category.</p>
+                            ) : (
+                              posts.slice(0, 2).map((post) => (
+                                <div key={post.id} className="col-12 col-sm-6">
+                                  <Card2 item={post} />
+                                </div>
+                              ))
+                            )}
+                          </div>
+
+                          {/* <Card2 />
+                          <Card2 /> */}
                         </div>
-                        <div className="d-flex gap-0 gap-sm-3 w-100  flex-column flex-sm-row">
-                          <Card2 />
-                          <Card2 />
+                        <div className="d-flex gap-0 gap-sm-3 w-100  flex-sm-column flex-sm-row">
+                          <div className="row">
+                            {loading ? (
+                              <p>Loading...</p>
+                            ) : error ? (
+                              <p>{error}</p>
+                            ) : posts.length === 0 ? (
+                              <p>No posts available in this category.</p>
+                            ) : (
+                              posts.slice(3, 5).map((post) => (
+                                <div key={post.id} className="col-12 col-sm-6">
+                                  <Card2 item={post} />
+                                </div>
+                              ))
+                            )}
+                          </div>
+
+                          {/* <Card2 />
+                          <Card2 /> */}
                         </div>
                       </div>
                     </div>
@@ -209,7 +163,7 @@ const Home = () => {
                       {/* 1 */}
                       <div className="d-flex justify-content-between align-items-center">
                         {/* Small Screen (3-dot Dropdown) */}
-                        <div className="d-sm-none position-relative">
+                        <div className="d-md-none position-relative">
                           <div className="d-flex align-items-center">
                             <span
                               className="px-3 py-1 rounded"
@@ -233,63 +187,39 @@ const Home = () => {
                               className="dropdown-menu show position-absolute ssss"
                               style={{ right: 0, minWidth: "120px" }}
                             >
-                              {categories.map((category) => (
-                                <li key={category}>
-                                  <button
-                                    className={`dropdown-item ss ${
-                                      selectedCategory === category
-                                        ? "active"
-                                        : ""
-                                    }`}
-                                    onClick={() => {
-                                      setSelectedCategory(category);
-                                      setDropdownOpen(false);
-                                    }}
-                                    style={{
-                                      background:
-                                        selectedCategory === category
-                                          ? "#007bff"
-                                          : "transparent",
-                                      color:
-                                        selectedCategory === category
-                                          ? "white"
-                                          : "black",
-                                      fontWeight:
-                                        selectedCategory === category
-                                          ? "bold"
-                                          : "normal",
-                                      borderRadius: "5px",
-                                    }}
-                                  >
-                                    {category}
-                                  </button>
-                                </li>
+                              {categories.slice(0, 3).map((category) => (
+                                <span
+                                  key={category}
+                                  className={`px-3 py-1 rounded sss`}
+                                  onClick={() => setSelectedCategory(category)}
+                                  style={{
+                                    cursor: "pointer",
+                                    background: selectedCategory === category ? "#007bff" : "transparent",
+                                    color: selectedCategory === category ? "white" : "black",
+                                    fontWeight: selectedCategory === category ? "bold" : "normal",
+                                    borderRadius: "5px",
+                                    transition: "background 0.2s ease-in-out",
+                                  }}
+                                >
+                                  {category}
+                                </span>
                               ))}
                             </ul>
                           )}
                         </div>
 
                         {/* Medium & Larger Screens (Inline Tabs) */}
-                        <div className="d-none d-sm-flex gap-2 flex-wrap">
-                          {categories.map((category) => (
+                        <div className="d-none d-md-flex gap-2 flex-wrap">
+                          {categories.slice(0, 3).map((category) => (
                             <span
                               key={category}
                               className={`px-3 py-1 rounded sss`}
                               onClick={() => setSelectedCategory(category)}
                               style={{
                                 cursor: "pointer",
-                                background:
-                                  selectedCategory === category
-                                    ? "#007bff"
-                                    : "transparent",
-                                color:
-                                  selectedCategory === category
-                                    ? "white"
-                                    : "black",
-                                fontWeight:
-                                  selectedCategory === category
-                                    ? "bold"
-                                    : "normal",
+                                background: selectedCategory === category ? "#007bff" : "transparent",
+                                color: selectedCategory === category ? "white" : "black",
+                                fontWeight: selectedCategory === category ? "bold" : "normal",
                                 borderRadius: "5px",
                                 transition: "background 0.2s ease-in-out",
                               }}
@@ -302,11 +232,19 @@ const Home = () => {
                     </div>
 
                     {/* Card Section */}
+                    {/* Post Card Section */}
                     <div className="row">
-                      {aroundTheWorldData.slice(4, 9).map((item) => (
-                        <Card3 key={item.id} item={item} />
-                      ))}
+                      {loading ? (
+                        <p>Loading...</p>
+                      ) : error ? (
+                        <p>{error}</p>
+                      ) : posts.length === 0 ? (
+                        <p>No posts available in this category.</p>
+                      ) : (
+                        posts.slice(0, 6).map((post) => <Card3 key={post.id} item={post} />)
+                      )}
                     </div>
+
                   </div>
 
                   <div className="advertisment">
@@ -335,7 +273,7 @@ const Home = () => {
                       {/* 2 */}
                       <div className="d-flex justify-content-between align-items-center">
                         {/* Small Screen (3-dot Dropdown) */}
-                        <div className="d-sm-none position-relative">
+                        <div className="d-md-none position-relative">
                           <div className="d-flex align-items-center">
                             <span
                               className="px-3 py-1 rounded"
@@ -360,43 +298,28 @@ const Home = () => {
                               style={{ right: 0, minWidth: "120px" }}
                             >
                               {categories.map((category) => (
-                                <li key={category}>
-                                  <button
-                                    className={`dropdown-item ss ${
-                                      selectedCategory === category
-                                        ? "active"
-                                        : ""
-                                    }`}
-                                    onClick={() => {
-                                      setSelectedCategory(category);
-                                      setDropdownOpen(false);
-                                    }}
-                                    style={{
-                                      background:
-                                        selectedCategory === category
-                                          ? "#007bff"
-                                          : "transparent",
-                                      color:
-                                        selectedCategory === category
-                                          ? "white"
-                                          : "black",
-                                      fontWeight:
-                                        selectedCategory === category
-                                          ? "bold"
-                                          : "normal",
-                                      borderRadius: "5px",
-                                    }}
-                                  >
-                                    {category}
-                                  </button>
-                                </li>
+                                <span
+                                  key={category}
+                                  className={`px-3 py-1 rounded sss`}
+                                  onClick={() => setSelectedCategory(category)}
+                                  style={{
+                                    cursor: "pointer",
+                                    background: selectedCategory === category ? "#007bff" : "transparent",
+                                    color: selectedCategory === category ? "white" : "black",
+                                    fontWeight: selectedCategory === category ? "bold" : "normal",
+                                    borderRadius: "5px",
+                                    transition: "background 0.2s ease-in-out",
+                                  }}
+                                >
+                                  {category}
+                                </span>
                               ))}
                             </ul>
                           )}
                         </div>
 
                         {/* Medium & Larger Screens (Inline Tabs) */}
-                        <div className="d-none d-sm-flex gap-2 flex-wrap">
+                        <div className="d-none d-md-flex gap-2 flex-wrap">
                           {categories.map((category) => (
                             <span
                               key={category}
@@ -404,18 +327,9 @@ const Home = () => {
                               onClick={() => setSelectedCategory(category)}
                               style={{
                                 cursor: "pointer",
-                                background:
-                                  selectedCategory === category
-                                    ? "#007bff"
-                                    : "transparent",
-                                color:
-                                  selectedCategory === category
-                                    ? "white"
-                                    : "black",
-                                fontWeight:
-                                  selectedCategory === category
-                                    ? "bold"
-                                    : "normal",
+                                background: selectedCategory === category ? "#007bff" : "transparent",
+                                color: selectedCategory === category ? "white" : "black",
+                                fontWeight: selectedCategory === category ? "bold" : "normal",
                                 borderRadius: "5px",
                                 transition: "background 0.2s ease-in-out",
                               }}
@@ -426,13 +340,18 @@ const Home = () => {
                         </div>
                       </div>
                     </div>
-
-                    {/* Card Section */}
-                    <div className="row transition-container">
-                      {aroundTheWorldData.slice(0, 4).map((item) => (
-                        <Card3 key={item.id} item={item} />
-                      ))}
+                    <div className="row">
+                      {loading ? (
+                        <p>Loading...</p>
+                      ) : error ? (
+                        <p>{error}</p>
+                      ) : posts.length === 0 ? (
+                        <p>No posts available in this category.</p>
+                      ) : (
+                        posts.slice(0, 4).map((post) => <Card3 key={post.id} item={post} />)
+                      )}
                     </div>
+
                   </div>
                 </div>
               </div>
@@ -452,17 +371,15 @@ const Home = () => {
                   <div className="socialContainer p-0 rounded">
                     <div
                       style={{ transition: "all 0.3s ease" }}
-                      className={`row text-center g-0 border ${
-                        theme === "dark" ? "dark" : "light"
-                      }`}
+                      className={`row text-center g-0 border ${theme === "dark" ? "dark" : "light"
+                        }`}
                     >
                       {/* Social Icon 1 */}
                       <Link
                         href={"/"}
                         style={{ transition: "all 0.3s ease" }}
-                        className={`col-4 p-3 border-end border-bottom text-decoration-none ${
-                          theme === "dark" ? "text-light" : "text-dark"
-                        }`}
+                        className={`col-4 p-3 border-end border-bottom text-decoration-none ${theme === "dark" ? "text-light" : "text-dark"
+                          }`}
                       >
                         <TfiYoutube className="fs-2 text-danger" />
                         <p className="m-0 fw-bold">456</p>
@@ -473,9 +390,8 @@ const Home = () => {
                       <Link
                         href={"/"}
                         style={{ transition: "all 0.3s ease" }}
-                        className={`col-4 p-3 border-end border-bottom text-decoration-none ${
-                          theme === "dark" ? "text-light" : "text-dark"
-                        }`}
+                        className={`col-4 p-3 border-end border-bottom text-decoration-none ${theme === "dark" ? "text-light" : "text-dark"
+                          }`}
                       >
                         <TfiFacebook className="fs-2 text-primary" />
                         <p className="m-0 fw-bold">789</p>
@@ -486,9 +402,8 @@ const Home = () => {
                       <Link
                         href={"/"}
                         style={{ transition: "all 0.3s ease" }}
-                        className={`col-4 p-3 border-bottom text-decoration-none ${
-                          theme === "dark" ? "text-light" : "text-dark"
-                        }`}
+                        className={`col-4 p-3 border-bottom text-decoration-none ${theme === "dark" ? "text-light" : "text-dark"
+                          }`}
                       >
                         <TfiTwitter className="fs-2 text-info" />
                         <p className="m-0 fw-bold">320</p>
@@ -499,9 +414,8 @@ const Home = () => {
                       <Link
                         href={"/"}
                         style={{ transition: "all 0.3s ease" }}
-                        className={`col-4 p-3 border-end text-decoration-none ${
-                          theme === "dark" ? "text-light" : "text-dark"
-                        }`}
+                        className={`col-4 p-3 border-end text-decoration-none ${theme === "dark" ? "text-light" : "text-dark"
+                          }`}
                       >
                         <TfiInstagram className="fs-2 text-danger" />
                         <p className="m-0 fw-bold">540</p>
@@ -512,9 +426,8 @@ const Home = () => {
                       <Link
                         href={"/"}
                         style={{ transition: "all 0.3s ease" }}
-                        className={`col-4 p-3 border-end text-decoration-none ${
-                          theme === "dark" ? "text-light" : "text-dark"
-                        }`}
+                        className={`col-4 p-3 border-end text-decoration-none ${theme === "dark" ? "text-light" : "text-dark"
+                          }`}
                       >
                         <TfiLinkedin className="fs-2 text-primary" />
                         <p className="m-0 fw-bold">300</p>
@@ -565,45 +478,4 @@ const Home = () => {
 
 export default Home;
 
-// menifest .js
 
-// export default function manifest() {
-//     return {
-//       name: 'Next.js App',
-//       short_name: 'Next.js App',
-//       description: 'Next.js App',
-//       start_url: '/',
-//       display: 'standalone',
-//     //   background_color: '#fff',
-//     //   theme_color: '#fff',
-//       icons: [
-//         {
-//           src: '/favicon-32x32.png',
-//           sizes: '32x32',
-//           type: 'image/png',
-//         },
-//           {
-//           src: '/favicon-16x16.png',
-//           sizes: '16x16',
-//           type: 'image/png',
-//         },
-//             {
-//           src: '/android-chrome-192x192.png',
-//           sizes: '192x192',
-//           type: 'image/png',
-//         },
-//             {
-//           src: '/android-chrome-512x512',
-//           sizes: '512x512',
-//           type: 'image/png',
-//         },
-//       ],
-//     }
-//   }
-
-// next-sitemap.config.js
-
-// module.exports = {
-//     siteUrl: siteMetadata.siteUrl,
-//     generateRobotsTxt: true,
-//   }

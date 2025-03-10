@@ -5,6 +5,15 @@
 
   transition: background-color 0.3s ease;
 
+  .text-truncate-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2; // Limits text to 2 lines
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+
   .llll {
     height: 220px !important;
     overflow: hidden;

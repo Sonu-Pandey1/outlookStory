@@ -23,6 +23,7 @@ import { FaInstagram, FaTwitter } from "react-icons/fa6";
 import { ImConnection } from "react-icons/im";
 import { TiContacts } from "react-icons/ti";
 import { GiBookAura } from "react-icons/gi";
+import { useEffect } from "react";
 
 function Navbar() {
   const { theme } = useContext(ThemeContext);
@@ -32,6 +33,24 @@ function Navbar() {
   const UserName = user?.username || "";
   const userRole = user?.publicMetadata?.role?.toLowerCase() || "user";
   const userImage = user?.imageUrl || "/fallback-image.jpg";
+
+
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      const sidebar = document.getElementById("offcanvasNavbar");
+      if (sidebar && !sidebar.contains(event.target) && !event.target.closest(".navbar-toggler")) {
+        const bsOffcanvas = bootstrap.Offcanvas.getInstance(sidebar);
+        bsOffcanvas?.hide();
+      }
+    };
+
+    document.addEventListener("click", handleClickOutside);
+    return () => {
+      document.removeEventListener("click", handleClickOutside);
+    };
+  }, []);
+
 
   return (
     <nav
@@ -219,10 +238,16 @@ function Navbar() {
             <p className=" fw-lighter">{UserName}</p>
             {/* <p className=" fw-lighter">{userRole}</p> */}
             <div className="d-flex justify-content-center gap-3 py-3">
-              {userRole !== "user" && <Link href="/dashboard" className="btn btn-outline-success btn-sm">
+              {userRole !== "user" && <Link href="/dashboard" className="btn btn-outline-success btn-sm" onClick={() => {
+                const bsOffcanvas = bootstrap.Offcanvas.getInstance(document.getElementById("offcanvasNavbar"));
+                bsOffcanvas?.hide();
+              }}>
                 Dashboard
               </Link>}
-              <Link href="/dashboard?tab=profile" className="btn btn-outline-primary btn-sm">
+              <Link href="/dashboard?tab=profile" className="btn btn-outline-primary btn-sm" onClick={() => {
+                const bsOffcanvas = bootstrap.Offcanvas.getInstance(document.getElementById("offcanvasNavbar"));
+                bsOffcanvas?.hide();
+              }}>
                 View Profile
               </Link>
 
@@ -236,63 +261,89 @@ function Navbar() {
               {/* Navbar links with icons */}
               <Link
                 href="/"
-                className="link text-decoration-none d-flex align-items-center gap-2"
+                className="link text-decoration-none d-flex align-items-center gap-2" onClick={() => {
+                const bsOffcanvas = bootstrap.Offcanvas.getInstance(document.getElementById("offcanvasNavbar"));
+                bsOffcanvas?.hide();
+              }}
               >
                 <IoHomeOutline />
                 Home
               </Link>
-              <Link
-                href="/category/stories"
-                className="link text-decoration-none d-flex align-items-center gap-2"
-              >
+      
+              <Link href="/category/stories" className="link text-decoration-none d-flex align-items-center gap-2" onClick={() => {
+                const bsOffcanvas = bootstrap.Offcanvas.getInstance(document.getElementById("offcanvasNavbar"));
+                bsOffcanvas?.hide();
+              }}>
                 <MdCamera />
                 Stories
               </Link>
+
               <Link
                 href="/category/business"
-                className="link text-decoration-none d-flex align-items-center gap-2"
+                className="link text-decoration-none d-flex align-items-center gap-2" onClick={() => {
+                const bsOffcanvas = bootstrap.Offcanvas.getInstance(document.getElementById("offcanvasNavbar"));
+                bsOffcanvas?.hide();
+              }}
               >
                 <MdOutlineAddBusiness />
                 Business
               </Link>
               <Link
                 href="/category/cityConnect"
-                className="link text-decoration-none d-flex align-items-center gap-2"
+                className="link text-decoration-none d-flex align-items-center gap-2" onClick={() => {
+                const bsOffcanvas = bootstrap.Offcanvas.getInstance(document.getElementById("offcanvasNavbar"));
+                bsOffcanvas?.hide();
+              }}
               >
                 <PiBicycleThin />
                 City Connect
               </Link>
               <Link
                 href="/category/events"
-                className="link text-decoration-none d-flex align-items-center gap-2"
+                className="link text-decoration-none d-flex align-items-center gap-2" onClick={() => {
+                const bsOffcanvas = bootstrap.Offcanvas.getInstance(document.getElementById("offcanvasNavbar"));
+                bsOffcanvas?.hide();
+              }}
               >
                 <MdOutlineEventAvailable />
                 Events
               </Link>
               <Link
                 href="/category/videos"
-                className="link text-decoration-none d-flex align-items-center gap-2"
+                className="link text-decoration-none d-flex align-items-center gap-2" onClick={() => {
+                const bsOffcanvas = bootstrap.Offcanvas.getInstance(document.getElementById("offcanvasNavbar"));
+                bsOffcanvas?.hide();
+              }}
               >
                 <MdVideoLibrary />
                 Videos
               </Link>
               <Link
                 href="/category/launchPad"
-                className="link text-decoration-none d-flex align-items-center gap-2"
+                className="link text-decoration-none d-flex align-items-center gap-2" onClick={() => {
+                const bsOffcanvas = bootstrap.Offcanvas.getInstance(document.getElementById("offcanvasNavbar"));
+                bsOffcanvas?.hide();
+              }}
               >
                 <MdRocketLaunch />
                 Launch Pad
               </Link>
               <Link
                 href="/about"
-                className="link text-decoration-none d-flex align-items-center gap-2"
+                className="link text-decoration-none d-flex align-items-center gap-2" onClick={() => {
+                const bsOffcanvas = bootstrap.Offcanvas.getInstance(document.getElementById("offcanvasNavbar"));
+                bsOffcanvas?.hide();
+              }}
               >
                 <GiBookAura />
                 About
               </Link>
               <Link
                 href="/contact"
-                className="link text-decoration-none d-flex align-items-center gap-2"
+                className="link text-decoration-none d-flex align-items-center gap-2" onClick={() => {
+                const bsOffcanvas = bootstrap.Offcanvas.getInstance(document.getElementById("offcanvasNavbar"));
+                bsOffcanvas?.hide();
+              }}
               >
                 <TiContacts />
                 Contact Us
@@ -303,7 +354,10 @@ function Navbar() {
           {/* Popular Categories */}
           <div className="categories">
             <h6 className="fw-bold text-uppercase">📂 Categories</h6>
-            <div className="d-flex flex-wrap gap-2">
+            <div className="d-flex flex-wrap gap-2" onClick={() => {
+                const bsOffcanvas = bootstrap.Offcanvas.getInstance(document.getElementById("offcanvasNavbar"));
+                bsOffcanvas?.hide();
+              }}>
               <MenuCategories />
             </div>
           </div>

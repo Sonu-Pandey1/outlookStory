@@ -21,7 +21,7 @@ export async function GET(req, { params }) {
     const allPosts = await prisma.post.findMany({
       select: { slug: true },
     });
-    console.log("All stored slugs:", allPosts);
+    // console.log("All stored slugs:", allPosts);
 
     // Fetch post by slug
     const post = await prisma.post.findFirst({
@@ -33,7 +33,7 @@ export async function GET(req, { params }) {
       }
     });
 
-    console.log("Post found:", post); // Log if found
+    // console.log("Post found:", post); // Log if found
 
     if (!post) {
       return NextResponse.json({ error: "Post not found", storedSlugs: allPosts }, { status: 404 });

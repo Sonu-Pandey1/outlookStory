@@ -122,13 +122,158 @@
 // export default EditPost;
 
 
+// "use client";
+
+// import { useState, useEffect, useContext } from "react";
+// import { useRouter, useSearchParams } from "next/navigation";
+// import "./EditPost.scss"; // SCSS styles
+// import { Button, Form, Spinner, Alert } from "react-bootstrap";
+// import { useAuth } from "@clerk/nextjs";
+// import { ThemeContext } from "@/context/ThemeContext";
+
+// const EditPost = () => {
+//   const { userId, user } = useAuth();
+//   const router = useRouter();
+//   const searchParams = useSearchParams();
+//   const postId = searchParams.get("edit"); // Extract post ID from URL
+//   const [post, setPost] = useState({ title: "", desc: "", img: "", catSlug: "" });
+//   const [loading, setLoading] = useState(false);
+//   const [role, setRole] = useState(null);
+//   const {theme} = useContext(ThemeContext);
+
+//   useEffect(() => {
+//     if (user) {
+//       setRole(user.publicMetadata?.role); // Assuming role is stored in publicMetadata
+//     }
+//   }, [user]);
+
+//   useEffect(() => {
+//     if (!postId) return;
+
+//     const fetchPost = async () => {
+//       setLoading(true);
+//       try {
+//         const response = await fetch(`/api/posts/${postId}`);
+//         const data = await response.json();
+//         setPost(data);
+//       } catch (error) {
+//         console.error("Error fetching post:", error);
+//       } finally {
+//         setLoading(false);
+//       }
+//     };
+
+//     fetchPost();
+//   }, [postId]);
+
+//   const handleSubmit = async (e) => {
+//     e.preventDefault();
+//     setLoading(true);
+
+//     try {
+//       const response = await fetch(`/api/posts/${postId ? postId : ""}`, {
+//         method: postId ? "PUT" : "POST", // Use PUT if editing, POST if creating
+//         headers: { "Content-Type": "application/json" },
+//         body: JSON.stringify({
+//           title: post.title,
+//           desc: post.desc,
+//           img: post.img || null,
+//           catSlug: post.catSlug,
+//           userId: userId, // Ensure userId is passed
+//         }),
+//       });
+
+//       if (!response.ok) throw new Error(postId ? "Failed to update post" : "Failed to create post");
+
+//       console.log(postId ? "Post updated successfully" : "Post created successfully");
+//       router.push("/dashboard?tab=posts");
+//     } catch (error) {
+//       console.error("Error submitting post:", error);
+//     } finally {
+//       setLoading(false);
+//     }
+//   };
+
+//   // if (role !== "admin" && role !== "writer") {
+//   //   return (
+//   //     <div className="container text-center mt-5">
+//   //       <h2 className="text-danger">Access Denied</h2>
+//   //       <p className="text-muted">You do not have access to this dashboard. Please contact an admin for access.</p>
+//   //     </div>
+//   //   );
+//   // }
+
+//   return (
+//     <div className="createPageContainer d-flex justify-content-center p-5">
+//       <div className={`edit-post-container  ${theme==="dark"?"dark":"light"}`}>
+//       <h2 className="text-center">{postId ? "Edit Post" : "Create Post"}</h2>
+//       {loading ? (
+//         <div className="text-center"><Spinner animation="border" variant="primary" /></div>
+//       ) : (
+//         <Form onSubmit={handleSubmit} className="edit-post-form">
+//           <Form.Group>
+//             <Form.Control
+//               type="text"
+//               className={`${theme==="dark"?"bg-dark text-light":"bg-light text-dark"}`}
+//               placeholder="Title"
+//               value={post.title}
+//               onChange={(e) => setPost({ ...post, title: e.target.value })}
+//             />
+//           </Form.Group>
+//           <Form.Group>
+//             <Form.Control
+//               as="textarea"
+//               className={`${theme==="dark"?"bg-dark text-light":"bg-light text-dark"}`}
+//               placeholder="Description"
+//               value={post.desc}
+//               onChange={(e) => setPost({ ...post, desc: e.target.value })}
+//               rows={4}
+//             />
+//           </Form.Group>
+//           <Form.Group>
+//             <Form.Control
+//               type="text"
+//               className={`${theme==="dark"?"bg-dark text-light":"bg-light text-dark"}`}
+//               placeholder="Image URL"
+//               value={post.img}
+//               onChange={(e) => setPost({ ...post, img: e.target.value })}
+//             />
+//           </Form.Group>
+//           <Form.Group>
+//             <Form.Control
+//               type="text"
+//               className={`${theme==="dark"?"bg-dark text-light":"bg-light text-dark"}`}
+//               placeholder="Category Slug"
+//               value={post.catSlug}
+//               onChange={(e) => setPost({ ...post, catSlug: e.target.value })}
+//             />
+//           </Form.Group>
+//           <Button
+//             type="submit"
+//             variant="primary"
+//             className="w-100 mt-3"
+//             disabled={loading}
+//           >
+//             {loading ? "Submitting..." : postId ? "Update Post" : "Create Post"}
+//           </Button>
+//         </Form>
+//       )}
+//     </div>
+//     </div>
+//   );
+// };
+
+// export default EditPost;
+
+
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import "./EditPost.scss"; // SCSS styles
-import { Button, Form, Spinner, Alert } from "react-bootstrap";
+import { Button, Form, Spinner, Container, Row, Col } from "react-bootstrap";
 import { useAuth } from "@clerk/nextjs";
+import { ThemeContext } from "@/context/ThemeContext";
 
 const EditPost = () => {
   const { userId, user } = useAuth();
@@ -138,16 +283,16 @@ const EditPost = () => {
   const [post, setPost] = useState({ title: "", desc: "", img: "", catSlug: "" });
   const [loading, setLoading] = useState(false);
   const [role, setRole] = useState(null);
+  const { theme } = useContext(ThemeContext);
 
   useEffect(() => {
     if (user) {
-      setRole(user.publicMetadata?.role); // Assuming role is stored in publicMetadata
+      setRole(user.publicMetadata?.role);
     }
   }, [user]);
 
   useEffect(() => {
     if (!postId) return;
-
     const fetchPost = async () => {
       setLoading(true);
       try {
@@ -160,30 +305,25 @@ const EditPost = () => {
         setLoading(false);
       }
     };
-
     fetchPost();
   }, [postId]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-
     try {
       const response = await fetch(`/api/posts/${postId ? postId : ""}`, {
-        method: postId ? "PUT" : "POST", // Use PUT if editing, POST if creating
+        method: postId ? "PUT" : "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           title: post.title,
           desc: post.desc,
           img: post.img || null,
           catSlug: post.catSlug,
-          userId: userId, // Ensure userId is passed
+          userId: userId,
         }),
       });
-
       if (!response.ok) throw new Error(postId ? "Failed to update post" : "Failed to create post");
-
-      console.log(postId ? "Post updated successfully" : "Post created successfully");
       router.push("/dashboard?tab=posts");
     } catch (error) {
       console.error("Error submitting post:", error);
@@ -192,66 +332,64 @@ const EditPost = () => {
     }
   };
 
-  // if (role !== "admin" && role !== "writer") {
-  //   return (
-  //     <div className="container text-center mt-5">
-  //       <h2 className="text-danger">Access Denied</h2>
-  //       <p className="text-muted">You do not have access to this dashboard. Please contact an admin for access.</p>
-  //     </div>
-  //   );
-  // }
-
   return (
-    <div className="edit-post-container">
-      <h2 className="text-center">{postId ? "Edit Post" : "Create Post"}</h2>
-      {loading ? (
-        <div className="text-center"><Spinner animation="border" variant="primary" /></div>
-      ) : (
-        <Form onSubmit={handleSubmit} className="edit-post-form">
-          <Form.Group>
-            <Form.Control
-              type="text"
-              placeholder="Title"
-              value={post.title}
-              onChange={(e) => setPost({ ...post, title: e.target.value })}
-            />
-          </Form.Group>
-          <Form.Group>
-            <Form.Control
-              as="textarea"
-              placeholder="Description"
-              value={post.desc}
-              onChange={(e) => setPost({ ...post, desc: e.target.value })}
-              rows={4}
-            />
-          </Form.Group>
-          <Form.Group>
-            <Form.Control
-              type="text"
-              placeholder="Image URL"
-              value={post.img}
-              onChange={(e) => setPost({ ...post, img: e.target.value })}
-            />
-          </Form.Group>
-          <Form.Group>
-            <Form.Control
-              type="text"
-              placeholder="Category Slug"
-              value={post.catSlug}
-              onChange={(e) => setPost({ ...post, catSlug: e.target.value })}
-            />
-          </Form.Group>
-          <Button
-            type="submit"
-            variant="primary"
-            className="w-100 mt-3"
-            disabled={loading}
-          >
-            {loading ? "Submitting..." : postId ? "Update Post" : "Create Post"}
-          </Button>
-        </Form>
-      )}
-    </div>
+    <Container className="createPageContainer d-flex justify-content-center align-items-center min-vh-100">
+      <Row className="w-100">
+        <Col md={{ span: 8, offset: 2 }} lg={{ span: 6, offset: 3 }}>
+          <div className={`edit-post-container p-4 rounded shadow ${theme === "dark" ? "dark" : "light"}`}>
+            <h2 className="text-center mb-4">{postId ? "Edit Post" : "Create Post"}</h2>
+            {loading ? (
+              <div className="text-center">
+                <Spinner animation="border" variant="primary" />
+              </div>
+            ) : (
+              <Form onSubmit={handleSubmit} className="edit-post-form">
+                <Form.Group className="mb-3">
+                  <Form.Control
+                    type="text"
+                    className={`form-control ${theme === "dark" ? "bg-dark text-light" : "bg-light text-dark"}`}
+                    placeholder="Title"
+                    value={post.title}
+                    onChange={(e) => setPost({ ...post, title: e.target.value })}
+                  />
+                </Form.Group>
+                <Form.Group className="mb-3">
+                  <Form.Control
+                    as="textarea"
+                    rows={4}
+                    className={`form-control ${theme === "dark" ? "bg-dark text-light" : "bg-light text-dark"}`}
+                    placeholder="Description"
+                    value={post.desc}
+                    onChange={(e) => setPost({ ...post, desc: e.target.value })}
+                  />
+                </Form.Group>
+                <Form.Group className="mb-3">
+                  <Form.Control
+                    type="text"
+                    className={`form-control ${theme === "dark" ? "bg-dark text-light" : "bg-light text-dark"}`}
+                    placeholder="Image URL"
+                    value={post.img}
+                    onChange={(e) => setPost({ ...post, img: e.target.value })}
+                  />
+                </Form.Group>
+                <Form.Group className="mb-3">
+                  <Form.Control
+                    type="text"
+                    className={`form-control ${theme === "dark" ? "bg-dark text-light" : "bg-light text-dark"}`}
+                    placeholder="Category Slug"
+                    value={post.catSlug}
+                    onChange={(e) => setPost({ ...post, catSlug: e.target.value })}
+                  />
+                </Form.Group>
+                <Button type="submit" variant="primary" className="w-100" disabled={loading}>
+                  {loading ? "Submitting..." : postId ? "Update Post" : "Create Post"}
+                </Button>
+              </Form>
+            )}
+          </div>
+        </Col>
+      </Row>
+    </Container>
   );
 };
 

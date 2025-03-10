@@ -23,7 +23,7 @@ const MenuPosts = ({ withImage, upperMenu, upperMenuTop }) => {
   const [posts1, setPosts1] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-console.log(posts)
+// console.log(posts)
   useEffect(() => {
     const fetchPosts = async () => {
       try {
@@ -57,32 +57,29 @@ console.log(posts)
               {withImage && post.img && (
                 <div className="imageContainerT">
                   <Image
-                    src={post.img || "/fallback-image.jpg"}
+                    src={"/fallback-image.png"}
                     alt={post.title || "Post image"}
                     fill
                     className="large"
                   />
-                  <div className="overlay">
-                    <span
-                      className={`category ${
-                        post.catSlug || "default-category"
-                      }`}
-                    >
-                      {post.catSlug || "Uncategorized"}
-                    </span>
-                    <h3 className="postTitle">{post.title}</h3>
-                    <div className="d-flex gap-4">
-                      <span className="datee shadow-lg">
-                        {post.createdAt
-                          ? new Date(post.createdAt).toLocaleDateString()
-                          : "N/A"}
-                      </span>
-                      <span className="viewss">
-                        {" "}
-                        <FaEye className="viewsIcon" /> {post.views || 0}
-                      </span>
-                    </div>
-                  </div>
+                 <div className="textContainer overlay">
+              <span
+                className={`category ${post.catSlug || "default-category"}`}
+              >
+                {post.catSlug || "Uncategorized"}
+              </span>
+              <h3 className="postTitle text-truncate-2 py-1">{post.title}</h3>
+              <div className="detail d-flex gap-3">
+                <span className="date">
+                  {post.createdAt
+                    ? new Date(post.createdAt).toLocaleDateString()
+                    : "N/A"}
+                </span>
+                <span className="views">
+                  <FaEye className="viewsIcon" /> {post.views || 0}
+                </span>
+              </div>
+            </div>
                 </div>
               )}
             </Link>

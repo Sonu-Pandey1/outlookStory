@@ -1,6 +1,8 @@
-.edit-post-container {
-    max-width: 600px;
-    margin: 50px auto;
+.createPageContainer{
+  width: 100%;
+  .edit-post-container {
+    // max-width: 600px;
+    // padding: 50px auto;
     background: #fff;
     padding: 20px;
     border-radius: 10px;
@@ -42,5 +44,16 @@
         }
       }
     }
+  
   }
   
+  .dark {
+    background-color: #2a2a2a !important;
+    border-radius: 10px;
+    transition: 0.2s all ease-in-out;
+  
+    .forDarkColor {
+      color: #fff !important;
+    }
+  }
+}

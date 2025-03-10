@@ -236,7 +236,7 @@ const DashPosts = () => {
   const [showModal, setShowModal] = useState(false);
   const [postIdToDelete, setPostIdToDelete] = useState(null);
   const router = useRouter();
-  console.log(posts)
+  // console.log(posts)
 
   const { theme } = useContext(ThemeContext);
 
@@ -333,7 +333,7 @@ const DashPosts = () => {
                   <TableRow key={post.id}>
                     <TableCell>
                       <Image
-                        src={post.image || "/fallback-image.jpg"}
+                        src={post.img || "/fallback-image.png"}
                         alt={post.title || "No Title"}
                         width={50}
                         height={50}

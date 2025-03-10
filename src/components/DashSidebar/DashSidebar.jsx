@@ -181,6 +181,22 @@ const DashSidebar = ({ sidebarOpen, setSidebarOpen }) => {
     setTab(tabFromUrl || "");
   }, [searchParams]);
 
+  // for sidebar close remain to appply
+  // useEffect(() => {
+  //   const handleClickOutside = (event) => {
+  //     const sidebar = document.querySelector(".sidebar-container");
+  //     if (sidebar && !sidebar.contains(event.target) && !event.target.closest(".d-md-none")) {
+  //       setSidebarOpen(false);
+  //     }
+  //   };
+  
+  //   document.addEventListener("click", handleClickOutside);
+  //   return () => {
+  //     document.removeEventListener("click", handleClickOutside);
+  //   };
+  // }, [setSidebarOpen]);
+  
+
   if (!isSignedIn || isLoading) {
     return <div>Loading...</div>;
   }
