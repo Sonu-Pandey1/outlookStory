@@ -134,6 +134,7 @@ import QueryProvider from "@/providers/QueryProvider";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import siteMetadata from "../config/siteMetadata"; // ✅ Import the metadata file
+import { AuthContextProvider, AuthProvider } from "@/context/AuthContext";
 
 export const metadata = {
   title: siteMetadata.title,
@@ -178,11 +179,13 @@ export default function RootLayout({ children }) {
       </head>
       <body>
         <ClerkProvider>
+        <AuthProvider >
           <QueryProvider>
             <ThemeContextProvider>
               <ClientLayout>{children}</ClientLayout>
             </ThemeContextProvider>
           </QueryProvider>
+          </AuthProvider>
         </ClerkProvider>
         <ToastContainer />
       </body>

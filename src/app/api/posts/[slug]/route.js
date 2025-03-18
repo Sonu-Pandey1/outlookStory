@@ -15,7 +15,7 @@ export async function GET(req, { params }) {
     }
 
     const slug = params.slug;
-    console.log("Fetching post with slug:", slug);
+    // console.log("Fetching post with slug:", slug);
 
     // Debugging: Check all slugs stored
     const allPosts = await prisma.post.findMany({
@@ -28,7 +28,7 @@ export async function GET(req, { params }) {
       where: { slug },
       include: {
         user: {
-          select: { userId: true, name: true, image: true },
+          select: { id: true, name: true, image: true },
         }
       }
     });
@@ -45,6 +45,59 @@ export async function GET(req, { params }) {
     return NextResponse.json({ error: "Error fetching post" }, { status: 500 });
   }
 }
+
+// export async function GET(req, { params }) {
+//   try {
+//     console.log("Request received at /api/posts/[slug]");
+
+//     // Check if params exist
+//     if (!params) {
+//       console.error("Error: params object is missing");
+//       return NextResponse.json({ error: "Internal Server Error: Missing params" }, { status: 500 });
+//     }
+
+//     // Check if slug exists in params
+//     if (!params.slug) {
+//       console.error("Error: Slug is missing in params");
+//       return NextResponse.json({ error: "Missing post slug" }, { status: 400 });
+//     }
+
+//     const slug = params.slug;
+//     console.log(`Fetching post with slug: ${slug}`);
+
+//     // Check stored slugs in the database
+//     const allPosts = await prisma.post.findMany({
+//       select: { slug: true },
+//     });
+//     console.log("All stored slugs:", allPosts.map(p => p.slug));
+
+//     // Fetch post by slug
+//     const post = await prisma.post.findUnique({
+//       where: { slug:slug },
+//       include: {
+//         user: {
+//           select: { id: true, name: true, image: true },
+//         },
+//       },
+//     });
+
+//     if (!post) {
+//       console.warn(`Post not found for slug: ${slug}`);
+//       return NextResponse.json(
+//         { error: "Post not found", storedSlugs: allPosts.map(p => p.slug) }, 
+//         { status: 404 }
+//       );
+//     }
+
+//     console.log("Post found:", post);
+//     return NextResponse.json(post, { status: 200 });
+
+//   } catch (err) {
+//     console.error("Error fetching post:", err);
+//     return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
+//   }
+// }
+
 
 
 

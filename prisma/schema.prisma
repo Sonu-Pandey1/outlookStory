@@ -1,3 +1,154 @@
+// generator client {
+//   provider = "prisma-client-js"
+// }
+
+// datasource db {
+//   provider = "mongodb"
+//   url      = env("DATABASE_URL")
+// }
+
+// // model User {
+// //   userId     String       @id @map("_id")
+// //   name       String?
+// //   email      String?      @unique
+// //   image      String?
+// //   createdAt  DateTime?    @default(now())
+// //   updatedAt  DateTime?    @updatedAt
+// //   posts      Post[]
+// //   comments   Comment[]
+// //   role       String?
+// //   likes      Like[]
+// //   savedPosts SavedPosts[]
+// // }
+
+// model User {
+//   id         String       @id @default(cuid()) @map("_id") // Changed `userId` to `id`
+//   name       String?
+//   email      String?      @unique
+//   image      String?
+//   password   String
+//   createdAt  DateTime?    @default(now())
+//   updatedAt  DateTime?    @updatedAt
+//   posts      Post[]
+//   comments   Comment[]
+//   role       String?
+//   likes      Like[]
+//   savedPosts SavedPosts[]
+// }
+
+// // model Post {
+// //   id         String       @id @default(cuid()) @map("_id")
+// //   createdAt  DateTime     @default(now())
+// //   updatedAt  DateTime?    @updatedAt
+// //   slug       String       @unique
+// //   title      String
+// //   desc       String
+// //   img        String?
+// //   views      Int          @default(0)
+// //   catSlug    String
+// //   cat        Category     @relation(fields: [catSlug], references: [slug])
+// //   userId     String
+// //   user       User         @relation(fields: [userId], references: [userId], onDelete: Cascade)
+// //   comments   Comment[]
+// //   likes      Like[]
+// //   savedPosts SavedPosts[]
+// // }
+
+// model Post {
+//   id         String       @id @default(cuid()) @map("_id")
+//   createdAt  DateTime     @default(now())
+//   updatedAt  DateTime?    @updatedAt
+//   slug       String       @unique
+//   title      String
+//   desc       String
+//   img        String?
+//   views      Int          @default(0)
+//   catSlug    String
+//   cat        Category     @relation(fields: [catSlug], references: [slug])
+//   userId     String
+//   user       User         @relation(fields: [userId], references: [id], onDelete: Cascade) // Changed from `userId` to `id`
+//   comments   Comment[]
+//   likes      Like[]
+//   savedPosts SavedPosts[]
+// }
+
+// // model Comment {
+// //   id        String    @id @default(cuid()) @map("_id")
+// //   createdAt DateTime  @default(now())
+// //   updatedAt DateTime? @updatedAt
+// //   desc      String
+// //   userId    String
+// //   user      User      @relation(fields: [userId], references: [userId], onDelete: Cascade)
+// //   postSlug  String
+// //   post      Post      @relation(fields: [postSlug], references: [slug])
+// // }
+
+// model Comment {
+//   id        String    @id @default(cuid()) @map("_id")
+//   createdAt DateTime  @default(now())
+//   updatedAt DateTime? @updatedAt
+//   desc      String
+//   userId    String
+//   user      User      @relation(fields: [userId], references: [id], onDelete: Cascade) // Changed from `userId` to `id`
+//   postSlug  String
+//   post      Post      @relation(fields: [postSlug], references: [slug])
+// }
+
+
+// model Category {
+//   id    String  @id @default(cuid()) @map("_id")
+//   slug  String  @unique
+//   title String
+//   img   String?
+//   posts Post[]
+// }
+
+// // model Like {
+// //   id        String   @id @default(cuid()) @map("_id")
+// //   createdAt DateTime @default(now())
+// //   userId    String
+// //   postId    String
+// //   user      User     @relation(fields: [userId], references: [userId], onDelete: Cascade)
+// //   post      Post     @relation(fields: [postId], references: [id])
+
+// //   @@unique([userId, postId]) // A user can only like a post once
+// // }
+
+// model Like {
+//   id        String   @id @default(cuid()) @map("_id")
+//   createdAt DateTime @default(now())
+//   userId    String
+//   postId    String
+//   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade) // Changed from `userId` to `id`
+//   post      Post     @relation(fields: [postId], references: [id])
+
+//   @@unique([userId, postId]) // A user can only like a post once
+// }
+
+
+// // model SavedPosts {
+// //   id        String   @id @default(cuid()) @map("_id")
+// //   createdAt DateTime @default(now())
+// //   userId    String
+// //   postId    String
+// //   user      User     @relation(fields: [userId], references: [userId], onDelete: Cascade)
+// //   post      Post     @relation(fields: [postId], references: [id])
+
+// //   @@unique([userId, postId]) // A user can only save a post once
+// // }
+// model SavedPosts {
+//   id        String   @id @default(cuid()) @map("_id")
+//   createdAt DateTime @default(now())
+//   userId    String
+//   postId    String
+//   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade) // Changed from `userId` to `id`
+//   post      Post     @relation(fields: [postId], references: [id])
+
+//   @@unique([userId, postId]) // A user can only save a post once
+// }
+
+
+
 generator client {
   provider = "prisma-client-js"
 }
@@ -8,10 +159,11 @@ datasource db {
 }
 
 model User {
-  userId     String       @id @map("_id")
+  id         String       @id @default(cuid()) @map("_id") 
   name       String?
   email      String?      @unique
   image      String?
+  password   String
   createdAt  DateTime?    @default(now())
   updatedAt  DateTime?    @updatedAt
   posts      Post[]
@@ -33,7 +185,7 @@ model Post {
   catSlug    String
   cat        Category     @relation(fields: [catSlug], references: [slug])
   userId     String
-  user       User         @relation(fields: [userId], references: [userId], onDelete: Cascade)
+  user       User         @relation(fields: [userId], references: [id], onDelete: Cascade) // Fixed
   comments   Comment[]
   likes      Like[]
   savedPosts SavedPosts[]
@@ -45,7 +197,7 @@ model Comment {
   updatedAt DateTime? @updatedAt
   desc      String
   userId    String
-  user      User      @relation(fields: [userId], references: [userId], onDelete: Cascade)
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade) // Fixed
   postSlug  String
   post      Post      @relation(fields: [postSlug], references: [slug])
 }
@@ -63,7 +215,7 @@ model Like {
   createdAt DateTime @default(now())
   userId    String
   postId    String
-  user      User     @relation(fields: [userId], references: [userId], onDelete: Cascade)
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade) // Fixed
   post      Post     @relation(fields: [postId], references: [id])
 
   @@unique([userId, postId]) // A user can only like a post once
@@ -74,8 +226,9 @@ model SavedPosts {
   createdAt DateTime @default(now())
   userId    String
   postId    String
-  user      User     @relation(fields: [userId], references: [userId], onDelete: Cascade)
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade) // Fixed
   post      Post     @relation(fields: [postId], references: [id])
 
   @@unique([userId, postId]) // A user can only save a post once
 }
+

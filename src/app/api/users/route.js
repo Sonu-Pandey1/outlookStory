@@ -38,7 +38,7 @@ export async function PUT(req) {
 
   try {
     const updatedUser = await prisma.user.update({
-      where: { userId },
+      where: { id:userId },
       data: {
         role: newRole,
       },
@@ -70,7 +70,7 @@ export async function PUT(req) {
   
       // Delete user from the database using Prisma
       const deletedUser = await prisma.user.delete({
-        where: { userId },  // Use 'userId' as it is the primary key
+        where: { id:userId },  // Use 'userId' as it is the primary key
       });
   
       // Log the deleted user for debugging purposes

@@ -24,15 +24,17 @@ import { ImConnection } from "react-icons/im";
 import { TiContacts } from "react-icons/ti";
 import { GiBookAura } from "react-icons/gi";
 import { useEffect } from "react";
+import { AuthContext } from "@/context/AuthContext";
+import ProfileMenu from "../ProfileMenu";
+import { FaUserCircle } from "react-icons/fa";
 
 function Navbar() {
   const { theme } = useContext(ThemeContext);
-  const { user } = useUser();
-
-  const userName = user ? `${user.firstName} ${user.lastName}` : "Unknown User";
-  const UserName = user?.username || "";
-  const userRole = user?.publicMetadata?.role?.toLowerCase() || "user";
-  const userImage = user?.imageUrl || "/fallback-image.jpg";
+  const { user } = useContext(AuthContext);
+  console.log(user?.name)
+  const userName = user?.name || "Unknown User";
+  const userRole = user?.role?.toLowerCase() || "user";
+  const userImage = user?.image || "/fallback-image.jpg";
 
 
 
@@ -142,29 +144,14 @@ function Navbar() {
 
         {/* Authentication buttons */}
         <div className="loginBTNS d-none d-md-block pt-1">
-          <SignedOut>
-            {/* <SignInButton /> */}
-            <Link href={"/sign-in"}>
+          {user ? <ProfileMenu /> : (
+            <Link href={"/sign-in"} className="text-decoration-none">
               <span className="me-3">
-                <PiUserCircleCheckDuotone className="fs-2" />
+                <FaUserCircle className="fs-2" />
                 <span className="ps-2">Login / Register</span>
               </span>
             </Link>
-          </SignedOut>
-          <SignedIn>
-            <UserButton
-              appearance={{
-                baseTheme: theme === "light" ? light : dark,
-                elements: {
-                  avatarBox: {
-                    width: "35px",
-                    height: "35px",
-                  },
-                },
-              }}
-              userProfileUrl="/dashboard?tab=profile"
-            />
-          </SignedIn>
+          )}
         </div>
 
         {/* Theme toggle */}
@@ -187,29 +174,16 @@ function Navbar() {
         {/* Sidebar Hader ------ */}
         <div className="offcanvas-header shadow">
           <div className="offcanvas-title" id="offcanvasNavbarLabel">
+            {/* Authentication buttons */}
             <div className="loginBTNS">
-              <SignedOut>
-                <Link href={"/sign-in"} className="d-flex align-items-center">
-                  <PiUserCircleCheckDuotone className="fs-2 me-2" />
-                  <span className="fw-semibold">Login / Register</span>
+              {user ? <ProfileMenu /> : (
+                <Link href={"/sign-in"} className="text-decoration-none">
+                  <span className="me-3">
+                    <FaUserCircle className="fs-2" />
+                    <span className="ps-2">Login / Register</span>
+                  </span>
                 </Link>
-              </SignedOut>
-              <SignedIn>
-                <UserButton
-                  appearance={{
-                    baseTheme: theme === "light" ? light : dark,
-                    elements: {
-                      avatarBox: {
-                        width: "35px", // Adjust as needed
-                        height: "35px", // Adjust as needed
-                      },
-                    },
-                  }}
-                  userProfileUrl="/dashboard?tab=profile"
-
-                />
-
-              </SignedIn>
+              )}
             </div>
           </div>
           <button
@@ -235,8 +209,8 @@ function Navbar() {
               height={100}
             />
             <h5 className="fw-bold">{userName}</h5>
-            <p className=" fw-lighter">{UserName}</p>
-            {/* <p className=" fw-lighter">{userRole}</p> */}
+            {/* <p className=" fw-lighter">{userName}</p> */}
+            <p className=" fw-lighter">{userRole}</p>
             <div className="d-flex justify-content-center gap-3 py-3">
               {userRole !== "user" && <Link href="/dashboard" className="btn btn-outline-success btn-sm" onClick={() => {
                 const bsOffcanvas = bootstrap.Offcanvas.getInstance(document.getElementById("offcanvasNavbar"));
@@ -254,7 +228,7 @@ function Navbar() {
             </div>
           </div>
 
-          {/* Trending Posts Section */}
+          {/* Pages Section */}
           <div className="trending-posts mb-4">
             <h6 className="fw-bold text-uppercase">🔥 Pages</h6>
             <ul className="navbar-nav">
@@ -262,14 +236,14 @@ function Navbar() {
               <Link
                 href="/"
                 className="link text-decoration-none d-flex align-items-center gap-2" onClick={() => {
-                const bsOffcanvas = bootstrap.Offcanvas.getInstance(document.getElementById("offcanvasNavbar"));
-                bsOffcanvas?.hide();
-              }}
+                  const bsOffcanvas = bootstrap.Offcanvas.getInstance(document.getElementById("offcanvasNavbar"));
+                  bsOffcanvas?.hide();
+                }}
               >
                 <IoHomeOutline />
                 Home
               </Link>
-      
+
               <Link href="/category/stories" className="link text-decoration-none d-flex align-items-center gap-2" onClick={() => {
                 const bsOffcanvas = bootstrap.Offcanvas.getInstance(document.getElementById("offcanvasNavbar"));
                 bsOffcanvas?.hide();
@@ -281,9 +255,9 @@ function Navbar() {
               <Link
                 href="/category/business"
                 className="link text-decoration-none d-flex align-items-center gap-2" onClick={() => {
-                const bsOffcanvas = bootstrap.Offcanvas.getInstance(document.getElementById("offcanvasNavbar"));
-                bsOffcanvas?.hide();
-              }}
+                  const bsOffcanvas = bootstrap.Offcanvas.getInstance(document.getElementById("offcanvasNavbar"));
+                  bsOffcanvas?.hide();
+                }}
               >
                 <MdOutlineAddBusiness />
                 Business
@@ -291,9 +265,9 @@ function Navbar() {
               <Link
                 href="/category/cityConnect"
                 className="link text-decoration-none d-flex align-items-center gap-2" onClick={() => {
-                const bsOffcanvas = bootstrap.Offcanvas.getInstance(document.getElementById("offcanvasNavbar"));
-                bsOffcanvas?.hide();
-              }}
+                  const bsOffcanvas = bootstrap.Offcanvas.getInstance(document.getElementById("offcanvasNavbar"));
+                  bsOffcanvas?.hide();
+                }}
               >
                 <PiBicycleThin />
                 City Connect
@@ -301,9 +275,9 @@ function Navbar() {
               <Link
                 href="/category/events"
                 className="link text-decoration-none d-flex align-items-center gap-2" onClick={() => {
-                const bsOffcanvas = bootstrap.Offcanvas.getInstance(document.getElementById("offcanvasNavbar"));
-                bsOffcanvas?.hide();
-              }}
+                  const bsOffcanvas = bootstrap.Offcanvas.getInstance(document.getElementById("offcanvasNavbar"));
+                  bsOffcanvas?.hide();
+                }}
               >
                 <MdOutlineEventAvailable />
                 Events
@@ -311,9 +285,9 @@ function Navbar() {
               <Link
                 href="/category/videos"
                 className="link text-decoration-none d-flex align-items-center gap-2" onClick={() => {
-                const bsOffcanvas = bootstrap.Offcanvas.getInstance(document.getElementById("offcanvasNavbar"));
-                bsOffcanvas?.hide();
-              }}
+                  const bsOffcanvas = bootstrap.Offcanvas.getInstance(document.getElementById("offcanvasNavbar"));
+                  bsOffcanvas?.hide();
+                }}
               >
                 <MdVideoLibrary />
                 Videos
@@ -321,9 +295,9 @@ function Navbar() {
               <Link
                 href="/category/launchPad"
                 className="link text-decoration-none d-flex align-items-center gap-2" onClick={() => {
-                const bsOffcanvas = bootstrap.Offcanvas.getInstance(document.getElementById("offcanvasNavbar"));
-                bsOffcanvas?.hide();
-              }}
+                  const bsOffcanvas = bootstrap.Offcanvas.getInstance(document.getElementById("offcanvasNavbar"));
+                  bsOffcanvas?.hide();
+                }}
               >
                 <MdRocketLaunch />
                 Launch Pad
@@ -331,9 +305,9 @@ function Navbar() {
               <Link
                 href="/about"
                 className="link text-decoration-none d-flex align-items-center gap-2" onClick={() => {
-                const bsOffcanvas = bootstrap.Offcanvas.getInstance(document.getElementById("offcanvasNavbar"));
-                bsOffcanvas?.hide();
-              }}
+                  const bsOffcanvas = bootstrap.Offcanvas.getInstance(document.getElementById("offcanvasNavbar"));
+                  bsOffcanvas?.hide();
+                }}
               >
                 <GiBookAura />
                 About
@@ -341,9 +315,9 @@ function Navbar() {
               <Link
                 href="/contact"
                 className="link text-decoration-none d-flex align-items-center gap-2" onClick={() => {
-                const bsOffcanvas = bootstrap.Offcanvas.getInstance(document.getElementById("offcanvasNavbar"));
-                bsOffcanvas?.hide();
-              }}
+                  const bsOffcanvas = bootstrap.Offcanvas.getInstance(document.getElementById("offcanvasNavbar"));
+                  bsOffcanvas?.hide();
+                }}
               >
                 <TiContacts />
                 Contact Us
@@ -355,9 +329,9 @@ function Navbar() {
           <div className="categories">
             <h6 className="fw-bold text-uppercase">📂 Categories</h6>
             <div className="d-flex flex-wrap gap-2" onClick={() => {
-                const bsOffcanvas = bootstrap.Offcanvas.getInstance(document.getElementById("offcanvasNavbar"));
-                bsOffcanvas?.hide();
-              }}>
+              const bsOffcanvas = bootstrap.Offcanvas.getInstance(document.getElementById("offcanvasNavbar"));
+              bsOffcanvas?.hide();
+            }}>
               <MenuCategories />
             </div>
           </div>

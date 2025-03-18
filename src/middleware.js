@@ -1,20 +1,17 @@
-import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
+import { NextResponse } from "next/server";
 
-const isProtectedRoute = createRouteMatcher(['/dashboard(.*)']);
+export function middleware(req) {
+  const token = req.cookies.get("token")?.value;
 
-export default clerkMiddleware(async (auth, req) => {
-  const { userId } = await auth();
-  if (!userId && isProtectedRoute(req)) {
-    return (await auth()).redirectToSignIn();
+  // Redirect unauthenticated users trying to access protected pages
+  if (!token && req.nextUrl.pathname.startsWith("/dashboard")) {
+    return NextResponse.redirect(new URL("/login", req.url));
   }
-});
 
+  return NextResponse.next(); // Allow request to proceed if authenticated
+}
 
+// Configure which routes the middleware should run on
 export const config = {
-  matcher: [
-    // Skip Next.js internals and all static files, unless found in search params
-    '/((?!_next|[^?]*\\.(?:html?|css|js(?!on)|jpe?g|webp|png|gif|svg|ttf|woff2?|ico|csv|docx?|xlsx?|zip|webmanifest)).*)',
-    // Always run for API routes
-    '/(api|trpc)(.*)',
-  ],
+  matcher: ["/dashboard/:path*"], // Applies to all /dashboard pages
 };

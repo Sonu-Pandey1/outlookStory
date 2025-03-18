@@ -51,6 +51,7 @@ export async function POST(req) {
     }
 
     const { title, desc, img, catSlug, userId } = body;
+    console.log(body)
 
     if (!title || !desc || !catSlug || !userId) {
       return NextResponse.json({ message: "Title, desc, catSlug, and userId are required" }, { status: 400 });
@@ -67,7 +68,7 @@ export async function POST(req) {
 
     // ✅ Ensure user exists
     const user = await prisma.user.findUnique({
-      where: { userId },
+      where: { id: userId },
     });
 
     if (!user) {

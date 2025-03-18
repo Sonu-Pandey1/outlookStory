@@ -411,10 +411,194 @@
 
 // export default DashComments;
 
+// "use client";
+
+// import { useContext, useEffect, useState } from "react";
+// import { useUser } from "@clerk/nextjs";
+// import {
+//   Button,
+//   Table,
+//   TableBody,
+//   TableCell,
+//   TableContainer,
+//   TableHead,
+//   TableRow,
+//   Paper,
+//   TablePagination,
+//   TextField,
+//   Box,
+//   Typography,
+//   Dialog,
+//   DialogActions,
+//   DialogContent,
+//   DialogContentText,
+//   DialogTitle,
+// } from "@mui/material";
+// import Loader from "../Loader";
+// import "./DashComments.scss";
+// import { ThemeContext } from "@/context/ThemeContext";
+// import Image from "next/image";
+// import { AuthContext } from "@/context/AuthContext";
+
+// const DashComments = () => {
+//   const { user, loading } = useContext(AuthContext);
+//   const [comments, setComments] = useState([]);
+//   // const [loading, setLoading] = useState(true);
+//   const [page, setPage] = useState(0);
+//   const [rowsPerPage, setRowsPerPage] = useState(4);
+//   const [editingCommentId, setEditingCommentId] = useState(null);
+//   const [editedCommentText, setEditedCommentText] = useState("");
+//   const [deleteConfirmOpen, setDeleteConfirmOpen] = useState(false);
+//   const [commentToDelete, setCommentToDelete] = useState(null);
+//   const { theme } = useContext(ThemeContext);
+
+//   useEffect(() => {
+//     if (!isLoaded || !isSignedIn) return;
+//     fetchComments();
+//   }, [isLoaded, isSignedIn]);
+
+//   const fetchComments = async () => {
+//     setLoading(true);
+//     try {
+//       const response = await fetch("/api/comments");
+//       const data = await response.json();
+//       setComments(user?.publicMetadata?.role === "admin" ? data : data.filter((comment) => comment.userId === user.id));
+//     } catch (error) {
+//       console.error("Error fetching comments:", error);
+//     }
+//     setLoading(false);
+//   };
+
+//   const confirmDelete = (id) => {
+//     setCommentToDelete(id);
+//     setDeleteConfirmOpen(true);
+//   };
+
+//   const handleDelete = async () => {
+//     setDeleteConfirmOpen(false);
+//     if (!commentToDelete) return;
+//     try {
+//       const response = await fetch("/api/comments", {
+//         method: "DELETE",
+//         body: JSON.stringify({ commentId: commentToDelete }),
+//         headers: { "Content-Type": "application/json" },
+//       });
+//       if (response.ok) {
+//         setComments(comments.filter((comment) => comment.id !== commentToDelete));
+//       }
+//     } catch (error) {
+//       console.error("Error deleting comment:", error);
+//     }
+//     setCommentToDelete(null);
+//   };
+
+//   const handleEdit = (comment) => {
+//     setEditingCommentId(comment.id);
+//     setEditedCommentText(comment.desc);
+//   };
+
+//   const handleSaveEdit = async (id, postSlug) => {
+//     setLoading(true);
+//     try {
+//       const response = await fetch("/api/comments", {
+//         method: "PUT",
+//         headers: { "Content-Type": "application/json" },
+//         body: JSON.stringify({ commentId: id, desc: editedCommentText, postSlug }),
+//       });
+//       if (response.ok) {
+//         setComments(
+//           comments.map((comment) =>
+//             comment.id === id ? { ...comment, desc: editedCommentText, updatedAt: new Date().toISOString() } : comment
+//           )
+//         );
+//         setEditingCommentId(null);
+//       }
+//     } catch (error) {
+//       console.error("Error updating comment:", error);
+//     }
+//     setLoading(false);
+//   };
+
+//   return (
+//     <div className="DashCommentsContainer">
+//       <Box sx={{ maxWidth: "100%", overflowX: "auto", padding: 2 }}>
+//         <Typography variant="h4" className="text-center my-4">Latest Comments</Typography>
+//         {loading ? <Loader /> : comments.length === 0 ? (
+//           <Typography variant="h6" className="text-center my-4">No comments available</Typography>
+//         ) : (
+//           <TableContainer component={Paper} sx={{ maxWidth: "100%" }}>
+//             <Table sx={{ minWidth: 650 }} className={`mainTable ${theme === "dark" ? "dark" : "light"}`}>
+//               <TableHead>
+//                 <TableRow>
+//                   <TableCell>User</TableCell>
+//                   <TableCell>Comment</TableCell>
+//                   <TableCell>Post</TableCell>
+//                   <TableCell>Time</TableCell>
+//                   <TableCell>Actions</TableCell>
+//                 </TableRow>
+//               </TableHead>
+//               <TableBody>
+//                 {comments.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((comment) => (
+//                   <TableRow key={comment.id}>
+//                     <TableCell>
+//                       <Box display="flex" alignItems="center">
+//                         <Image
+//                           src={comment.user?.image || "/default-avatar.png"}
+//                           alt={comment.user?.name || "Unknown"}
+//                           width="40"
+//                           height="40"
+//                           style={{ borderRadius: "50%", marginRight: "10px" }}
+//                         />
+//                         {comment.user?.name || "Unknown"}
+//                       </Box>
+//                     </TableCell>
+//                     <TableCell>{editingCommentId === comment.id ? (
+//                       <TextField fullWidth value={editedCommentText} onChange={(e) => setEditedCommentText(e.target.value)} size="small" />
+//                     ) : (
+//                       comment.desc
+//                     )}</TableCell>
+//                     <TableCell>{comment.postSlug}</TableCell>
+//                     <TableCell>{new Date(comment.updatedAt || comment.createdAt).toLocaleString()}</TableCell>
+//                     <TableCell>
+//                       {editingCommentId === comment.id ? (
+//                         <>
+//                           <Button onClick={() => handleSaveEdit(comment.id, comment.postSlug)}>Save</Button>
+//                           <Button onClick={() => setEditingCommentId(null)}>Cancel</Button>
+//                         </>
+//                       ) : (
+//                         <>
+//                           <Button onClick={() => handleEdit(comment)}>Edit</Button>
+//                           <Button onClick={() => confirmDelete(comment.id)}>Delete</Button>
+//                         </>
+//                       )}
+//                     </TableCell>
+//                   </TableRow>
+//                 ))}
+//               </TableBody>
+//             </Table>
+//           </TableContainer>
+//         )}
+//         <Dialog open={deleteConfirmOpen} onClose={() => setDeleteConfirmOpen(false)}>
+//           <DialogTitle>Confirm Deletion</DialogTitle>
+//           <DialogContent>
+//             <DialogContentText>Are you sure you want to delete this comment?</DialogContentText>
+//           </DialogContent>
+//           <DialogActions>
+//             <Button onClick={() => setDeleteConfirmOpen(false)}>Cancel</Button>
+//             <Button onClick={handleDelete} color="secondary">Delete</Button>
+//           </DialogActions>
+//         </Dialog>
+//       </Box>
+//     </div>
+//   );
+// };
+
+// export default DashComments;
+
+
 "use client";
 
 import { useContext, useEffect, useState } from "react";
-import { useUser } from "@clerk/nextjs";
 import {
   Button,
   Table,
@@ -438,11 +622,11 @@ import Loader from "../Loader";
 import "./DashComments.scss";
 import { ThemeContext } from "@/context/ThemeContext";
 import Image from "next/image";
+import { AuthContext } from "@/context/AuthContext";
 
 const DashComments = () => {
-  const { isSignedIn, user, isLoaded } = useUser();
+  const { user, loading } = useContext(AuthContext);
   const [comments, setComments] = useState([]);
-  const [loading, setLoading] = useState(true);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(4);
   const [editingCommentId, setEditingCommentId] = useState(null);
@@ -452,20 +636,19 @@ const DashComments = () => {
   const { theme } = useContext(ThemeContext);
 
   useEffect(() => {
-    if (!isLoaded || !isSignedIn) return;
+    if (!user) return;
     fetchComments();
-  }, [isLoaded, isSignedIn]);
+  }, [user]);
 
   const fetchComments = async () => {
-    setLoading(true);
     try {
       const response = await fetch("/api/comments");
       const data = await response.json();
-      setComments(user?.publicMetadata?.role === "admin" ? data : data.filter((comment) => comment.userId === user.id));
+      if (!Array.isArray(data)) throw new Error("Invalid response format");
+      setComments(user?.role === "admin" ? data : data.filter((comment) => comment.userId === user.id));
     } catch (error) {
       console.error("Error fetching comments:", error);
     }
-    setLoading(false);
   };
 
   const confirmDelete = (id) => {
@@ -497,7 +680,6 @@ const DashComments = () => {
   };
 
   const handleSaveEdit = async (id, postSlug) => {
-    setLoading(true);
     try {
       const response = await fetch("/api/comments", {
         method: "PUT",
@@ -515,15 +697,20 @@ const DashComments = () => {
     } catch (error) {
       console.error("Error updating comment:", error);
     }
-    setLoading(false);
   };
 
   return (
     <div className="DashCommentsContainer">
       <Box sx={{ maxWidth: "100%", overflowX: "auto", padding: 2 }}>
-        <Typography variant="h4" className="text-center my-4">Latest Comments</Typography>
-        {loading ? <Loader /> : comments.length === 0 ? (
-          <Typography variant="h6" className="text-center my-4">No comments available</Typography>
+        <Typography variant="h4" className="text-center my-4">
+          Latest Comments
+        </Typography>
+        {loading ? (
+          <Loader />
+        ) : comments.length === 0 ? (
+          <Typography variant="h6" className="text-center my-4">
+            No comments available
+          </Typography>
         ) : (
           <TableContainer component={Paper} sx={{ maxWidth: "100%" }}>
             <Table sx={{ minWidth: 650 }} className={`mainTable ${theme === "dark" ? "dark" : "light"}`}>
@@ -551,11 +738,13 @@ const DashComments = () => {
                         {comment.user?.name || "Unknown"}
                       </Box>
                     </TableCell>
-                    <TableCell>{editingCommentId === comment.id ? (
-                      <TextField fullWidth value={editedCommentText} onChange={(e) => setEditedCommentText(e.target.value)} size="small" />
-                    ) : (
-                      comment.desc
-                    )}</TableCell>
+                    <TableCell>
+                      {editingCommentId === comment.id ? (
+                        <TextField fullWidth value={editedCommentText} onChange={(e) => setEditedCommentText(e.target.value)} size="small" />
+                      ) : (
+                        comment.desc
+                      )}
+                    </TableCell>
                     <TableCell>{comment.postSlug}</TableCell>
                     <TableCell>{new Date(comment.updatedAt || comment.createdAt).toLocaleString()}</TableCell>
                     <TableCell>
@@ -584,7 +773,9 @@ const DashComments = () => {
           </DialogContent>
           <DialogActions>
             <Button onClick={() => setDeleteConfirmOpen(false)}>Cancel</Button>
-            <Button onClick={handleDelete} color="secondary">Delete</Button>
+            <Button onClick={handleDelete} color="secondary">
+              Delete
+            </Button>
           </DialogActions>
         </Dialog>
       </Box>

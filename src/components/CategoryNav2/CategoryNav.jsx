@@ -354,7 +354,7 @@ const CategoryNav = () => {
   const [activeCategory, setActiveCategory] = useState(""); // Stores selected category
   const { theme } = useContext(ThemeContext);
 
-  console.log(categories)
+  // console.log(categories)
   // Fetch posts and categories
   useEffect(() => {
     const fetchPosts = async () => {

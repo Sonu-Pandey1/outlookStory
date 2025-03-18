@@ -5,7 +5,7 @@ import { ThemeContext } from "@/context/ThemeContext";
 import Link from "next/link";
 
 function Card2({ item }) {
-  console.log(item)
+  // console.log(item)
   const { theme } = useContext(ThemeContext);
   return (
     <Link className=" text-decoration-none" href={`/category/${item.catSlug}/${item.slug}`}>
