@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import "./SinglePage.scss";
-import Comments from "@/components/comments/Comments";
+import Comments from "@/components/Comments/Comments";
 import Menu from "@/components/Menu/Menu";
 import Link from "next/link";
 import { Facebook, Instagram, LinkedIn, Twitter } from "@mui/icons-material";
