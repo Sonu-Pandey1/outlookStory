@@ -233,8 +233,8 @@ import ClipLoader from "react-spinners/ClipLoader";
 import { ThemeContext } from "@/context/ThemeContext";
 import { AuthContext } from "@/context/AuthContext"; // ✅ Use your auth context
 import Image from "next/image";
+import "./Comments.scss"
 import { FaCommentDots } from "react-icons/fa6";
-import "./Comments.scss";
 
 const fetcher = async (url) => {
   const res = await fetch(url);
