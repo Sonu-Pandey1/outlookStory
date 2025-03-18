@@ -716,17 +716,17 @@ const DashComments = () => {
             <Table sx={{ minWidth: 650 }} className={`mainTable ${theme === "dark" ? "dark" : "light"}`}>
               <TableHead>
                 <TableRow>
-                  <TableCell>User</TableCell>
-                  <TableCell>Comment</TableCell>
-                  <TableCell>Post</TableCell>
-                  <TableCell>Time</TableCell>
-                  <TableCell>Actions</TableCell>
+                  <TableCell className="forDarkColor">User</TableCell>
+                  <TableCell className="forDarkColor">Comment</TableCell>
+                  <TableCell className="forDarkColor">Post</TableCell>
+                  <TableCell className="forDarkColor">Time</TableCell>
+                  <TableCell className="forDarkColor">Actions</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
                 {comments.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((comment) => (
                   <TableRow key={comment.id}>
-                    <TableCell>
+                    <TableCell className="forDarkColor">
                       <Box display="flex" alignItems="center">
                         <Image
                           src={comment.user?.image || "/default-avatar.png"}
@@ -738,16 +738,16 @@ const DashComments = () => {
                         {comment.user?.name || "Unknown"}
                       </Box>
                     </TableCell>
-                    <TableCell>
+                    <TableCell className="forDarkColor">
                       {editingCommentId === comment.id ? (
                         <TextField fullWidth value={editedCommentText} onChange={(e) => setEditedCommentText(e.target.value)} size="small" />
                       ) : (
                         comment.desc
                       )}
                     </TableCell>
-                    <TableCell>{comment.postSlug}</TableCell>
-                    <TableCell>{new Date(comment.updatedAt || comment.createdAt).toLocaleString()}</TableCell>
-                    <TableCell>
+                    <TableCell className="forDarkColor">{comment.postSlug}</TableCell>
+                    <TableCell className="forDarkColor">{new Date(comment.updatedAt || comment.createdAt).toLocaleString()}</TableCell>
+                    <TableCell >
                       {editingCommentId === comment.id ? (
                         <>
                           <Button onClick={() => handleSaveEdit(comment.id, comment.postSlug)}>Save</Button>

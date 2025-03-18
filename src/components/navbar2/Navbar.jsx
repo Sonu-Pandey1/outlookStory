@@ -3,7 +3,7 @@
 import "./Navbar.scss";
 import { IoHomeOutline } from "react-icons/io5";
 import { MdCamera } from "react-icons/md";
-import { PiBicycleThin, PiUserCircleCheckDuotone } from "react-icons/pi";
+import { PiBicycleThin} from "react-icons/pi";
 import { MdOutlineAddBusiness } from "react-icons/md";
 import { MdOutlineEventAvailable } from "react-icons/md";
 import { MdVideoLibrary } from "react-icons/md";
@@ -14,8 +14,6 @@ import { ThemeContext } from "../../context/ThemeContext";
 import Image from "next/image";
 import Link from "next/link";
 import ThemeToggle from "../themeToggle/ThemeToggle";
-import { dark, light } from "@clerk/themes";
-import { SignedIn, SignedOut, UserButton, useUser } from "@clerk/nextjs";
 import MenuCategories from "../menuCategories/MenuCategories";
 import { CiFacebook } from "react-icons/ci";
 import { SiYoutubekids } from "react-icons/si";

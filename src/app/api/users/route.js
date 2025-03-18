@@ -1,5 +1,4 @@
 import prisma from "@/utils/connect";
-import { getAuth } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
 
 export const GET = async () => {
@@ -60,7 +59,7 @@ export async function PUT(req) {
  export async function DELETE(req) {
     try {
       const { userId } = await req.json();  // Parse the request body to get userId
-  
+  console.log(userId)
       if (!userId) {
         return new NextResponse(
           JSON.stringify({ message: "Missing userId" }),

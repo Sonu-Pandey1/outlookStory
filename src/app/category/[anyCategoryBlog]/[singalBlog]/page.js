@@ -761,7 +761,8 @@ import { FacebookShareButton, TwitterShareButton, LinkedinShareButton, WhatsappS
 const fetchPostData = async (slug) => {
   try {
     const res = await fetch(`/api/posts/${slug}`, {
-      next: { revalidate: 60 }, // Cache response for 60 seconds
+      cache: "force-cache", // Reduces API load
+      next: { revalidate: 60 }, // Cache response for 60s
     });
 
     if (!res.ok) throw new Error(`Failed to fetch post: ${res.status}`);

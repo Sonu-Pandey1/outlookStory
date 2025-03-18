@@ -129,12 +129,11 @@
 import ClientLayout from "../providers/ClientLayout";
 import { ThemeContextProvider } from "../context/ThemeContext.jsx";
 import "../styles/globals.scss";
-import { ClerkProvider } from "@clerk/nextjs";
 import QueryProvider from "@/providers/QueryProvider";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import siteMetadata from "../config/siteMetadata"; // ✅ Import the metadata file
-import { AuthContextProvider, AuthProvider } from "@/context/AuthContext";
+import siteMetadata from "../config/siteMetadata";
+import { AuthProvider } from "@/context/AuthContext";
 
 export const metadata = {
   title: siteMetadata.title,
@@ -178,15 +177,13 @@ export default function RootLayout({ children }) {
         ></script>
       </head>
       <body>
-        <ClerkProvider>
         <AuthProvider >
           <QueryProvider>
             <ThemeContextProvider>
               <ClientLayout>{children}</ClientLayout>
             </ThemeContextProvider>
           </QueryProvider>
-          </AuthProvider>
-        </ClerkProvider>
+        </AuthProvider>
         <ToastContainer />
       </body>
     </html>

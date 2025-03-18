@@ -14,11 +14,9 @@ import {
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { useContext, useEffect, useState } from "react";
 import CategoryNav from "../components/CategoryNav2/CategoryNav";
-import { useSearchParams } from "next/navigation";
 import { ThemeContext } from "@/context/ThemeContext";
 import LatestPopularPosts from "@/components/LatestPopularPost2/LatestPopularPosts";
 import Menu from "@/components/Menu/Menu";
-import InfiniteFeed from "@/components/infinitePosts";
 import Card3 from "@/components/Card2/Card3";
 
 

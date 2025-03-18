@@ -3,7 +3,6 @@
 
 import Image from "next/image";
 import "./DashboardComp.scss";
-import { useUser } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
 import CountUp from "react-countup";
 import * as timeago from "timeago.js";
