@@ -32,7 +32,7 @@ export default function DashboardComp() {
   const fetchPosts = async () => {
     setLoading(true);
     try {
-      const response = await fetch("/api/dashboard");
+      const response = await fetch("/api/Dashboard");
       if (!response.ok) throw new Error("Failed to fetch posts");
 
       const data = await response.json();
