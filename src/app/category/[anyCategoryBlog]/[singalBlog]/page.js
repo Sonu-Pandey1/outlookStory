@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import "./SinglePage.scss";
 // import Comments from "../../../../components/Comments/Comments.jsx";
-import Comments from "@/components/Comments/Comments.jsx";
+// import Comments from "@/components/Comments/Comments.jsx";
 import Menu from "@/components/Menu/Menu";
 import Link from "next/link";
 import { Facebook, Instagram, LinkedIn, Twitter } from "@mui/icons-material";
@@ -174,9 +174,9 @@ const SinglePage = () => {
               </div>
 
               {/* Comments */}
-              <div className="comment d-none d-md-block">
+              {/* <div className="comment d-none d-md-block">
                 <Comments postSlug={slug} />
-              </div>
+              </div> */}
             </div>
 
             {/* RIGHT COLUMN */}
@@ -193,9 +193,9 @@ const SinglePage = () => {
               <div className="otherBlogs">
                 <Menu singlePage={true} />
               </div>
-              <div className="comment d-md-none">
+              {/* <div className="comment d-md-none">
                 <Comments postSlug={slug} />
-              </div>
+              </div> */}
             </div>
           </div>
         </div>
