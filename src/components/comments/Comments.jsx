@@ -336,9 +336,8 @@ const Comments = ({ postSlug }) => {
 
   return (
     <div
-      className={`container comments-container p-0 p-md-4 ${
-        theme === "dark" ? "dark" : "light"
-      }`}
+      className={`container comments-container p-0 p-md-4 ${theme === "dark" ? "dark" : "light"
+        }`}
     >
       <div className="d-flex gap-5 title align-items-center mb-4">
         <h2 className="">Comments </h2>
