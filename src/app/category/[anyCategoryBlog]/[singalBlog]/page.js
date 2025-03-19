@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import "./SinglePage.scss";
 // import Comments from "../../../../components/Comments/Comments.jsx";
-import Comments from "@/components/Comments/Comments";
+import Comments from "@/components/Comments/Comments.jsx";
 import Menu from "@/components/Menu/Menu";
 import Link from "next/link";
 import { Facebook, Instagram, LinkedIn, Twitter } from "@mui/icons-material";
